@@ -1,0 +1,9 @@
+.title__main {
+  margin: 0 0 23px;
+}
+
+@media only screen and (max-width: 768px) {
+  .title__main {
+    margin-bottom: min(22px, 5vw);
+  }
+}

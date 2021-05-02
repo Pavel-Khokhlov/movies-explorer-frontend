@@ -1,0 +1,11 @@
+.aboutproject__table {
+  display: grid;
+  grid-template-columns: min(228px, 18.23vw) 1fr;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .aboutproject__table {
+    grid-template-columns: min(140px, 31.25vw) 1fr;
+  } 
+}

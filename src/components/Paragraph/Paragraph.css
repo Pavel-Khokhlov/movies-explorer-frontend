@@ -1,0 +1,14 @@
+@import url(./__promo/paragraph__promo.css);
+@import url(./__tech/paragraph__tech.css);
+@import url(./__aboutme/paragraph__aboutme.css);
+@import url(./__aboutproject/paragraph__aboutproject.css);
+@import url(./__portfolio/paragraph__portfolio.css);
+@import url(./__table/paragraph__table.css);
+@import url(./__footer/paragraph__footer.css);
+@import url(./__size/_s/paragraph__size_s.css);
+@import url(./__color/_white/paragraph__color_white.css);
+@import url(./__color/_grey/paragraph__color_grey.css);
+
+.paragraph {
+  font-family: "Inter";
+}

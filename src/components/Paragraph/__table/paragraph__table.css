@@ -1,0 +1,12 @@
+.paragraph__table {
+  font-size: 14px;
+  line-height: 36px;
+  margin: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .paragraph__table {
+    font-size: 11px;
+    line-height: 35px;
+  }
+}

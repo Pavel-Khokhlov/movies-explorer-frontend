@@ -1,0 +1,17 @@
+.title__aboutme {
+  width: 100%;
+  margin: 0;
+  margin-bottom: 18px;
+}
+
+@media only screen and (max-width: 768px) {
+  .title__aboutme {
+    margin-bottom: 16px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .title__aboutme {
+    margin-bottom: 20px;
+  }
+}

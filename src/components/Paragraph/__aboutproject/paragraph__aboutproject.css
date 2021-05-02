@@ -1,0 +1,13 @@
+.paragraph__aboutproject {
+  font-size: min(14px, 1.5625vw);
+  line-height: min(20px, 2.34vw);
+  font-weight: 300;
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .paragraph__aboutproject {
+    font-size: min(12px, 3.4375vw);
+    line-height: min(18px, 5vw);
+  }
+}

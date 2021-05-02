@@ -1,0 +1,12 @@
+.navtab {
+  padding: 0 0 75px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media only screen and (max-width: 768px) {
+  .navtab {
+    justify-content: center;
+    padding-bottom: max(30px, min(30px + calc((100vw - 320px) / 9.74), 76px));
+  }
+}

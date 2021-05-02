@@ -1,0 +1,10 @@
+.subtitle__layout_aboutproject {
+  margin: 0;
+  margin-bottom: min(26px, 2.8646vw);
+}
+
+@media only screen and (max-width: 768px) {
+  .subtitle__layout_aboutproject {
+    margin-bottom: min(22px, 5vw);
+  }
+}

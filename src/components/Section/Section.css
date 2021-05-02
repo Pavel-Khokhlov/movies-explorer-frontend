@@ -1,0 +1,20 @@
+.section {
+  margin: 0;
+  width: 100%;
+  padding: 0 calc((100vw - 1140px) / 2);
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 1280px) {
+  .section {
+    padding-left: max(30px, min(30px + calc((100vw - 768px) / 12.8), 70px));
+    padding-right: max(30px, min(30px + calc((100vw - 768px) / 12.8), 70px));
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .section {
+    padding-left: max(14px, min(14px + calc((100vw - 320px) / 28), 30px));
+    padding-right: max(14px, min(14px + calc((100vw - 320px) / 28), 30px));
+  }
+}

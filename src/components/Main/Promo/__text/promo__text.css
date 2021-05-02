@@ -1,0 +1,12 @@
+.promo__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media only screen and (max-width: 768px) {
+  .promo__text {
+    text-align: center;
+    align-items: center;
+  }
+}

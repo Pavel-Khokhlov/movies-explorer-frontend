@@ -1,0 +1,11 @@
+@import url(__block/portfolio__block.css);
+
+.portfolio {
+  padding-bottom: min(125px, 11.72vw);
+}
+
+@media only screen and (max-width: 768px) {
+  .portfolio {
+    padding-bottom: min(90px, 21.875vw);
+  }
+}

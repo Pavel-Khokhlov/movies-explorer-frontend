@@ -1,0 +1,26 @@
+@import url(./__header/button__header.css);
+@import url(./__login/button__login.css);
+@import url(./__promo/button__promo.css);
+@import url(./__portfolio/button__portfolio.css);
+@import url(./__header/button__header.css);
+
+.button {
+  /* сброс стилей */
+  margin: 0;
+  cursor: pointer;
+  /* настройки кнопок */
+  opacity: 1;
+  transition: 0.8s;
+}
+
+.button:hover {
+  opacity: 0.5;
+}
+
+.button:active {
+  outline-style: none;
+}
+
+.button:focus {
+  outline-style: none;
+}

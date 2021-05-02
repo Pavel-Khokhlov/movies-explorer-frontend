@@ -1,0 +1,9 @@
+.aboutproject__text {
+  width: min(550px, 41.53vw);
+}
+
+@media only screen and (max-width: 767px) {
+  .aboutproject__text {
+    width: 100%;
+  }
+}

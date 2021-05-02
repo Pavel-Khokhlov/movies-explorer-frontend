@@ -1,0 +1,8 @@
+@import url(./__color/_black/line__color_black.css);
+@import url(./__color/_grey/line__color_grey.css);
+
+.line {
+  display: block;
+  width: 100%;
+  height: 1px;
+}

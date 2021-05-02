@@ -1,0 +1,13 @@
+.paragraph__portfolio {
+  margin: 0;
+  font-size: min(30px, 3.64vw);
+  line-height: 50px;
+  letter-spacing: -0.04em;
+}
+
+@media only screen and (max-width: 768px) {
+  .paragraph__portfolio {
+    font-size: min(28px, 5.625vw);
+    line-height: min(50px, 8.75vw);
+  }
+}

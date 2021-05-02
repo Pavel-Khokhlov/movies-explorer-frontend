@@ -1,0 +1,14 @@
+@import url(./__items/tech__items.css);
+
+.tech {
+  padding-top: min(100px, 11.72vw);
+  padding-bottom: min(100px, 11.72vw);
+  background-color: #f5f5f5;
+}
+
+@media only screen and (max-width: 768px) {
+  .tech {
+    padding-top: min(90px, 21.875vw);
+    padding-bottom: min(90px, 21.875vw);
+  }
+}

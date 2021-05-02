@@ -1,0 +1,14 @@
+.header {
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__bg_grey {
+  background-color: #dddee3;
+}
+
+.header__bg_white {
+  background-color: #ffffff;
+}

@@ -1,0 +1,15 @@
+@import url(./__block/aboutme__block.css);
+@import url(./__text/aboutme__text.css);
+@import url(./__image/aboutme__image.css);
+@import url(./__links/aboutme__links.css);
+@import url(./__link/aboutme__link.css);
+
+.aboutme {
+  padding-top: min(110px, 11.72vw);
+}
+
+@media only screen and (max-width: 768px) {
+  .aboutme {
+    padding-top: min(90px, 21.875vw);
+  }
+}

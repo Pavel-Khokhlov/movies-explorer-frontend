@@ -1,0 +1,16 @@
+.aboutme__image {
+  width: min(270px, 33.2vw);
+  height: 327px;
+  border-radius: 10px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  object-position: center;
+}
+
+@media only screen and (max-width: 767px) {
+  .aboutme__image {
+    width: 292px;
+    height: 352px;
+    padding-bottom: 12.5vw;
+  }
+}

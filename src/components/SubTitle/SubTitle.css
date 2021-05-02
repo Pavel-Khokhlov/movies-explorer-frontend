@@ -1,0 +1,8 @@
+@import url(__layout/subtitle__layout.css);
+@import url(__size/subtitle__size.css);
+@import url(__color/subtitle__color.css);
+
+.subtitle {
+  font-family: "Inter";
+  font-weight: normal;
+}

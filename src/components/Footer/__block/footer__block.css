@@ -1,0 +1,17 @@
+.footer__block {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (max-width: 767px) {
+  .footer__block {
+    flex-direction: column-reverse;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+}

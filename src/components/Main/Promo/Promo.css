@@ -1,0 +1,9 @@
+@import url(./__info/promo__info.css);
+@import url(./__text/promo__text.css);
+@import url(./__img/promo__img.css);
+
+.promo {
+  margin: 0;
+  background-color: #dddee3;
+  box-sizing: border-box;
+}

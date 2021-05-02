@@ -1,0 +1,18 @@
+.title__promo {
+  width: min(640px, 50vw);
+  margin: 0 0 36px;
+}
+
+@media only screen and (max-width: 768px) {
+  .title__promo {
+    width: 88%;
+    margin-bottom: 22px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .title__promo {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+}

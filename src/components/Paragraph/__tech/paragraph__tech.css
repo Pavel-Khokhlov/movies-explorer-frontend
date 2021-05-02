@@ -1,0 +1,28 @@
+.paragraph__tech {
+  width: min(480px, 59.9vw);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 300;
+  letter-spacing: -0.52px;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: min(100px, 10.8vw);
+}
+
+@media only screen and (max-width: 768px) {
+  .paragraph__tech {
+    width: min(460px, 91.25vw);
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: -0.48px;
+    margin-bottom: min(83px, 15.625vw);
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .paragraph__tech {
+    font-size: 11px;
+    line-height: 1.45;
+    letter-spacing: -0.44px;
+  }
+}

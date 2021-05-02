@@ -1,0 +1,15 @@
+.promo__info {
+  display: flex;
+  justify-content: space-between;
+  padding: 75px 0 84px;
+}
+
+@media only screen and (max-width: 768px) {
+  .promo__info {
+    flex-direction: column-reverse;
+    align-items: center;
+    padding-bottom: 0;
+    padding-top: min(140px, max(70px + calc((100vw - 320px) / 6.4), 70px));
+    margin-bottom: max(82px, min(82px + calc((100vw - 320px) / 728), 90px));
+  }
+}

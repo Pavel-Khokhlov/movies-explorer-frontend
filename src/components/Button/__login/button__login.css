@@ -1,0 +1,16 @@
+.button__login {
+  font-family: "Inter";
+  padding: 10px 20px;
+  font-size: 12px;
+  color: #ffffff;
+  background-color: #3456f3;
+  border-radius: 3px;
+  border: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .button__login {
+    padding: 8px 20px;
+    font-size: min(12px, 3.125vw);
+  }
+}

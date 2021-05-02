@@ -1,0 +1,10 @@
+.techitem {
+  display: block;
+  font-size: 12px;
+  line-height: 57px;
+  width: 84px;
+  border-radius: 10px;
+  background-color: #e8e8e8;
+  text-align: center;
+  margin: 0;
+}

@@ -1,0 +1,15 @@
+.subtitle__layout_portfolio {
+  margin: 0;
+  margin-bottom: 50px;
+  font-size: min(30px, 3.64vw);
+  line-height: 50px;
+  letter-spacing: -0.04em;
+}
+
+@media only screen and (max-width: 768px) {
+  .subtitle__layout_portfolio {
+    font-size: min(28px, 5.625vw);
+    line-height: min(50px, 8.75vw);
+    margin-bottom: min(50px, 12.5vw);
+  }
+}

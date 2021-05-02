@@ -1,0 +1,10 @@
+.subtitle__size_l {
+  font-size: 20px;
+}
+
+@media only screen and (max-width: 767px) {
+  .subtitle__size_l {
+    font-size: min(20px, 5.625vw);
+    letter-spacing: -0.72px;
+  }
+}

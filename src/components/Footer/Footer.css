@@ -1,0 +1,9 @@
+@import url(./__block/footer__block.css);
+@import url(./__copyright/footer__copyright.css);
+@import url(./__links/footer__links.css);
+@import url(./__link/footer__link.css);
+
+.footer {
+  background-color: #f8f8f8;
+  padding-top: 79px;
+}
