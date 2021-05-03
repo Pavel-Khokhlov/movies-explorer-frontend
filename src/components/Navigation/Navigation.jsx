@@ -12,7 +12,7 @@ const Navigation = ({ isLoggedIn }) => {
             <li>
               <NavLink
                 to="/movies"
-                className="button nav__link paragraph"
+                className="nav__link paragraph"
                 activeClassName="nav__link_active"
               >
                 Фильмы

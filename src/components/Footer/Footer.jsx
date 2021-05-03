@@ -1,12 +1,20 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, withRouter } from "react-router-dom";
 import Section from "../Section/Section";
 import Paragraph from "../Paragraph/Paragraph";
 import Line from "../Line/Line";
 
 import "./Footer.css";
 
-const Footer = () => {
+const Footer = ({ location }) => {
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+
+  useEffect(() => {
+    const { pathname } = location;
+    setCurrentPath(pathname);
+  }, [location]);
+
+  if (currentPath === "/" || currentPath === "/movies" || currentPath === "/saved-movies") {
   return (
     <Section className="footer">
       <Paragraph
@@ -49,6 +57,8 @@ const Footer = () => {
       </div>
     </Section>
   );
+  }
+  return "";
 };
 
-export default Footer;
+export default withRouter(Footer);

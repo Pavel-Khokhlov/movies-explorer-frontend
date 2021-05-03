@@ -4,7 +4,7 @@ import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from '../../Paragraph/Paragraph';
 import Line from "../../Line/Line";
-import TechItem from '../TechItem/TechItem';
+import TechItem from '../../TechItem/TechItem';
 
 import './Tech.css';
 

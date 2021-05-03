@@ -1,0 +1,13 @@
+.title__nopage {
+  font-family: "Inter";
+  font-weight: 200;
+  font-size: 140px;
+  margin: 0;
+  padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .title__nopage {
+    font-size: min(140px, 25vw);
+  }
+}

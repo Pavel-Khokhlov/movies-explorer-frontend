@@ -1,0 +1,10 @@
+.paragraph__nopage {
+  margin: 0 0 26.3vh;
+  padding: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .paragraph__nopage {
+    margin: 0 0 36.4vh;
+  }
+}
