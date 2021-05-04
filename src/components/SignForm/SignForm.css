@@ -1,0 +1,14 @@
+@import url(./__container/form__container.css);
+@import url(./__logo/form__logo.css);
+@import url(./__redirect/form__redirect.css);
+@import url(./__title/form__title.css);
+@import url(./__paragraph/form__paragraph.css);
+
+.form {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+}

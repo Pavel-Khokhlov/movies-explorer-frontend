@@ -1,0 +1,7 @@
+.form__container {
+  width: min(396px, 81.25vw);
+}
+
+.form__container::nth-child(3n) {
+  margin: 100px;
+}

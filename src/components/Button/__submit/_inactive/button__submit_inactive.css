@@ -1,0 +1,13 @@
+.button__submit_inactive {
+  color: #a0a0a0;
+  background-color: transparent;
+  border: 1px solid #a0a0a0;
+  pointer-events: initial;
+  cursor: not-allowed !important;
+}
+
+.button__submit_inactive:hover {
+  color: #a0a0a0;
+  background-color: transparent;
+  border: 1px solid #a0a0a0;
+}

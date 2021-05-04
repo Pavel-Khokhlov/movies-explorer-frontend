@@ -1,0 +1,27 @@
+@import url(__error/input__error.css);
+
+.input {
+  width: calc(100% - 5px);
+  background-color: transparent;
+  outline: none;
+  padding: 7px 0;
+  margin: 0;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #a0a0a0;
+}
+
+.input:focus {
+  box-shadow: 0 0 4px rgba(52, 86, 243, 0.8);
+  border-bottom: none;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:focus, 
+.input:-webkit-autofill:active
+{
+ -webkit-background-clip: text;
+ -webkit-border-image: none;
+ font-size: 13px;
+}

@@ -16,7 +16,7 @@ const PageNotFound = () => {
     <section className="nopage">
       <h2 className="title__nopage">404</h2>
       <Paragraph className="paragraph paragraph__nopage paragraph__size_s">Страница не найдена</Paragraph>
-      <Button type="button" onClick={handleBack} className={`button button__back paragraph paragraph__size_s`}>Назад</Button>
+      <Button type="button" onClick={handleBack} className={`button button__back text-color__blue paragraph paragraph__size_s`}>Назад</Button>
     </section>
   )
 };

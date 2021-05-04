@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Route, Switch, useHistory } from "react-router-dom";
-import { CurrentUserContext } from "../context/CurrentUserContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -34,10 +34,10 @@ function App() {
             <SavedMovies />
           </Route>
           <Route path="/signin">
-            <Login />
+            <Login buttonTitle="Войти" />
           </Route>
           <Route path="/signup">
-            <Register />
+            <Register buttonTitle="Зарегистрироваться" />
           </Route>
           <Route path="/profile">
             <Profile />

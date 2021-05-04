@@ -1,3 +1,4 @@
 .text-color__white {
-  background-color: #ffffff;
+  color: #ffffff;
+  text-decoration: none;
 }

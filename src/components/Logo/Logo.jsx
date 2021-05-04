@@ -4,10 +4,10 @@ import LogoSvg from "../../images/logo.svg";
 
 import "./Logo.css";
 
-const Logo = () => {
+const Logo = ({ className }) => {
   return (
     <NavLink to="/" className="button">
-      <img src={LogoSvg} alt="логотип" className="logo" />
+      <img src={LogoSvg} alt="логотип" className={`logo ${className}`} />
     </NavLink>
   );
 };
