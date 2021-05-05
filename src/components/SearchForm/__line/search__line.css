@@ -1,0 +1,13 @@
+.search__line {
+  display: block;
+  width: 1px;
+  height: 40px;
+  margin: 0 9px;
+  background-color: #a0a0a0;
+}
+
+@media only screen and (max-width: 767px) {
+  .search__line {
+    display: none;
+  }
+}

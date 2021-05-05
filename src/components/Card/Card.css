@@ -1,0 +1,17 @@
+@import url(./__info/movie__info.css);
+@import url(./__text/movie__text.css);
+@import url(./__image/movie__image.css);
+
+.movie {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px;
+}
+
+@media only screen and (max-width: 767px) {
+  .movie {
+    padding: 0;
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+}

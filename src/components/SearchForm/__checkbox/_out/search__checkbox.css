@@ -1,0 +1,11 @@
+.search__checkbox_out {
+  display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .search__checkbox_out {
+    display: block;
+    width: 160px;
+    margin: 45px auto;
+  }
+}

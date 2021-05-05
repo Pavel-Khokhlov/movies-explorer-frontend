@@ -1,0 +1,15 @@
+@import url(./_saved/button__movie_saved.css);
+@import url(./_unsaved/button__movies_unsaved.css);
+@import url(./_delete/button__movie_delete.css);
+
+.button__movie {
+  width: 14px;
+  height: 12px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

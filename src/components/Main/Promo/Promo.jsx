@@ -12,7 +12,7 @@ const Promo = () => {
     <Section className="promo">
       <div className="promo__info">
         <div className="promo__text">
-          <Title className={`title title__promo`}>
+          <Title className="title title__promo">
           Учебный проект студента факультета Веб&#8209;разработки.</Title>
           <Paragraph className="paragraph paragraph__promo paragraph__size_s">
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.

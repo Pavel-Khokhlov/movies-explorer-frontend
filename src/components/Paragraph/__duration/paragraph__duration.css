@@ -1,0 +1,11 @@
+.paragraph__duration {
+  padding: 0;
+  margin: 0 0 30px;
+  font-size: 11px;
+}
+
+@media only screen and (max-width: 767px) {
+  .paragraph__duration {
+    margin: 0;
+  }
+}

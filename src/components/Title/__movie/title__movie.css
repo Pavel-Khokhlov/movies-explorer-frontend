@@ -1,0 +1,12 @@
+.title__movie {
+  padding: 0;
+  margin: 0 0 13px;
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 768px) {
+  .title__movie {
+    font-size: min(18px, 3.75vw);
+    margin-bottom: min(13px, 2.5vw);
+  }
+}

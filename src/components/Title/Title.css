@@ -2,13 +2,13 @@
 @import url(./__tech/title__tech.css);
 @import url(./__main/title__main.css);
 @import url(./__aboutme/title__aboutme.css);
+@import url(./__movie/title__movie.css);
 @import url(./__aboutproject/title__aboutproject.css);
 @import url(./__nopage/title__nopage.css);
 
 
 .title {
   font-family: "Inter";
-  font-size: min(50px, 5vw);
   line-height: 1.16;
   font-weight: 300;
   padding: 0;
@@ -16,7 +16,6 @@
 
 @media only screen and (max-width: 768px) {
   .title {
-    font-size: min(40px, 9.375vw);
     line-height: 1.25;
     letter-spacing: -1.2px;
   }

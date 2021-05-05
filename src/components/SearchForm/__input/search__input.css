@@ -1,0 +1,8 @@
+.search__input {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  line-height: 20px;
+  border: none;
+  width: min(600px, 40vw);
+}

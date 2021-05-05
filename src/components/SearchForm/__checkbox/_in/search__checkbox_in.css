@@ -1,0 +1,9 @@
+.search__checkbox_in {
+  display: block;
+}
+
+@media only screen and (max-width: 767px) {
+  .search__checkbox_in {
+    display: none;
+  }
+}

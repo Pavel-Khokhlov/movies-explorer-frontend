@@ -1,0 +1,9 @@
+@import url(./__area/search__area.css);
+@import url(./__icon/search__icon.css);
+@import url(./__input/search__input.css);
+@import url(./__line/search__line.css);
+@import url(./__checkbox/search__checkbox.css);
+
+.search {
+  text-align: center;
+}

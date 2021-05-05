@@ -1,0 +1,49 @@
+@import url(./_in/search__checkbox_in.css);
+@import url(./_out/search__checkbox.css);
+
+.search__checkbox {
+  position: relative;
+  font-size: 13px;
+  line-height: 20px;
+  padding: 0 0 0 51px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.search__checkbox input {
+  display: none;
+}
+
+.search__checkbox:before {
+  content: '';
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: red;
+  position: absolute;
+  left: 1px;
+  top: 0;
+  transition: 0.5s ease 0.2s;
+  box-sizing: border-box;
+}
+
+.search__checkbox.checkbox_active:before {
+  background-color: #2BE080;
+}
+
+.search__checkbox:after {
+  content: '';
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background-color: #ffffff;
+  position: absolute;
+  left: 2px;
+  top: 1px;
+  transition: 0.5s ease;
+  box-sizing: border-box;
+}
+
+.search__checkbox.checkbox_active:after {
+  left: 17px
+}

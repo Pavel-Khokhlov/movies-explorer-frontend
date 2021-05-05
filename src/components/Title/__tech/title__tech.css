@@ -1,5 +1,6 @@
 .title__tech {
   width: 100%;
+  font-size: min(50px, 5vw);
   text-align: center;
   margin-bottom: 26px;
   margin-top: min(90px, 10.42vw);
@@ -7,6 +8,7 @@
 
 @media only screen and (max-width: 768px) {
   .title__tech {
+    font-size: min(40px, 9.375vw);
     margin-bottom: 22px;
     margin-top: min(80px, 18.75vw);
   }

@@ -33,14 +33,14 @@ function App() {
           <Route path="/saved-movies">
             <SavedMovies />
           </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
           <Route path="/signin">
             <Login buttonTitle="Войти" />
           </Route>
           <Route path="/signup">
             <Register buttonTitle="Зарегистрироваться" />
-          </Route>
-          <Route path="/profile">
-            <Profile />
           </Route>
           <Route path="*">
             <PageNotFound />
