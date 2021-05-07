@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# MOVIES PROGECT
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Link to the movies project](https://pavel-khokhlov.nomoredomains.monster/).
 
 ## Available Scripts
 

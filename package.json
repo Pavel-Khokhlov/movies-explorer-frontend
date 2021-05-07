@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "server-deploy": "npm run build && scp -r ./build/* pavel-diplom@178.154.193.82:/frontend"
+    "server-deploy": "npm run build && scp -r ./build/* pavel-diplom@178.154.193.82:/home/pavel-diplom/frontend"
   },
   "eslintConfig": {
     "extends": [
