@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "../../Section/Section";
 import Line from "../../Line/Line";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
@@ -8,7 +7,7 @@ import "./AboutProject.css";
 
 const AboutProject = () => {
   return (
-    <Section className="aboutproject">
+    <section className="section aboutproject" id="more" >
       <SubTitle className={`subtitle subtitle__layout_main subtitle__size_xl`}>
         О проекте
       </SubTitle>
@@ -37,7 +36,7 @@ const AboutProject = () => {
         <Paragraph className="paragraph paragraph__table paragraph__color_grey">Back-end</Paragraph>
         <Paragraph className="paragraph paragraph__table paragraph__color_grey">Front-end</Paragraph>
       </div>
-    </Section>
+    </section>
   );
 };
 

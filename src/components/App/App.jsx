@@ -74,7 +74,7 @@ function App() {
       <Route
         path="/github"
         component={() => {
-          window.location.href = "https://www.github.com/";
+          window.location.href = "https://github.com/Pavel-Khokhlov/";
         }}
       />
       <Route
@@ -87,6 +87,24 @@ function App() {
         path="/yandex"
         component={() => {
           window.location.href = "https://praktikum.yandex.ru/";
+        }}
+      />
+      <Route
+        path="/mesto"
+        component={() => {
+          window.location.href = "https://pavel-khokhlov.github.io/mesto-react/";
+        }}
+      />
+      <Route
+        path="/travel"
+        component={() => {
+          window.location.href = "https://pavel-khokhlov.github.io/russian-travel/index.html";
+        }}
+      />
+      <Route
+        path="/how-to-learn"
+        component={() => {
+          window.location.href = "https://github.com/Pavel-Khokhlov/how-to-learn";
         }}
       />
       <Footer />

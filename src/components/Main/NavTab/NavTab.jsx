@@ -1,14 +1,21 @@
 import React from "react";
-import Button from "../../Button/Button";
+import { Link, animateScroll as scroll } from "react-scroll";
 
 import "./NavTab.css";
 
 const NavTab = () => {
   return (
     <div className="navtab">
-      <Button type="button" className={`button button__promo`} to="#one">
+      <Link
+        className={`button button__promo`}
+        to="more"
+        spy={true}
+        smooth={true}
+        offset={70}
+        duration={1000}
+      >
         Узнать больше
-      </Button>
+      </Link>
     </div>
   );
 };

@@ -1,5 +1,4 @@
 import React from "react";
-import Section from "../../Section/Section";
 import NavTab from "../NavTab/NavTab";
 import Title from "../../Title/Title";
 import Paragraph from "../../Paragraph/Paragraph";

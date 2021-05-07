@@ -1,5 +1,4 @@
 import React from 'react';
-import Section from "../../Section/Section";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from '../../Paragraph/Paragraph';
@@ -10,7 +9,7 @@ import './Tech.css';
 
 const Tech = () => {
   return (
-    <Section className="tech">
+    <section className="section tech">
       <SubTitle className={`subtitle subtitle__layout_main subtitle__size_xl`}>Технологии</SubTitle>
       <Line className={`line line__color_black`} />
       <Title className={`title title__tech`} >7 технологий</Title>
@@ -24,7 +23,7 @@ const Tech = () => {
         <TechItem>Express.js</TechItem>
         <TechItem>mongoDB</TechItem>
       </div>
-    </Section>
+    </section>
   )
 };
 

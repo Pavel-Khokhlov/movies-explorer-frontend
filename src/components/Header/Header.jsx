@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
-import Section from "../Section/Section";
 
 import "./Header.css";
 
@@ -14,7 +13,7 @@ const Header = ({ isLoggedIn, onClick, location }) => {
     setCurrentPath(pathname);
   }, [location]);
 
-  const headerBgClassName = `header ${currentPath === "/" ? "header__bg_grey" : ""}`;
+  const headerBgClassName = `section header ${currentPath === "/" ? "header__bg_grey" : ""}`;
 
   if (
     currentPath === "/" ||
@@ -23,10 +22,10 @@ const Header = ({ isLoggedIn, onClick, location }) => {
     currentPath === "/profile"
   ) {
     return (
-      <Section className={headerBgClassName}>
+      <section className={headerBgClassName}>
         <Logo />
         <Navigation isLoggedIn={isLoggedIn} onClick={onClick} />
-      </Section>
+      </section>
     );
   }
   return "";

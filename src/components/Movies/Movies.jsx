@@ -1,5 +1,6 @@
 import React from 'react';
 import SearchForm from "../SearchForm/SearchForm";
+import Line from "../Line/Line";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import movies from "../../utils/movies";
@@ -10,12 +11,13 @@ const Movies = () => {
   return (
     <section className="section">
       <SearchForm />
-      <line className="line line__color_grey" />
+      <Line className="line line__color_grey" />
       {/* MOVIES */}
       <ul className="movies__list">
         {movies.map((i) => {
           return (
             <Card
+              key={i.link}
               card={i}
             />
           );

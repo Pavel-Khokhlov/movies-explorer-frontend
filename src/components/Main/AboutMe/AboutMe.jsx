@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Section from "../../Section/Section";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
@@ -11,7 +10,7 @@ import "./AboutMe.css";
 
 const AboutMe = () => {
   return (
-    <Section className="aboutme">
+    <section className="section aboutme">
       <SubTitle className={`subtitle subtitle__layout_main subtitle__size_xl`}>
         Студент
       </SubTitle>
@@ -58,7 +57,7 @@ const AboutMe = () => {
         </div>
         <img src={Portrait} alt="портрет резюме" className="aboutme__image" />
       </article>
-    </Section>
+    </section>
   );
 };
 

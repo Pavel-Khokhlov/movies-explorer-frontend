@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { NavLink, withRouter } from "react-router-dom";
-import Section from "../Section/Section";
 import Paragraph from "../Paragraph/Paragraph";
 import Line from "../Line/Line";
 
@@ -20,7 +19,7 @@ const Footer = ({ location }) => {
     currentPath === "/saved-movies"
   ) {
     return (
-      <Section className="footer">
+      <section className="section footer">
         <Paragraph
           className={`paragraph paragraph__footer paragraph__color_grey`}
         >
@@ -59,7 +58,7 @@ const Footer = ({ location }) => {
             </li>
           </ul>
         </div>
-      </Section>
+      </section>
     );
   }
   return "";
