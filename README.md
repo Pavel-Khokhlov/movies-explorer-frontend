@@ -1,4 +1,4 @@
-# MOVIES PROGECT
+# MOVIES PROJECT
 
 [Link to the movies project](https://pavel-khokhlov.nomoredomains.monster/).
 
