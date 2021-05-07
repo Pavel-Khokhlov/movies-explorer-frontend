@@ -9,7 +9,7 @@ import "./Promo.css";
 
 const Promo = () => {
   return (
-    <Section className="promo">
+    <section className="section promo">
       <div className="promo__info">
         <div className="promo__text">
           <Title className="title title__promo">
@@ -21,7 +21,7 @@ const Promo = () => {
         <img src={PromoImg} alt="изображение" className="promo__img" />
       </div>
       <NavTab />
-    </Section>
+    </section>
   );
 };
 

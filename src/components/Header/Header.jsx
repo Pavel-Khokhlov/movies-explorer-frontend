@@ -6,7 +6,7 @@ import Section from "../Section/Section";
 
 import "./Header.css";
 
-const Header = ({ isLoggedIn, location }) => {
+const Header = ({ isLoggedIn, onClick, location }) => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Header = ({ isLoggedIn, location }) => {
     return (
       <Section className={headerBgClassName}>
         <Logo />
-        <Navigation isLoggedIn={isLoggedIn} />
+        <Navigation isLoggedIn={isLoggedIn} onClick={onClick} />
       </Section>
     );
   }

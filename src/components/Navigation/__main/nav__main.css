@@ -1,0 +1,9 @@
+.nav__main {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav__main {
+    display: inline;
+  }
+}

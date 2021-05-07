@@ -7,22 +7,40 @@ import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
-import Profile from "../Register/Register";
+import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Footer from "../Footer/Footer";
 
 import "./App.css";
+import PopupMenu from "../PopupMenu/PopupMenu";
 
 function App() {
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState("");
+  const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
+
+  // CLOSE POPUP BY ESC
+  const handleEsc = (e) => {
+    if (e.keyCode === 27) {
+      closeAllPopups();
+    }
+  };
+
+  const handleMenuClick = () => {
+    setIsPopupMenuOpen(true);
+    window.addEventListener("keydown", handleEsc);
+  };
+
+  const closeAllPopups = () => {
+    setIsPopupMenuOpen(false);
+    window.removeEventListener("keydown", handleEsc);
+  };
 
   return (
     <BrowserRouter>
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className="app">
-        <Header isLoggedIn={loggedIn} />
+      <CurrentUserContext.Provider value={currentUser}>
+        <Header isLoggedIn={loggedIn} onClick={handleMenuClick} />
         <Switch>
           <Route exact path="/">
             <Main />
@@ -46,33 +64,33 @@ function App() {
             <PageNotFound />
           </Route>
         </Switch>
-        <Route
-          path="/facebook"
-          component={() => {
-            window.location.href = "https://www.facebook.com/";
-          }}
-        />
-        <Route
-          path="/github"
-          component={() => {
-            window.location.href = "https://www.github.com/";
-          }}
-        />
-        <Route
-          path="/google"
-          component={() => {
-            window.location.href = "https://www.google.com/";
-          }}
-        />
-        <Route
-          path="/yandex"
-          component={() => {
-            window.location.href = "https://praktikum.yandex.ru/";
-          }}
-        />
-        <Footer />
-      </div>
       </CurrentUserContext.Provider>
+      <Route
+        path="/facebook"
+        component={() => {
+          window.location.href = "https://www.facebook.com/";
+        }}
+      />
+      <Route
+        path="/github"
+        component={() => {
+          window.location.href = "https://www.github.com/";
+        }}
+      />
+      <Route
+        path="/google"
+        component={() => {
+          window.location.href = "https://www.google.com/";
+        }}
+      />
+      <Route
+        path="/yandex"
+        component={() => {
+          window.location.href = "https://praktikum.yandex.ru/";
+        }}
+      />
+      <Footer />
+      <PopupMenu isOpen={isPopupMenuOpen} onClose={closeAllPopups} />
     </BrowserRouter>
   );
 }

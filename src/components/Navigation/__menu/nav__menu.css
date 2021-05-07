@@ -3,11 +3,14 @@
   padding: 0;
   list-style: none;
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: 20px;
 }
 
 @media only screen and (max-width: 768px) {
   .nav__menu {
-    gap: min(30px, 4.375vw);
+    flex-direction: column;
+    align-items: center;
+    margin-top: min(159px, 45vw);
   }
 }

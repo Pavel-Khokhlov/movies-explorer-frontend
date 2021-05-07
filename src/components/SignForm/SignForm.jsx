@@ -26,19 +26,19 @@ const SignForm = ({
     <section className="form">
       <form className="form__container" method="post" onSubmit={onSubmit}>
         <Logo className="form__logo" />
-        <Title className="title form__title">{title}</Title>
+        <Title className="title form__title text-weight__medium">{title}</Title>
         {children}
         <Button className={buttonClassName}>{buttonTitle}</Button>
         {currentPath === "/signup" && (
           <div className="form__redirect">
-            <p className="paragraph form__paragraph text-color__grey">Уже зарегистрированы?</p>
-            <NavLink to="/signin" className="paragraph form__paragraph text-color__blue">Войти</NavLink>
+            <p className="form__paragraph text-color__grey">Уже зарегистрированы?</p>
+            <NavLink to="/signin" className="button form__paragraph text-color__blue">Войти</NavLink>
           </div>
         )}
         {currentPath === "/signin" && (
           <div className="form__redirect">
-            <p className="paragraph form__paragraph text-color__grey">Еще не зарегистрированы?</p>
-            <NavLink to="/signup" className="paragraph form__paragraph text-color__blue">Регистрация</NavLink>
+            <p className="form__paragraph text-color__grey">Еще не зарегистрированы?</p>
+            <NavLink to="/signup" className="button form__paragraph text-color__blue">Регистрация</NavLink>
           </div>
         )}
       </form>

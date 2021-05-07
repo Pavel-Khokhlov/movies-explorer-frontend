@@ -3,15 +3,13 @@
 @import url(./__main/title__main.css);
 @import url(./__aboutme/title__aboutme.css);
 @import url(./__movie/title__movie.css);
+@import url(./__profile/title__profile.css);
 @import url(./__aboutproject/title__aboutproject.css);
 @import url(./__nopage/title__nopage.css);
 
 
 .title {
-  font-family: "Inter";
   line-height: 1.16;
-  font-weight: 300;
-  padding: 0;
 }
 
 @media only screen and (max-width: 768px) {

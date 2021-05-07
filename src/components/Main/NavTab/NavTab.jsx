@@ -5,11 +5,11 @@ import "./NavTab.css";
 
 const NavTab = () => {
   return (
-    <section className="navtab">
-      <Button type="button" className={`button button__promo`}>
+    <div className="navtab">
+      <Button type="button" className={`button button__promo`} to="#one">
         Узнать больше
       </Button>
-    </section>
+    </div>
   );
 };
 

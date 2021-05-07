@@ -1,11 +1,18 @@
 @import url(./vendors/normalize.css);
-@import url(./vendors/fonts/fonts.css);
 @import url(./blocks/bg-color/bg-color.css);
 @import url(./blocks/text-color/text-color.css);
 @import url(./blocks/text-weight/text-weight.css);
 
+@font-face {
+  font-family: 'Inter';
+  src: local('Inter'), url(./vendors/fonts/Inter-Medium.woff) format('woff');
+}
+
+body {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
 .root {
   margin: 0;
   padding: 0;
-  font-family: "Inter";
 }

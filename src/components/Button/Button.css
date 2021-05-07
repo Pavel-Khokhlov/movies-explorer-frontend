@@ -1,19 +1,22 @@
-@import url(./__header/button__header.css);
 @import url(./__login/button__login.css);
 @import url(./__promo/button__promo.css);
-@import url(./__header/button__header.css);
-@import url(./__back/button__back.css);
 @import url(./__search/button__search.css);
 @import url(./__movie/button__movie.css);
 @import url(./__more/button__more.css);
+@import url(./__menu/button__menu.css);
+@import url(./__word/button__word.css);
+@import url(./__edit/button__edit.css);
+@import url(./__close-popup/button__close-popup.css);
 @import url(./__submit/button__submit.css);
 @import url(./__submit/_inactive/button__submit_inactive.css);
 @import url(./__submit/_active/button__submit_active.css);
 @import url(./__submit/_login/button__submit_login.css);
 @import url(./__submit/_reg/button__submit_reg.css);
+@import url(./__word/_border/button__word_border.css);
 
 .button {
   /* сброс стилей */
+  text-decoration: none;
   cursor: pointer;
   /* настройки кнопок */
   opacity: 1;

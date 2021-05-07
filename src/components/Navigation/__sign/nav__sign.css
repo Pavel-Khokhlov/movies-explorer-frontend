@@ -1,0 +1,13 @@
+.nav__sign {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav__sign {
+    gap: min(30px, 4.375vw);
+  }
+}

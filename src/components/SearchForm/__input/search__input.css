@@ -5,4 +5,9 @@
   line-height: 20px;
   border: none;
   width: min(600px, 40vw);
+  outline: none;
+}
+
+.search__input:focus {
+  border: none;
 }

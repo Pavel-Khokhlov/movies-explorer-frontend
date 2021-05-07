@@ -1,0 +1,15 @@
+.nav__account {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav__account {
+    margin-bottom: min(92px, 15vw);
+  }
+}

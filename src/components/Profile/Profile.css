@@ -1,0 +1,10 @@
+@import url(./__container/profile__container.css);
+@import url(./__block/profile__block.css);
+@import url(./__input/profile__input.css);
+
+.profile {
+  width: 100vw;
+  height: calc(100vh - 74px);
+  display: flex;
+  justify-content: center;
+}

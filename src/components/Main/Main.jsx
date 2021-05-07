@@ -11,7 +11,7 @@ const Main = () => {
   return (
     <section className="main">
       <Promo />
-      <AboutProject />
+      <AboutProject id="one" />
       <Tech />
       <AboutMe />
       <Portfolio />
