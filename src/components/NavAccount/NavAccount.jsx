@@ -12,7 +12,7 @@ const NavAccount = ({ className, onClose }) => {
         <NavLink
           to="/profile"
           className="button button__word nav__link text-color__black"
-          activeClassName="text-weight__medium"
+          activeClassName="text-weight__medium button__word_border"
           onClick={onClose}
         >
           Аккаунт

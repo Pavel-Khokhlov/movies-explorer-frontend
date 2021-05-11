@@ -3,13 +3,14 @@ import { NavLink } from "react-router-dom";
 
 import "./NavMenu.css";
 
-const NavMenu = ({className, onClose}) => {
+const NavMenu = ({ className, onClose }) => {
   return (
     <ul className={className}>
       <li>
         <NavLink
+          exact
           to="/"
-          className="button button__word nav__link nav__main text-color__black"
+          className="button button__word nav__link text-color__black"
           activeClassName="text-weight__medium button__word_border"
           onClick={onClose}
         >
@@ -20,7 +21,8 @@ const NavMenu = ({className, onClose}) => {
         <NavLink
           to="/movies"
           className="button button__word nav__link text-color__black"
-          activeClassName="text-weight__medium button__word_border" onClick={onClose}
+          activeClassName="text-weight__medium button__word_border"
+          onClick={onClose}
         >
           Фильмы
         </NavLink>

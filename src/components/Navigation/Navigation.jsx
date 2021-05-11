@@ -12,8 +12,8 @@ const Navigation = ({ isLoggedIn, onClick }) => {
       <nav className="nav">
         {isLoggedIn ? (
           <>
-            <NavMenu className="nav__menu" />
-            <NavAccount className="nav__menu" />
+            <NavMenu className="nav__menu nav__display" />
+            <NavAccount className="nav__menu nav__display" />
           </>
         ) : (
           <NavSign />

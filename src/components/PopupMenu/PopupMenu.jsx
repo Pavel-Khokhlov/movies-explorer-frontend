@@ -21,7 +21,7 @@ const PopupMenu = ({ isOpen, onClose }) => {
           aria-label="вернуться на страницу"
           onClick={onClose}
         />
-        <NavMenu className="nav__menu" onClose={onClose}/>
+        <NavMenu className="popup__menu" onClose={onClose}/>
         <NavAccount className="nav__account" onClose={onClose}/>
       </div>
     </section>

@@ -3,15 +3,10 @@
 @import url(./__main/nav__main.css);
 @import url(./__link/nav__link.css);
 @import url(./__login/nav__login.css);
+@import url(./__display/nav__display.css);
 
 .nav {
   display: flex;
   align-items: center;
   gap: 50px;
-}
-
-@media only screen and (max-width: 768px) {
-  .nav {
-    display: none;
-  }
 }
