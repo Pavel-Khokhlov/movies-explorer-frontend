@@ -7,12 +7,12 @@ import Card from "../Card/Card";
 
 import "./SavedMovies.css";
 
-const SavedMovies = ({ onSearchClick, onDeleteClick, location }) => {
+const SavedMovies = ({ onSearchClick, onDeleteMovieClick, location }) => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
   const savedMovies = useContext(SavedMoviesContext);
 
   useEffect(() => {
-    localStorage.setItem("local-path", JSON.stringify(currentPath))
+    localStorage.setItem("local-path", JSON.stringify(currentPath));
   }, [location]);
 
   return (
@@ -20,17 +20,18 @@ const SavedMovies = ({ onSearchClick, onDeleteClick, location }) => {
       <SearchForm onSearchClick={onSearchClick}/>
       <Line className="line line__color_grey" />
       {/* MOVIES */}
-      <ul className="movies__list">
+      {savedMovies && (<ul className="movies__list">
         {savedMovies.map((movie) => {
           return (
             <Card
               key={movie._id}
               movie={movie}
-              onDeleteClick={onDeleteClick}
+              onDeleteMovieClick={onDeleteMovieClick}
             />
           );
         })}
-      </ul>
+      </ul>)}
+      {savedMovies.length === 0 && (<p className="paragraph paragraph__tech text-color__grey" >Вы еще не сохранили ни одного фильма</p>)}
     </section>
   );
 };

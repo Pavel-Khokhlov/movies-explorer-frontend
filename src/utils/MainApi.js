@@ -60,8 +60,9 @@ class Api {
     }).then(this._checkPromise);
   }
 
-  deleteMovie(moviedId, token) {
-    return fetch(`${this.url}/movies`, {
+  deleteMovie({ savedMovie }, token) {
+    const path = savedMovie._id;
+    return fetch(`${this.url}/movies/${path}`, {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -71,7 +72,6 @@ class Api {
   }
 
   _checkPromise(res) {
-    console.log(res);
     return res.ok ? res.json() : Promise.reject(`Файл не найден!`);
   }
 }

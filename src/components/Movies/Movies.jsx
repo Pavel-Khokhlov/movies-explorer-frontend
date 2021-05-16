@@ -8,7 +8,7 @@ import Card from "../Card/Card";
 
 import './Movies.css';
 
-const Movies = ({ movies, onSearchClick, onSaveMovieClick, location }) => {
+const Movies = ({ movies, onSearchClick, onSaveMovieClick, onDeleteMovieClick, location }) => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   const screenWidth = window.innerWidth;
@@ -51,6 +51,7 @@ const Movies = ({ movies, onSearchClick, onSaveMovieClick, location }) => {
               key={movie.nameRU}
               movie={movie}
               onSaveMovieClick={onSaveMovieClick}
+              onDeleteMovieClick={onDeleteMovieClick}
             />
           );
         })}

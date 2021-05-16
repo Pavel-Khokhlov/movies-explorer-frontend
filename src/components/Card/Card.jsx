@@ -7,7 +7,7 @@ import Button from "../../components/Button/Button";
 
 import "./Card.css";
 
-const Card = ({ movie, location, onSaveMovieClick, onDeleteClick}) => {
+const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
   const savedMovies = useContext(SavedMoviesContext);
   const currentUser = useContext(CurrentUserContext);
   const [currentPath, setCurrentPath] = useState(location.pathname);
@@ -22,7 +22,7 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteClick}) => {
 
   useEffect(() => {
     checkIsSaved();
-  }, [])
+  }, []);
 
   // DURATION
   const Hours = Math.floor(movie.duration / 60);
@@ -31,21 +31,18 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteClick}) => {
 
   // IS MOVIE SAVED ?
   function checkIsSaved() {
-    if(savedMovies.some(
-      (element) =>
-        element.owner._id === currentUser._id &&
-        element.description === movie.description)) {
-          setIsSaved(true);
-        } else {
-          setIsSaved(false);
-        }
-  };
-
-  // const isSaved = savedMovies.some(
-  //   (element) =>
-  //     element.owner._id === currentUser._id &&
-  //     element.description === movie.description
-  // );
+    if (
+      savedMovies.some(
+        (element) =>
+          element.owner._id === currentUser._id &&
+          element.description === movie.description
+      )
+    ) {
+      setIsSaved(true);
+    } else {
+      setIsSaved(false);
+    }
+  }
 
   const URL = `${
     movie?.image?.url
@@ -57,32 +54,35 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteClick}) => {
     isSaved ? "button__movie_saved" : "button__movie_unsaved"
   }`;
 
-  function handleToggleSave(e) {
-    e.preventDefault();
-    if(isSaved) {
-      handleDeleteMovie();
-    } else {
-      handleSaveMovie();
-    }
-  }
-
   function handleSaveMovie() {
-    alert("Сщхранить фильм?");
+    alert("Сохранить фильм?");
     api
       .saveMovie({ movie }, token)
       .then((newMovie) => {
         onSaveMovieClick(newMovie);
       })
-      .then(() =>
-        setIsSaved(true)
-      )
+      .then(() => setIsSaved(true))
       .catch((err) => {
         onSaveMovieClick(err);
       });
   }
 
   function handleDeleteMovie() {
+    const savedMovie = currentPath === "/movies" ? savedMovies.find(
+        (i) => Number(i.movieId) === Number(movie.id)) : movie;
     alert("Удалить фильм?");
+    api
+      .deleteMovie({ savedMovie }, token)
+      .then((res) => {
+        setIsSaved(false);
+        return res;
+      })
+      .then((delMovie) => {
+        onDeleteMovieClick(delMovie);
+      })
+      .catch((err) => {
+        onDeleteMovieClick(err);
+      });
   }
 
   return (
@@ -94,11 +94,18 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteClick}) => {
             {Duration}
           </p>
         </div>
-        {currentPath === "/movies" && (
+        {currentPath === "/movies" && !isSaved && (
           <Button
             type="button"
             className={buttonMovieClassName}
-            onClick={handleToggleSave}
+            onClick={handleSaveMovie}
+          />
+        )}
+        {currentPath === "/movies" && isSaved && (
+          <Button
+            type="button"
+            className={buttonMovieClassName}
+            onClick={handleDeleteMovie}
           />
         )}
         {currentPath === "/saved-movies" && (

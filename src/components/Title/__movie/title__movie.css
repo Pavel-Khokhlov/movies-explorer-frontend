@@ -2,6 +2,8 @@
   padding: 0;
   margin: 0 0 13px;
   font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media only screen and (max-width: 768px) {

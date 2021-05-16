@@ -36,20 +36,10 @@ const App = () => {
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
 
   const [movies, setMovies] = useState([]);
-  console.log(movies);
   const [savedMovies, setSavedMovies] = useState([]);
-  console.log(savedMovies);
-
-  const localPath = `${
-    localStorage.getItem("local-path")
-      ? localStorage.getItem("local-path").replace(/"|\//g, "")
-      : `movies`
-  }`;
 
   useEffect(() => {
-    if (loggedIn) {
-      history.push(localPath);
-    }
+    history.push("/");
   }, [loggedIn]);
 
   useEffect(() => {
@@ -89,7 +79,6 @@ const App = () => {
         if (res) {
           setCurrentUser(res);
           handleGetSavedMovies(token);
-          console.log(token);
           setLoggedIn(true);
         }
       })
@@ -137,8 +126,7 @@ const App = () => {
     api
       .getSavedMovies(token)
       .then((res) => {
-        console.log(res);
-        if(res.message) {
+        if (res.message) {
           throw FileNotFoundError(res.message);
         }
         setSavedMovies(res);
@@ -189,6 +177,7 @@ const App = () => {
         }
       })
       .then((res) => {
+        history.push("/movies");
         handleGetUserInfo(res.token);
       })
       .catch((err) => {
@@ -202,7 +191,6 @@ const App = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("movies");
     localStorage.removeItem("saved-movies");
-    localStorage.removeItem("local-path");
   };
 
   const showError = (err) => {
@@ -212,9 +200,7 @@ const App = () => {
   function handleSearch(moviesForSearch, search, checked) {
     console.log(moviesForSearch);
     if (!moviesForSearch) {
-      movieApi
-        .getMovies()
-        .then((res) => {
+      movieApi.getMovies().then((res) => {
         setMovies(res);
         localStorage.setItem("movies", JSON.stringify(res));
       });
@@ -226,33 +212,15 @@ const App = () => {
     }
   }
 
-  // function handleToggleSave(movie, isSaved) {
-  //   if (isSaved) {
-  //     handleDelete(movie);
-  //   } else {
-  //     handleSave(movie);
-  //   }
-  // }
-
   function handleSaveMovie(object) {
+    console.log(object);
     setSavedMovies([object, ...savedMovies]);
-    //api
-    //  .saveMovie(movie, token)
-    //  .then((newMovie) => {
-    //    setSavedMovies([newMovie, ...savedMovies]);
-    //  })
-    //  .then(() =>
-    //    localStorage.setItem("saved-movies", JSON.stringify(savedMovies)//)
-    //  )
-    //  .then(() => localStorage.setItem("isSaved-status", true))
-    //  .catch((err) => {
-    //    showError(err);
-    //  });
   }
 
-  function handleDelete(movie, token) {
-    console.log(token);
-    console.log(movie);
+  function handleDeleteMovie(object) {
+    console.log(object);
+    const newMovies = savedMovies.filter((m) => m._id !== object._id);
+    setSavedMovies(newMovies);
   }
 
   if (loggedIn === null) {
@@ -272,13 +240,14 @@ const App = () => {
               isLoggedIn={loggedIn}
               onSearchClick={handleSearch}
               onSaveMovieClick={handleSaveMovie}
+              onDeleteMovieClick={handleDeleteMovie}
               component={Movies}
             />
             <ProtectedRoute
               path="/saved-movies"
               isLoggedIn={loggedIn}
               onSearchClick={handleSearch}
-              onDeleteClick={handleDelete}
+              onDeleteMovieClick={handleDeleteMovie}
               component={SavedMovies}
             />
             <ProtectedRoute

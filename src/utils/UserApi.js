@@ -27,7 +27,6 @@ class UserApi {
   }
 
   _checkPromise(res) {
-    console.log(res);
     return res.ok ? res.json() : Promise.reject(`Пользователь не найден!`);
   }
 }

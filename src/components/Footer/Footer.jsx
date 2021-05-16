@@ -21,7 +21,7 @@ const Footer = ({ location }) => {
     return (
       <section className="section footer">
         <Paragraph
-          className={`paragraph paragraph__footer paragraph__color_grey`}
+          className={`paragraph paragraph__footer text-color__grey`}
         >
           Учебный проект Яндекс.Практикум х BeatFilm.
         </Paragraph>
