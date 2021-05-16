@@ -1,8 +1,8 @@
 const RequiredAuthError = () => {
-  const err = new Error('Требуется авторизация!');
-    err.statusCode = 400;
-    return err;
-}
+  const err = new Error("Требуется авторизация!");
+  err.statusCode = 400;
+  return err;
+};
 
 const ErrorExistedEmail = (message) => {
   const err = new Error(message);
@@ -16,4 +16,15 @@ const ErrorEmailPassword = (message) => {
   return err;
 };
 
-module.exports = { RequiredAuthError, ErrorEmailPassword, ErrorExistedEmail };
+const FileNotFoundError = (message) => {
+  const err = new Error(message);
+  err.status = 500;
+  return err;
+};
+
+module.exports = {
+  RequiredAuthError,
+  ErrorEmailPassword,
+  ErrorExistedEmail,
+  FileNotFoundError,
+};

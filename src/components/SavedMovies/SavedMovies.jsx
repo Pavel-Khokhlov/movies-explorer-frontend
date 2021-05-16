@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import { SavedMoviesContext } from "../../context/SavedMoviesContext";
+import Line from "../Line/Line";
 import SearchForm from "../SearchForm/SearchForm";
-import Button from "../Button/Button";
 import Card from "../Card/Card";
-import movies from "../../utils/movies";
 
 import "./SavedMovies.css";
 
-const SavedMovies = () => {
-  const myMovies = movies.filter(i => i.like === true);
-  console.log(myMovies);
+const SavedMovies = ({ onSearchClick, onDeleteClick, location }) => {
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+  const savedMovies = useContext(SavedMoviesContext);
+
+  useEffect(() => {
+    localStorage.setItem("local-path", JSON.stringify(currentPath))
+  }, [location]);
 
   return (
     <section className="section">
-      <SearchForm />
-      <line className="line line__color_grey" />
+      <SearchForm onSearchClick={onSearchClick}/>
+      <Line className="line line__color_grey" />
       {/* MOVIES */}
       <ul className="movies__list">
-        {myMovies.map((i) => {
+        {savedMovies.map((movie) => {
           return (
             <Card
-              card={i}
+              key={movie._id}
+              movie={movie}
+              onDeleteClick={onDeleteClick}
             />
           );
         })}
@@ -28,4 +35,4 @@ const SavedMovies = () => {
   );
 };
 
-export default SavedMovies;
+export default withRouter(SavedMovies);

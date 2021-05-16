@@ -1,11 +1,11 @@
 .movie__image {
-  max-width: 220px;
-  max-height: 122px;
+  width: 220px;
+  height: 122px;
 }
 
 @media only screen and (max-width: 767px) {
   .movie__image {
-    max-width: 300px;
-    max-height: 168px;
+    width: min(300px, 93.75vw);
+    height: min(168px, 52.5vw);
   }
 }

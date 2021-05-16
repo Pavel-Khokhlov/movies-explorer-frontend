@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Button from "../Button/Button";
 import Line from "../Line/Line";
@@ -6,11 +7,16 @@ import Title from "../Title/Title";
 
 import "./Profile.css";
 
-const Profile = ({ onLogoutClick, onEditProfile }) => {
+const Profile = ({ onLogoutClick, onEditProfile, location }) => {
+  const [currentPath, setCurrentPath] = useState(location.pathname);
   const currentUser = useContext(CurrentUserContext);
   const userTitle = `Привет, ${currentUser.name}!`;
   const [userName, setUserName] = useState(currentUser.name);
   const [userEmail, setUserEmail] = useState(currentUser.email);
+
+  useEffect(() => {
+    localStorage.setItem("local-path", JSON.stringify(currentPath))
+  }, [location]);
 
   const handleChangeUserName = (e) => {
     setUserName(e.target.value);
@@ -69,4 +75,4 @@ const Profile = ({ onLogoutClick, onEditProfile }) => {
   );
 };
 
-export default Profile;
+export default withRouter(Profile);
