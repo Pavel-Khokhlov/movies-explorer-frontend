@@ -1,7 +1,7 @@
 export const BASE_URL = "https://api.nomoreparties.co";
 const path = "/beatfilm-movies";
 
-class MovieApi {
+class MovieData {
   constructor(config) {
     this.url = config.url;
   }
@@ -20,8 +20,8 @@ class MovieApi {
   }
 }
 
-const moviesApi = new MovieApi({
+const moviesData = new MovieData({
   url: `${BASE_URL}`
 });
 
-export default moviesApi;
+export default moviesData;

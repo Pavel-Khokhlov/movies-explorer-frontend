@@ -1,22 +1,20 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { withRouter } from "react-router-dom";
-import { SavedMoviesContext } from "../../context/SavedMoviesContext";
+import React, { useEffect, useState } from "react";
+import LazyLoad from "react-lazyload";
 import SearchForm from "../SearchForm/SearchForm";
 import Line from "../Line/Line";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 
-import './Movies.css';
+import "./Movies.css";
 
-const Movies = ({ movies, onSearchClick, onSaveMovieClick, onDeleteMovieClick, location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-
+const Movies = ({
+  movies,
+  onSearchClick,
+  onSaveMovieClick,
+  onDeleteMovieClick,
+}) => {
   const screenWidth = window.innerWidth;
   const [isWidth, setIsWidth] = useState(screenWidth);
-
-  useEffect(() => {
-    localStorage.setItem("local-path", JSON.stringify(currentPath))
-  }, [location]);
 
   //choose the screen size
   function handleResize() {
@@ -29,7 +27,7 @@ const Movies = ({ movies, onSearchClick, onSaveMovieClick, onDeleteMovieClick, l
     if (window.innerWidth > 1000) {
       return setIsWidth(`desktop`);
     }
-  };
+  }
 
   // create an event listener
   useEffect(() => {
@@ -47,18 +45,26 @@ const Movies = ({ movies, onSearchClick, onSaveMovieClick, onDeleteMovieClick, l
       <ul className="movies__list">
         {movies.map((movie) => {
           return (
-            <Card
-              key={movie.nameRU}
-              movie={movie}
-              onSaveMovieClick={onSaveMovieClick}
-              onDeleteMovieClick={onDeleteMovieClick}
-            />
+            <LazyLoad key={movie.description}>
+              <Card
+                movie={movie}
+                onSaveMovieClick={onSaveMovieClick}
+                onDeleteMovieClick={onDeleteMovieClick}
+              />
+            </LazyLoad>
           );
         })}
       </ul>
-      {!movies && <Button type="button" className="button button__more bg-color__gray paragraph paragraph__size_s">Ещё</Button>}
+      {movies.length > 0 && (
+        <Button
+          type="button"
+          className="button button__more bg-color__gray paragraph paragraph__size_s"
+        >
+          Ещё
+        </Button>
+      )}
     </section>
-  )
+  );
 };
 
-export default withRouter(Movies);
+export default Movies;

@@ -1,0 +1,5 @@
+.button__edit_inactive {
+  color: #a0a0a0;
+  pointer-events: initial;
+  cursor: not-allowed !important;
+}

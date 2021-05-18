@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import ProtectedRoute from "../ProtectedRoute";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { SavedMoviesContext } from "../../context/SavedMoviesContext";
+import ProtectedRoute from "../ProtectedRoute";
 import * as auth from "../../utils/auth.js";
-import api from "../../utils/MainApi.js";
+import movieApi from "../../utils/MovieApi.js";
 import userApi from "../../utils/UserApi.js";
-import movieApi from "../../utils/MoviesApi.js";
+import moviesData from "../../utils/MoviesData.js";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -16,20 +15,21 @@ import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Footer from "../Footer/Footer";
+import PopupMenu from "../PopupMenu/PopupMenu";
 import PageLoad from "../PageLoad/PageLoad";
 
 import "./App.css";
-import PopupMenu from "../PopupMenu/PopupMenu";
 
 import {
   ErrorEmailPassword,
   ErrorExistedEmail,
   RequiredAuthError,
-  FileNotFoundError,
 } from "../../utils/errors/Errors";
 
 const App = () => {
   const history = useHistory();
+
+  const token = localStorage.getItem("jwt");
 
   const [loggedIn, setLoggedIn] = useState(null);
   const [currentUser, setCurrentUser] = useState("");
@@ -37,36 +37,40 @@ const App = () => {
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-
-  useEffect(() => {
-    history.push("/");
-  }, [loggedIn]);
+  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
+  localStorage.setItem("movies", JSON.stringify(movies));
+  localStorage.setItem("filtered-saved-movies", JSON.stringify(filteredSavedMovies));
+  localStorage.setItem("all-movies", JSON.stringify(allMovies));
 
   useEffect(() => {
     checkToken();
-  }, []);
+    if (loggedIn === true) {
+      history.push("/movies");
+    } else {
+      history.push("/");
+    }
+  }, [loggedIn]);
 
   // CLOSE POPUP BY ESC
-  const handleEsc = (e) => {
+  function handleEsc(e) {
     if (e.keyCode === 27) {
       closeAllPopups();
     }
-  };
+  }
 
-  const handleMenuClick = () => {
+  function handleMenuClick() {
     setIsPopupMenuOpen(true);
     window.addEventListener("keydown", handleEsc);
-  };
+  }
 
-  const closeAllPopups = () => {
+  function closeAllPopups() {
     setIsPopupMenuOpen(false);
     window.removeEventListener("keydown", handleEsc);
-  };
+  }
 
-  // AUTH TOKEN
+  // AUTH TOKEN ++++++
   function checkToken() {
-    // jwt токен в локальном хранилище браузера ?
-    const token = localStorage.getItem("jwt");
     if (!token) {
       return handleLogout();
     }
@@ -78,8 +82,9 @@ const App = () => {
         }
         if (res) {
           setCurrentUser(res);
-          handleGetSavedMovies(token);
           setLoggedIn(true);
+          handleGetSavedMovies(res);
+          handleGetAllMovies();
         }
       })
       .catch((err) => {
@@ -88,9 +93,7 @@ const App = () => {
       });
   }
 
-  // API PATCH USER INFO
-  const token = localStorage.getItem("jwt");
-
+  // API PATCH USER INFO ++++
   function handleEditProfile(name, email) {
     if (!token) {
       throw RequiredAuthError;
@@ -102,19 +105,7 @@ const App = () => {
           throw new Error(400, res.error);
         }
         setCurrentUser(res);
-      })
-      .then(() => history.push("/profile"))
-      .catch((err) => {
-        showError(err);
-      });
-  }
-
-  // API GET USER INFO
-  function handleGetUserInfo(token) {
-    userApi
-      .getUserInfo(token)
-      .then((res) => {
-        setCurrentUser(res);
+        history.push("/movies");
       })
       .catch((err) => {
         showError(err);
@@ -122,15 +113,16 @@ const App = () => {
   }
 
   // API GET SAVED MOVIES
-  function handleGetSavedMovies(token) {
-    api
+  function handleGetSavedMovies(user) {
+    movieApi
       .getSavedMovies(token)
       .then((res) => {
         if (res.message) {
-          throw FileNotFoundError(res.message);
+          return alert(res.message);
         }
-        setSavedMovies(res);
-        localStorage.setItem("saved-movies", JSON.stringify(res));
+        const mySavedMovies = res.filter((m) => m.owner._id === user._id);
+        setSavedMovies(mySavedMovies);
+        setFilteredSavedMovies(mySavedMovies);
       })
       .catch((err) => {
         showError(err);
@@ -148,13 +140,8 @@ const App = () => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
-          return res;
+          history.push("/movies");
         }
-      })
-      .then((res) => {
-        history.push("/movies");
-        handleGetUserInfo(res.token);
-        handleGetSavedMovies(res.token);
       })
       .catch((err) => {
         setLoggedIn(false);
@@ -173,12 +160,8 @@ const App = () => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
-          return res;
+          history.push("/movies");
         }
-      })
-      .then((res) => {
-        history.push("/movies");
-        handleGetUserInfo(res.token);
       })
       .catch((err) => {
         showError(err);
@@ -186,39 +169,101 @@ const App = () => {
   };
 
   // LOGOUT
-  const handleLogout = () => {
+  function handleLogout() {
     setLoggedIn(false);
+    setCurrentUser("");
+    setAllMovies([]);
+    setSavedMovies([]);
+    setMovies([]);
     localStorage.removeItem("jwt");
     localStorage.removeItem("movies");
-    localStorage.removeItem("saved-movies");
-  };
+    localStorage.removeItem("filtered-saved-movies");
+    localStorage.removeItem("all-movies");
+  }
 
-  const showError = (err) => {
+  function showError(err) {
     alert(err);
-  };
+  }
 
-  function handleSearch(moviesForSearch, search, checked) {
-    console.log(moviesForSearch);
-    if (!moviesForSearch) {
-      movieApi.getMovies().then((res) => {
-        setMovies(res);
-        localStorage.setItem("movies", JSON.stringify(res));
+  function handleGetAllMovies() {
+    moviesData
+      .getMovies()
+      .then((res) => {
+        setAllMovies(res);
+      })
+      .catch((err) => {
+        showError(err);
       });
-    } else if (checked) {
-      const searchMovies = moviesForSearch.filter((i) => i.duration < 40);
-      setMovies(searchMovies);
+  }
+
+  function handleSearch(searchValue, checkboxValue, currentPath) {
+    if (currentPath === `/movies`) {
+      seachInAllMovies(searchValue, checkboxValue);
+    } else if (currentPath === `/saved-movies`) {
+      seachInSavedMovies(searchValue, checkboxValue);
+    }
+  }
+
+  function handleDurationCheck(array) {
+    const res = array.filter((m) => m.duration < 40);
+    return res;
+  }
+
+  function handleSearchCheck(array, searchValue) {
+    const res = array.filter((m) =>
+      m.description
+        .toLowerCase()
+        .replace(/[.,%]/g, "")
+        .includes(searchValue.toLowerCase())
+    );
+    return res;
+  }
+
+  function seachInSavedMovies(searchValue, checkboxValue) {
+    const moviesForSearch = JSON.parse(localStorage.getItem("saved-movies"));
+    if (moviesForSearch.length === 0) {
+      return alert("У вас нет сохраненных фильмов");
+    }
+    if (checkboxValue) {
+      const filteredMovies = handleSearchCheck(
+        handleDurationCheck(moviesForSearch),
+        searchValue
+      );
+      setFilteredSavedMovies(handleCheckMoviesArr(filteredMovies));
     } else {
-      setMovies(moviesForSearch);
+      const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
+      setFilteredSavedMovies(handleCheckMoviesArr(filteredMovies));
+    }
+  }
+
+  function seachInAllMovies(searchValue, checkboxValue) {
+      const moviesForSearch = JSON.parse(localStorage.getItem("all-movies"));;
+      if (checkboxValue) {
+        const filteredMovies = handleSearchCheck(
+          handleDurationCheck(moviesForSearch),
+          searchValue
+        );
+        setMovies(handleCheckMoviesArr(filteredMovies));
+      } else {
+        const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
+        setMovies(handleCheckMoviesArr(filteredMovies));
+      }
+  }
+
+  function handleCheckMoviesArr(array) {
+    if (array.length === 0) {
+      alert("Фильмы не найдены");
+      return [];
+    } else {
+      return array;
     }
   }
 
   function handleSaveMovie(object) {
-    console.log(object);
     setSavedMovies([object, ...savedMovies]);
   }
 
   function handleDeleteMovie(object) {
-    console.log(object);
     const newMovies = savedMovies.filter((m) => m._id !== object._id);
     setSavedMovies(newMovies);
   }
@@ -228,50 +273,46 @@ const App = () => {
   }
 
   return (
-    <>
-      <CurrentUserContext.Provider value={currentUser}>
-        <SavedMoviesContext.Provider value={savedMovies}>
-          <Header isLoggedIn={loggedIn} onClick={handleMenuClick} />
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <ProtectedRoute
-              path="/movies"
-              movies={movies}
-              isLoggedIn={loggedIn}
-              onSearchClick={handleSearch}
-              onSaveMovieClick={handleSaveMovie}
-              onDeleteMovieClick={handleDeleteMovie}
-              component={Movies}
-            />
-            <ProtectedRoute
-              path="/saved-movies"
-              isLoggedIn={loggedIn}
-              onSearchClick={handleSearch}
-              onDeleteMovieClick={handleDeleteMovie}
-              component={SavedMovies}
-            />
-            <ProtectedRoute
-              path="/profile"
-              isLoggedIn={loggedIn}
-              onLogoutClick={handleLogout}
-              onEditProfile={handleEditProfile}
-              component={Profile}
-            />
-            <Route path="/signin">
-              <Login buttonTitle="Войти" onSignIn={handleLogin} />
-            </Route>
-            <Route path="/signup">
-              <Register
-                buttonTitle="Зарегистрироваться"
-                onSignUp={handleRegister}
-              />
-            </Route>
-            <Route path="*">
-              <PageNotFound />
-            </Route>
-          </Switch>
-        </SavedMoviesContext.Provider>
-      </CurrentUserContext.Provider>
+    <CurrentUserContext.Provider value={currentUser}>
+      <Header isLoggedIn={loggedIn} onClick={handleMenuClick} />
+      <Switch>
+        <Route exact path="/" component={Main} />
+        <ProtectedRoute
+          path="/movies"
+          movies={movies}
+          isLoggedIn={loggedIn}
+          onSearchClick={handleSearch}
+          onSaveMovieClick={handleSaveMovie}
+          onDeleteMovieClick={handleDeleteMovie}
+          component={Movies}
+        />
+        <ProtectedRoute
+          path="/saved-movies"
+          isLoggedIn={loggedIn}
+          onSearchClick={handleSearch}
+          onDeleteMovieClick={handleDeleteMovie}
+          component={SavedMovies}
+        />
+        <ProtectedRoute
+          path="/profile"
+          isLoggedIn={loggedIn}
+          onLogoutClick={handleLogout}
+          onEditProfile={handleEditProfile}
+          component={Profile}
+        />
+        <Route path="/signin">
+          <Login buttonTitle="Войти" onSignIn={handleLogin} />
+        </Route>
+        <Route path="/signup">
+          <Register
+            buttonTitle="Зарегистрироваться"
+            onSignUp={handleRegister}
+          />
+        </Route>
+        <Route path="*">
+          <PageNotFound />
+        </Route>
+      </Switch>
       <Route
         path="/facebook"
         component={() => {
@@ -319,7 +360,7 @@ const App = () => {
       />
       <Footer />
       <PopupMenu isOpen={isPopupMenuOpen} onClose={closeAllPopups} />
-    </>
+    </CurrentUserContext.Provider>
   );
 };
 

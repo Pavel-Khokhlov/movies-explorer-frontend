@@ -1,5 +1,21 @@
 .profile__input {
+  width: 40vw;
   text-align: right;
   border: none;
   outline: none;
+}
+
+.profile__input:focus {
+  box-shadow: 0 0 4px rgba(52, 86, 243, 0.8);
+  border-bottom: none;
+}
+
+.profile__input:-webkit-autofill,
+.profile__input:-webkit-autofill:hover, 
+.profile__input:-webkit-autofill:focus, 
+.profile__input:-webkit-autofill:active
+{
+ -webkit-background-clip: text;
+ -webkit-border-image: none;
+ font-size: 13px;
 }

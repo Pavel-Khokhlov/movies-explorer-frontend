@@ -6,10 +6,12 @@
   display: flex;
   justify-content: space-between;
   padding: 6px;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 767px) {
   .movie {
+    width: min(300px, 93.75vw);
     padding: 0;
     flex-direction: column-reverse;
     justify-content: center;

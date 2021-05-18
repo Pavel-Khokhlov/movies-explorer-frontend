@@ -3,8 +3,10 @@
 @import url(./__aboutme/paragraph__aboutme.css);
 @import url(./__aboutproject/paragraph__aboutproject.css);
 @import url(./__portfolio/paragraph__portfolio.css);
+@import url(./__profile/paragraph__profile.css);
 @import url(./__table/paragraph__table.css);
 @import url(./__nopage/paragraph__nopage.css);
+@import url(./__saved-movies/paragraph__saved-movies.css);
 @import url(./__footer/paragraph__footer.css);
 @import url(./__label/paragraph__label.css);
 @import url(./__duration/paragraph__duration.css);

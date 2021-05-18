@@ -1,27 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import { SavedMoviesContext } from "../../context/SavedMoviesContext";
+import React from "react";
+import Button from "../Button/Button";
 import Line from "../Line/Line";
 import SearchForm from "../SearchForm/SearchForm";
 import Card from "../Card/Card";
 
 import "./SavedMovies.css";
 
-const SavedMovies = ({ onSearchClick, onDeleteMovieClick, location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-  const savedMovies = useContext(SavedMoviesContext);
-
-  useEffect(() => {
-    localStorage.setItem("local-path", JSON.stringify(currentPath));
-  }, [location]);
+const SavedMovies = ({ onSearchClick, onDeleteMovieClick }) => {
+  const filteredSavedMovies = JSON.parse(localStorage.getItem("filtered-saved-movies"));
 
   return (
     <section className="section">
       <SearchForm onSearchClick={onSearchClick}/>
       <Line className="line line__color_grey" />
       {/* MOVIES */}
-      {savedMovies && (<ul className="movies__list">
-        {savedMovies.map((movie) => {
+      {filteredSavedMovies.length > 0 && (<ul className="movies__list">
+        {filteredSavedMovies.map(movie => {
           return (
             <Card
               key={movie._id}
@@ -31,9 +25,17 @@ const SavedMovies = ({ onSearchClick, onDeleteMovieClick, location }) => {
           );
         })}
       </ul>)}
-      {savedMovies.length === 0 && (<p className="paragraph paragraph__tech text-color__grey" >Вы еще не сохранили ни одного фильма</p>)}
+      {filteredSavedMovies.length === 0 && (<p className="paragraph paragraph__saved-movies text-color__grey" >Фильмы отсутствуют</p>)}
+      {filteredSavedMovies.length > 0 && (
+        <Button
+          type="button"
+          className="button button__more bg-color__gray paragraph paragraph__size_s"
+        >
+          Ещё
+        </Button>
+      )}
     </section>
   );
 };
 
-export default withRouter(SavedMovies);
+export default SavedMovies;

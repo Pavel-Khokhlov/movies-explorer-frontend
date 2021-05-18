@@ -80,7 +80,7 @@ const Login = ({ onSignIn, buttonTitle }) => {
   };
 
   const buttonClassName = `button__submit button__submit_login ${
-    isFormValid ? "button button__submit_active" : "button button__submit_inactive"
+    isFormValid ? "button button__submit_active" : "button__submit_inactive"
   }`;
 
   return (
@@ -91,6 +91,7 @@ const Login = ({ onSignIn, buttonTitle }) => {
         buttonClassName={buttonClassName}
         onSubmit={handleSubmit}
         onValid={isFormValid}
+        disabled={!isFormValid}
       >
         <Input
           labelName="E-mail"

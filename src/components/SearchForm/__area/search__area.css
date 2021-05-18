@@ -4,7 +4,7 @@
   width: calc(100% - 38px);
   height: 72px;
   display: grid;
-  grid-template-columns: 34px auto 80px 19px 160px;
+  grid-template-columns: 34px 1fr 80px 19px 200px;
   gap: 10px;
   align-items: center;
   border-radius: 9px;

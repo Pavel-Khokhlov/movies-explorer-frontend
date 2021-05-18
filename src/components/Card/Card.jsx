@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { SavedMoviesContext } from "../../context/SavedMoviesContext";
-import api from "../../utils/MainApi.js";
+import api from "../../utils/MovieApi.js";
 import Button from "../../components/Button/Button";
 
 import "./Card.css";
 
 const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
-  const savedMovies = useContext(SavedMoviesContext);
+  const savedMovies = JSON.parse(localStorage.getItem("saved-movies"));
   const currentUser = useContext(CurrentUserContext);
   const [currentPath, setCurrentPath] = useState(location.pathname);
   const [isSaved, setIsSaved] = useState(false);
@@ -31,6 +30,9 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
 
   // IS MOVIE SAVED ?
   function checkIsSaved() {
+    if (savedMovies === null) {
+      return setIsSaved(false);
+    }
     if (
       savedMovies.some(
         (element) =>

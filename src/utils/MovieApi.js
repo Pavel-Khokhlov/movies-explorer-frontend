@@ -2,33 +2,12 @@
 const imageURL = `https://api.nomoreparties.co`;
 export const BASE_URL = "http://localhost:3000";
 
-class Api {
+class MovieApi {
   constructor(config) {
     this.url = config.url;
   }
 
-  getUserInfo(token) {
-    return fetch(`${this.url}/users/me`, {
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `${token}`,
-      },
-    }).then(this._checkPromise);
-  }
-
-  patchUserInfo(name, email, token) {
-    return fetch(`${this.url}/users/me`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        "Authorization": `${token}`,
-      },
-      body: JSON.stringify({ name, email }),
-    }).then(this._checkPromise);
-  }
-
   getSavedMovies(token) {
-    console.log(token);
     return fetch(`${this.url}/movies`, {
       headers: { 
         'Content-Type': 'application/json',
@@ -76,8 +55,8 @@ class Api {
   }
 }
 
-const api = new Api({
+const movieApi = new MovieApi({
   url: `${BASE_URL}`,
 });
 
-export default api;
+export default movieApi;

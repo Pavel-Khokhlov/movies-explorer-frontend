@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from "react-router-dom";
+import React from 'react';
 import Promo from "./Promo/Promo";
 import AboutProject from "./AboutProject/AboutProject";
 import Tech from "./Tech/Tech";
@@ -8,12 +7,7 @@ import Portfolio from "./Portfolio/Portfolio";
 
 import './Main.css';
 
-const Main = ({ location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-
-  useEffect(() => {
-    localStorage.setItem("local-path", JSON.stringify(currentPath))
-  }, [location]);
+const Main = () => {
 
   return (
     <section className="main">
@@ -26,4 +20,4 @@ const Main = ({ location }) => {
   )
 };
 
-export default withRouter(Main);
+export default Main;

@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Button from "../Button/Button";
 import Line from "../Line/Line";
@@ -7,29 +6,91 @@ import Title from "../Title/Title";
 
 import "./Profile.css";
 
-const Profile = ({ onLogoutClick, onEditProfile, location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
+const Profile = ({ onLogoutClick, onEditProfile }) => {
   const currentUser = useContext(CurrentUserContext);
   const userTitle = `Привет, ${currentUser.name}!`;
-  const [userName, setUserName] = useState(currentUser.name);
-  const [userEmail, setUserEmail] = useState(currentUser.email);
+  const [name, setName] = useState(currentUser.name);
+  const [nameErrMessage, setNameErrMessage] = useState("");
+  const [isNameValid, setIsNameValid] = useState(true);
+
+  const [email, setEmail] = useState(currentUser.email);
+  const [emailErrMessage, setEmailErrMessage] = useState("");
+  const [isEmailValid, setIsEmailValid] = useState(true);
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("local-path", JSON.stringify(currentPath))
-  }, [location]);
+    setTimeout(() => {
+      setName(currentUser.name);
+      setNameErrMessage("");
+      setIsNameValid(true);
+      setEmail(currentUser.email);
+      setEmailErrMessage("");
+      setIsEmailValid(true);
+      setIsFormValid(false);
+    }, 500);
+  }, []);
 
-  const handleChangeUserName = (e) => {
-    setUserName(e.target.value);
+  useEffect(() => {
+    validateForm();
+  }, [name, email] );
+
+  const handleChangeName = (e) => {
+    setName(e.target.value);
+    validateName(e.target.value);
   };
 
-  const handleChangeUserEmail = (e) => {
-    setUserEmail(e.target.value);
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+    validateEmail(e.target.value);
+  };
+
+  const validateName = (value) => {
+    if (!value) {
+      setNameErrMessage("Необходимо ввести имя");
+      return setIsNameValid(false);
+    }
+    if (value.length < 2) {
+      setNameErrMessage("Имя должено быть больше 2 символов");
+      return setIsNameValid(false);
+    }
+    setNameErrMessage("");
+    return setIsNameValid(true);
+  };
+
+  const validateEmail = (value) => {
+    if (!value) {
+      setEmailErrMessage("Необходимо ввести E-mail");
+      return setIsEmailValid(false);
+    }
+    if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
+      setEmailErrMessage("Введите корректный E-mail");
+      return setIsEmailValid(false);
+    }
+    setEmailErrMessage("");
+    return setIsEmailValid(true);
+  };
+
+  const validateForm = () => {
+    if (isNameValid && isEmailValid) {
+      return setIsFormValid(true);
+    }
+    return setIsFormValid(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditProfile(userName, userEmail);
+    onEditProfile(name, email);
   };
+
+  function handleLogout(e) {
+    e.preventDefault();
+    onLogoutClick();
+  }
+
+  const buttonClassName = `button__edit button__word ${
+    isFormValid ? "button button__edit_active" : "button__edit_inactive"
+  }`;
 
   return (
     <section className="profile">
@@ -38,35 +99,38 @@ const Profile = ({ onLogoutClick, onEditProfile, location }) => {
           {userTitle}
         </Title>
         <div className="profile__block">
-          <p className="paragraph">Имя</p>
+          <p className="paragraph paragraph__profile">Имя</p>
           <input
             type="text"
             className="profile__input"
-            value={userName}
-            onChange={handleChangeUserName}
+            value={name}
+            onChange={handleChangeName}
           />
         </div>
+        <p className="input__error">{nameErrMessage}</p>
         <Line className="line line__color_grey" />
         <div className="profile__block">
-          <p className="paragraph">E-mail</p>
+          <p className="paragraph paragraph__profile">E-mail</p>
           <input
             type="email"
             className="profile__input"
-            value={userEmail}
-            onChange={handleChangeUserEmail}
+            value={email}
+            onChange={handleChangeEmail}
           />
         </div>
+        <p className="input__error">{emailErrMessage}</p>
         <Button
           type="submit"
-          className="button button__edit button__word"
+          className={buttonClassName}
           onClick={handleSubmit}
+          disabled={!isFormValid}
         >
           Редактировать
         </Button>
         <Button
           type="button"
           className="button button__word text-color__red text-weight__medium"
-          onClick={onLogoutClick}
+          onClick={handleLogout}
         >
           Выйти из аккаунта
         </Button>
@@ -75,4 +139,4 @@ const Profile = ({ onLogoutClick, onEditProfile, location }) => {
   );
 };
 
-export default withRouter(Profile);
+export default Profile;

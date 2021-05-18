@@ -102,7 +102,7 @@ const Register = ({ onSignUp, buttonTitle }) => {
   };
 
   const buttonClassName = `button__submit button__submit_reg ${
-    isFormValid ? "button button__submit_active" : "button button__submit_inactive"
+    isFormValid ? "button button__submit_active" : "button__submit_inactive"
   }`;
 
   return (
@@ -113,6 +113,7 @@ const Register = ({ onSignUp, buttonTitle }) => {
         buttonClassName={buttonClassName}
         onSubmit={handleSubmit}
         onValid={isFormValid}
+        disabled={!isFormValid}
       >
         <Input
           labelName="Имя"
