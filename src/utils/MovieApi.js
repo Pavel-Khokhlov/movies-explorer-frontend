@@ -13,7 +13,7 @@ class MovieApi {
     }).then(this._checkPromise);
   }
 
-  saveMovie({ movie }, token) {
+  saveMovie({ movieForSave }, token) {
     return fetch(`${this.url}/movies`, {
       method: "POST",
       headers: {
@@ -21,23 +21,23 @@ class MovieApi {
         "Authorization": `${token}`,
       },
       body: JSON.stringify({
-        country: movie.country,
-        director: movie.director,
-        duration: movie.duration,
-        year: movie.year,
-        description: movie.description,
-        image: `${BEATFILM_URL}${movie.image ? movie.image.url : ""}`,
-        trailer: movie.trailerLink,
-        thumbnail: `${BEATFILM_URL}${movie.image.formats.thumbnail.url}`,
-        movieId: movie.id,
-        nameRU: movie.nameRU,
-        nameEN: `${movie.nameEN ? movie.nameEN : "No EN Title"}`,
+        country: movieForSave.country,
+        director: movieForSave.director,
+        duration: movieForSave.duration,
+        year: movieForSave.year,
+        description: movieForSave.description,
+        image: `${BEATFILM_URL}${movieForSave.image ? movieForSave.image.url : ""}`,
+        trailer: movieForSave.trailerLink,
+        thumbnail: `${BEATFILM_URL}${movieForSave.image ? movieForSave.image.formats.thumbnail.url : ""}`,
+        movieId: movieForSave.id,
+        nameRU: movieForSave.nameRU,
+        nameEN: `${movieForSave.nameEN ? movieForSave.nameEN : "No EN Title"}`,
       }),
     }).then(this._checkPromise);
   }
 
-  deleteMovie({ savedMovie }, token) {
-    const path = savedMovie._id;
+  deleteMovie({ movieForDelete }, token) {
+    const path = movieForDelete._id;
     return fetch(`${this.url}/movies/${path}`, {
       method: "DELETE",
       headers: {

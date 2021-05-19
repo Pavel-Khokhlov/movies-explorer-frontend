@@ -4,7 +4,7 @@ import SignForm from "../SignForm/SignForm";
 
 import "./Login.css";
 
-const Login = ({ onSignIn, buttonTitle }) => {
+const Login = ({ onSignIn, buttonTitle, formDisabled }) => {
   const [email, setEmail] = useState("");
   const [emailErrMessage, setEmailErrMessage] = useState("");
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -80,7 +80,7 @@ const Login = ({ onSignIn, buttonTitle }) => {
   };
 
   const buttonClassName = `button__submit button__submit_login ${
-    isFormValid ? "button button__submit_active" : "button__submit_inactive"
+    isFormValid && !formDisabled ? "button button__submit_active" : "button__submit_inactive"
   }`;
 
   return (
@@ -90,8 +90,6 @@ const Login = ({ onSignIn, buttonTitle }) => {
         buttonTitle={buttonTitle}
         buttonClassName={buttonClassName}
         onSubmit={handleSubmit}
-        onValid={isFormValid}
-        disabled={!isFormValid}
       >
         <Input
           labelName="E-mail"
@@ -102,6 +100,7 @@ const Login = ({ onSignIn, buttonTitle }) => {
           onChange={handleChangeEmail}
           value={email || ""}
           errors={emailErrMessage}
+          formDisabled={formDisabled}
         />
         <Input
           labelName="Пароль"
@@ -112,6 +111,7 @@ const Login = ({ onSignIn, buttonTitle }) => {
           onChange={handleChangePassword}
           value={password || ""}
           errors={passwordErrMessage}
+          formDisabled={formDisabled}
         />
       </SignForm>
     </section>

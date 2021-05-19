@@ -9,6 +9,7 @@ import "./Movies.css";
 
 const Movies = ({
   movies,
+  savedMovies,
   onSearchClick,
   onSaveMovieClick,
   onDeleteMovieClick,
@@ -23,7 +24,8 @@ const Movies = ({
       window.removeEventListener("resize", setWidth(window.innerWidth));
     };
   });
-  const count = 2;
+
+  const count = 5;
   console.log(width);
 
   return (
@@ -32,11 +34,12 @@ const Movies = ({
       <Line className="line line__color_grey" />
       {/* MOVIES */}
       <ul className="movies__list">
-        {movies.map((movie) => {
+        {movies.filter((v, i) => i < count).map((movie) => {
           return (
             <LazyLoad key={movie.description}>
               <Card
                 movie={movie}
+                savedMovies={savedMovies}
                 onSaveMovieClick={onSaveMovieClick}
                 onDeleteMovieClick={onDeleteMovieClick}
               />

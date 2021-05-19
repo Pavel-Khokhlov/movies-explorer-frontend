@@ -20,7 +20,7 @@ import PageLoad from "../PageLoad/PageLoad";
 
 import "./App.css";
 
-import { ESC_CODE } from '../../utils/config';
+import { ESC_CODE, DURATION } from "../../utils/config";
 
 import {
   ErrorEmailPassword,
@@ -36,14 +36,19 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(null);
   const [currentUser, setCurrentUser] = useState("");
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
   localStorage.setItem("movies", JSON.stringify(movies));
-  localStorage.setItem("filtered-saved-movies", JSON.stringify(filteredSavedMovies));
+  localStorage.setItem(
+    "filtered-saved-movies",
+    JSON.stringify(filteredSavedMovies)
+  );
   localStorage.setItem("all-movies", JSON.stringify(allMovies));
+  localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
 
   useEffect(() => {
     checkToken();
@@ -53,6 +58,10 @@ const App = () => {
       history.push("/");
     }
   }, [loggedIn]);
+
+  useEffect(() => {
+    setMovies([]);
+  }, []);
 
   // CLOSE POPUP BY ESC
   function handleEsc(e) {
@@ -100,6 +109,7 @@ const App = () => {
     if (!token) {
       throw RequiredAuthError;
     }
+    setDisabled(true);
     userApi
       .patchUserInfo(name, email, token)
       .then((res) => {
@@ -107,10 +117,13 @@ const App = () => {
           throw new Error(400, res.error);
         }
         setCurrentUser(res);
-        history.push("/movies");
+        history.push("/profile");
+        setDisabled(false);
+        alert("Профиль успешно изменен!");
       })
       .catch((err) => {
         showError(err);
+        setDisabled(false);
       });
   }
 
@@ -133,6 +146,7 @@ const App = () => {
 
   // AUTH LOGIN
   const handleLogin = (email, password) => {
+    setDisabled(true);
     auth
       .signin(email, password)
       .then((res) => {
@@ -143,16 +157,19 @@ const App = () => {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           history.push("/movies");
+          setDisabled(false);
         }
       })
       .catch((err) => {
         setLoggedIn(false);
         showError(err);
+        setDisabled(false);
       });
   };
 
   // AUTH REGISTRATION
   const handleRegister = (name, email, password) => {
+    setDisabled(true);
     auth
       .signup(name, email, password)
       .then((res) => {
@@ -163,10 +180,12 @@ const App = () => {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           history.push("/movies");
+          setDisabled(false);
         }
       })
       .catch((err) => {
         showError(err);
+        setDisabled(false);
       });
   };
 
@@ -207,7 +226,7 @@ const App = () => {
   }
 
   function handleDurationCheck(array) {
-    const res = array.filter((m) => m.duration < 40);
+    const res = array.filter((m) => m.duration < DURATION);
     return res;
   }
 
@@ -239,17 +258,17 @@ const App = () => {
   }
 
   function seachInAllMovies(searchValue, checkboxValue) {
-      const moviesForSearch = JSON.parse(localStorage.getItem("all-movies"));;
-      if (checkboxValue) {
-        const filteredMovies = handleSearchCheck(
-          handleDurationCheck(moviesForSearch),
-          searchValue
-        );
-        setMovies(handleCheckMoviesArr(filteredMovies));
-      } else {
-        const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
-        setMovies(handleCheckMoviesArr(filteredMovies));
-      }
+    const moviesForSearch = JSON.parse(localStorage.getItem("all-movies"));
+    if (checkboxValue) {
+      const filteredMovies = handleSearchCheck(
+        handleDurationCheck(moviesForSearch),
+        searchValue
+      );
+      setMovies(handleCheckMoviesArr(filteredMovies));
+    } else {
+      const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
+      setMovies(handleCheckMoviesArr(filteredMovies));
+    }
   }
 
   function handleCheckMoviesArr(array) {
@@ -261,15 +280,34 @@ const App = () => {
     }
   }
 
-  function handleSaveMovie(object) {
-    setSavedMovies([object, ...savedMovies]);
-    setFilteredSavedMovies([object, ...savedMovies]);
+  function handleSaveMovie(movieForSave, setIsSaved) {
+    alert("Сохранить фильм?");
+    movieApi
+      .saveMovie({ movieForSave }, token)
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies]);
+        setFilteredSavedMovies(savedMovies);
+        setIsSaved(true);
+      })
+      .catch((err) => {
+        showError(err);
+      });
   }
 
-  function handleDeleteMovie(object) {
-    const newMovies = savedMovies.filter((m) => m._id !== object._id);
-    setSavedMovies(newMovies);
-    setFilteredSavedMovies(newMovies);
+  function handleDeleteMovie({ movieForDelete }, setIsSaved) {
+    movieApi
+      .deleteMovie({ movieForDelete }, token)
+      .then((deletedMovie) => {
+        setIsSaved(false);
+        const newSavedMovies = savedMovies.filter(
+          (m) => m._id !== deletedMovie._id
+        );
+        setSavedMovies(newSavedMovies);
+        setFilteredSavedMovies(savedMovies);
+      })
+      .catch((err) => {
+        showError(err);
+      });
   }
 
   if (loggedIn === null) {
@@ -284,6 +322,7 @@ const App = () => {
         <ProtectedRoute
           path="/movies"
           movies={movies}
+          savedMovies={savedMovies}
           isLoggedIn={loggedIn}
           onSearchClick={handleSearch}
           onSaveMovieClick={handleSaveMovie}
@@ -293,6 +332,8 @@ const App = () => {
         <ProtectedRoute
           path="/saved-movies"
           isLoggedIn={loggedIn}
+          savedMovies={savedMovies}
+          resetMovies={setMovies}
           onSearchClick={handleSearch}
           onDeleteMovieClick={handleDeleteMovie}
           component={SavedMovies}
@@ -302,15 +343,21 @@ const App = () => {
           isLoggedIn={loggedIn}
           onLogoutClick={handleLogout}
           onEditProfile={handleEditProfile}
+          formDisabled={disabled}
           component={Profile}
         />
         <Route path="/signin">
-          <Login buttonTitle="Войти" onSignIn={handleLogin} />
+          <Login
+            buttonTitle="Войти"
+            onSignIn={handleLogin}
+            formDisabled={disabled}
+          />
         </Route>
         <Route path="/signup">
           <Register
             buttonTitle="Зарегистрироваться"
             onSignUp={handleRegister}
+            formDisabled={disabled}
           />
         </Route>
         <Route path="*">

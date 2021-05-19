@@ -11,10 +11,8 @@ const SignForm = ({
   buttonTitle,
   buttonClassName,
   children,
-  onValid,
   onSubmit,
   location,
-  disabled,
 }) => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
@@ -29,9 +27,7 @@ const SignForm = ({
         <Logo className="form__logo" />
         <Title className="title form__title text-weight__medium">{title}</Title>
         {children}
-        <Button className={buttonClassName} disabled={disabled}>
-          {buttonTitle}
-        </Button>
+        <Button className={buttonClassName}>{buttonTitle}</Button>
         {currentPath === "/signup" && (
           <div className="form__redirect">
             <p className="form__paragraph text-color__grey">

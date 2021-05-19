@@ -4,15 +4,14 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import api from "../../utils/MovieApi.js";
 import Button from "../../components/Button/Button";
 
+import { BEATFILM_URL, NO_IMAGE } from "../../utils/config";
+
 import "./Card.css";
 
-const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
-  const savedMovies = JSON.parse(localStorage.getItem("saved-movies"));
+const Card = ({ movie, savedMovies, location, onSaveMovieClick, onDeleteMovieClick }) => {
   const currentUser = useContext(CurrentUserContext);
   const [currentPath, setCurrentPath] = useState(location.pathname);
   const [isSaved, setIsSaved] = useState(false);
-
-  const token = localStorage.getItem("jwt");
 
   useEffect(() => {
     const { pathname } = location;
@@ -30,7 +29,7 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
 
   // IS MOVIE SAVED ?
   function checkIsSaved() {
-    if (savedMovies === null) {
+    if (savedMovies.length === 0) {
       return setIsSaved(false);
     }
     if (
@@ -47,44 +46,27 @@ const Card = ({ movie, location, onSaveMovieClick, onDeleteMovieClick }) => {
   }
 
   const URL = `${
-    movie?.image?.url
-      ? `https://api.nomoreparties.co${movie.image.url}`
-      : `https://pbs.twimg.com/media/D5go_L8W4AAI2O_.jpg`
+    movie?.image?.url ? `${BEATFILM_URL}${movie.image.url}` : NO_IMAGE
   }`;
 
   const buttonMovieClassName = `button button__movie ${
     isSaved ? "button__movie_saved" : "button__movie_unsaved"
   }`;
 
-  function handleSaveMovie() {
-    alert("Сохранить фильм?");
-    api
-      .saveMovie({ movie }, token)
-      .then((newMovie) => {
-        onSaveMovieClick(newMovie);
-      })
-      .then(() => setIsSaved(true))
-      .catch((err) => {
-        onSaveMovieClick(err);
-      });
+  function handleSaveMovie(e) {
+    e.preventDefault();
+    const movieForSave = movie;
+    onSaveMovieClick(movieForSave, setIsSaved);
   }
 
-  function handleDeleteMovie() {
-    const savedMovie = currentPath === "/movies" ? savedMovies.find(
-        (i) => Number(i.movieId) === Number(movie.id)) : movie;
+  function handleDeleteMovie(e) {
+    e.preventDefault();
+    const movieForDelete =
+      currentPath === "/movies"
+        ? savedMovies.find((i) => Number(i.movieId) === Number(movie.id))
+        : movie;
     alert("Удалить фильм?");
-    api
-      .deleteMovie({ savedMovie }, token)
-      .then((res) => {
-        setIsSaved(false);
-        return res;
-      })
-      .then((delMovie) => {
-        onDeleteMovieClick(delMovie);
-      })
-      .catch((err) => {
-        onDeleteMovieClick(err);
-      });
+    onDeleteMovieClick({ movieForDelete }, setIsSaved);
   }
 
   return (

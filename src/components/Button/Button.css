@@ -15,6 +15,7 @@
 @import url(./__submit/_login/button__submit_login.css);
 @import url(./__submit/_reg/button__submit_reg.css);
 @import url(./__word/_border/button__word_border.css);
+@import url(_inactive/button_inactive.css);
 
 .button {
   /* сброс стилей */

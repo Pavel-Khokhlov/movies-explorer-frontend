@@ -1,5 +1,4 @@
-.button__edit_inactive {
-  color: #a0a0a0;
+.button_inactive {
   pointer-events: none;
   cursor: not-allowed !important;
 }

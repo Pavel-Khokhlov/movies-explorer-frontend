@@ -7,7 +7,7 @@ const NavTab = () => {
   return (
     <div className="navtab">
       <Link
-        className={`button button__promo`}
+        className="button button__promo"
         to="more"
         spy={true}
         smooth={true}

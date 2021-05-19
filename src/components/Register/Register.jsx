@@ -4,7 +4,7 @@ import SignForm from "../SignForm/SignForm";
 
 import "./Register.css";
 
-const Register = ({ onSignUp, buttonTitle }) => {
+const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
   const [name, setName] = useState("");
   const [nameErrMessage, setNameErrMessage] = useState("");
   const [isNameValid, setIsNameValid] = useState(false);
@@ -102,7 +102,9 @@ const Register = ({ onSignUp, buttonTitle }) => {
   };
 
   const buttonClassName = `button__submit button__submit_reg ${
-    isFormValid ? "button button__submit_active" : "button__submit_inactive"
+    isFormValid && !formDisabled
+      ? "button button__submit_active"
+      : "button__submit_inactive"
   }`;
 
   return (
@@ -112,8 +114,6 @@ const Register = ({ onSignUp, buttonTitle }) => {
         buttonTitle={buttonTitle}
         buttonClassName={buttonClassName}
         onSubmit={handleSubmit}
-        onValid={isFormValid}
-        disabled={!isFormValid}
       >
         <Input
           labelName="Имя"
@@ -124,6 +124,7 @@ const Register = ({ onSignUp, buttonTitle }) => {
           onChange={handleChangeName}
           value={name || ""}
           errors={nameErrMessage}
+          formDisabled={formDisabled}
         />
         <Input
           labelName="E-mail"
@@ -134,6 +135,7 @@ const Register = ({ onSignUp, buttonTitle }) => {
           onChange={handleChangeEmail}
           value={email || ""}
           errors={emailErrMessage}
+          formDisabled={formDisabled}
         />
         <Input
           labelName="Пароль"
@@ -144,6 +146,7 @@ const Register = ({ onSignUp, buttonTitle }) => {
           onChange={handleChangePassword}
           value={password || ""}
           errors={passwordErrMessage}
+          formDisabled={formDisabled}
         />
       </SignForm>
     </section>
@@ -151,4 +154,3 @@ const Register = ({ onSignUp, buttonTitle }) => {
 };
 
 export default Register;
-

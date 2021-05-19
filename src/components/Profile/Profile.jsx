@@ -6,7 +6,7 @@ import Title from "../Title/Title";
 
 import "./Profile.css";
 
-const Profile = ({ onLogoutClick, onEditProfile }) => {
+const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
   const currentUser = useContext(CurrentUserContext);
   const userTitle = `Привет, ${currentUser.name}!`;
   const [name, setName] = useState(currentUser.name);
@@ -33,7 +33,7 @@ const Profile = ({ onLogoutClick, onEditProfile }) => {
 
   useEffect(() => {
     validateForm();
-  }, [name, email] );
+  }, [name, email]);
 
   const handleChangeName = (e) => {
     setName(e.target.value);
@@ -88,8 +88,16 @@ const Profile = ({ onLogoutClick, onEditProfile }) => {
     onLogoutClick();
   }
 
-  const buttonClassName = `button__edit button__word ${
-    isFormValid ? "button button__edit_active" : "button__edit_inactive"
+  const buttonEditClassName = `button__edit button__word ${
+    isFormValid && !formDisabled
+      ? "button button__edit_active"
+      : "button__edit_inactive"
+  }`;
+
+  const buttonLogoutClassName = `button__word ${
+    !formDisabled
+      ? "button text-color__red text-weight__medium"
+      : "button_inactive text-color__grey"
   }`;
 
   return (
@@ -105,6 +113,7 @@ const Profile = ({ onLogoutClick, onEditProfile }) => {
             className="profile__input"
             value={name}
             onChange={handleChangeName}
+            disabled={formDisabled}
           />
         </div>
         <p className="input__error">{nameErrMessage}</p>
@@ -116,20 +125,20 @@ const Profile = ({ onLogoutClick, onEditProfile }) => {
             className="profile__input"
             value={email}
             onChange={handleChangeEmail}
+            disabled={formDisabled}
           />
         </div>
         <p className="input__error">{emailErrMessage}</p>
         <Button
           type="submit"
-          className={buttonClassName}
+          className={buttonEditClassName}
           onClick={handleSubmit}
-          disabled={!isFormValid}
         >
           Редактировать
         </Button>
         <Button
           type="button"
-          className="button button__word text-color__red text-weight__medium"
+          className={buttonLogoutClassName}
           onClick={handleLogout}
         >
           Выйти из аккаунта
