@@ -1,7 +1,6 @@
-// export const BASE_URL = "https://api.pavel-khokhlov.nomoredomains.monster";
+export const BASE_URL = "https://api.pavel-khokhlov.nomoredomains.monster";
 const imageURL = `https://api.nomoreparties.co`;
-export const BASE_URL = "http://localhost:3000";
-
+// export const BASE_URL = "http://localhost:3000";
 class MovieApi {
   constructor(config) {
     this.url = config.url;

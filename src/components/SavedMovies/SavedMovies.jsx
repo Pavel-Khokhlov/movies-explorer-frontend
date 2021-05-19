@@ -26,14 +26,6 @@ const SavedMovies = ({ onSearchClick, onDeleteMovieClick }) => {
         })}
       </ul>)}
       {filteredSavedMovies.length === 0 && (<p className="paragraph paragraph__saved-movies text-color__grey" >Фильмы отсутствуют</p>)}
-      {filteredSavedMovies.length > 0 && (
-        <Button
-          type="button"
-          className="button button__more bg-color__gray paragraph paragraph__size_s"
-        >
-          Ещё
-        </Button>
-      )}
     </section>
   );
 };

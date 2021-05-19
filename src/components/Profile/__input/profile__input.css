@@ -1,5 +1,5 @@
 .profile__input {
-  width: 40vw;
+  width: min(300px, 40vw);
   text-align: right;
   border: none;
   outline: none;

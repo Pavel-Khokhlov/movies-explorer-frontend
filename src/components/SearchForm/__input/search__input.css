@@ -1,6 +1,6 @@
 .search__input {
   margin: 0;
-  padding: 0;
+  padding: 8px 0 8px 5px;
   font-size: 18px;
   line-height: 20px;
   border: none;
@@ -10,4 +10,18 @@
 
 .search__input:focus {
   border: none;
+}
+
+.search__input:focus {
+  box-shadow: 0 0 4px rgba(52, 86, 243, 0.8);
+}
+
+.search__input:-webkit-autofill,
+.search__input:-webkit-autofill:hover, 
+.search__input:-webkit-autofill:focus, 
+.search__input:-webkit-autofill:active
+{
+ -webkit-background-clip: text;
+ -webkit-border-image: none;
+ font-size: 13px;
 }

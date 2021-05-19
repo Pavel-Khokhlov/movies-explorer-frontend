@@ -13,29 +13,18 @@ const Movies = ({
   onSaveMovieClick,
   onDeleteMovieClick,
 }) => {
-  const screenWidth = window.innerWidth;
-  const [isWidth, setIsWidth] = useState(screenWidth);
+  const [width, setWidth] = useState(window.innerWidth);
 
-  //choose the screen size
-  function handleResize() {
-    if (window.innerWidth < 500) {
-      return setIsWidth(`mobile`);
-    }
-    if (window.innerWidth < 1000) {
-      return setIsWidth(`pad`);
-    }
-    if (window.innerWidth > 1000) {
-      return setIsWidth(`desktop`);
-    }
-  }
-
-  // create an event listener
   useEffect(() => {
     setTimeout(() => {
-      window.addEventListener("resize", handleResize);
-      console.log(isWidth);
+      window.addEventListener("resize", setWidth(window.innerWidth));
     }, 1000);
+    return () => {
+      window.removeEventListener("resize", setWidth(window.innerWidth));
+    };
   });
+  const count = 2;
+  console.log(width);
 
   return (
     <section className="section">

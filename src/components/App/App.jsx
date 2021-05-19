@@ -220,7 +220,7 @@ const App = () => {
   }
 
   function seachInSavedMovies(searchValue, checkboxValue) {
-    const moviesForSearch = JSON.parse(localStorage.getItem("saved-movies"));
+    const moviesForSearch = savedMovies;
     if (moviesForSearch.length === 0) {
       return alert("У вас нет сохраненных фильмов");
     }
@@ -261,11 +261,13 @@ const App = () => {
 
   function handleSaveMovie(object) {
     setSavedMovies([object, ...savedMovies]);
+    setFilteredSavedMovies([object, ...savedMovies]);
   }
 
   function handleDeleteMovie(object) {
     const newMovies = savedMovies.filter((m) => m._id !== object._id);
     setSavedMovies(newMovies);
+    setFilteredSavedMovies(newMovies);
   }
 
   if (loggedIn === null) {
