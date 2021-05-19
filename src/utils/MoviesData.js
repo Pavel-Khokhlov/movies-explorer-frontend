@@ -1,5 +1,4 @@
-export const BASE_URL = "https://api.nomoreparties.co";
-const path = "/beatfilm-movies";
+import { BEATFILM_URL, PATH } from "./config";
 
 class MovieData {
   constructor(config) {
@@ -7,7 +6,7 @@ class MovieData {
   }
 
   getMovies() {
-    return fetch(`${this.url}${path}`, {
+    return fetch(`${this.url}${PATH}`, {
       method: "GET",
       headers: {
       "Content-Type": "application/json",
@@ -21,7 +20,7 @@ class MovieData {
 }
 
 const moviesData = new MovieData({
-  url: `${BASE_URL}`
+  url: `${BEATFILM_URL}`
 });
 
 export default moviesData;

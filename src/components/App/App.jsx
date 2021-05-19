@@ -20,6 +20,8 @@ import PageLoad from "../PageLoad/PageLoad";
 
 import "./App.css";
 
+import { ESC_CODE } from '../../utils/config';
+
 import {
   ErrorEmailPassword,
   ErrorExistedEmail,
@@ -54,7 +56,7 @@ const App = () => {
 
   // CLOSE POPUP BY ESC
   function handleEsc(e) {
-    if (e.keyCode === 27) {
+    if (e.keyCode === ESC_CODE) {
       closeAllPopups();
     }
   }

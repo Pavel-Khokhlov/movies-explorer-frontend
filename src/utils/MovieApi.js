@@ -1,6 +1,4 @@
-export const BASE_URL = "https://api.pavel-khokhlov.nomoredomains.monster";
-const imageURL = `https://api.nomoreparties.co`;
-// export const BASE_URL = "http://localhost:3000";
+import { BASE_URL, BEATFILM_URL } from "./config";
 class MovieApi {
   constructor(config) {
     this.url = config.url;
@@ -28,9 +26,9 @@ class MovieApi {
         duration: movie.duration,
         year: movie.year,
         description: movie.description,
-        image: `${imageURL}${movie.image ? movie.image.url : ""}`,
+        image: `${BEATFILM_URL}${movie.image ? movie.image.url : ""}`,
         trailer: movie.trailerLink,
-        thumbnail: `${imageURL}${movie.image.formats.thumbnail.url}`,
+        thumbnail: `${BEATFILM_URL}${movie.image.formats.thumbnail.url}`,
         movieId: movie.id,
         nameRU: movie.nameRU,
         nameEN: `${movie.nameEN ? movie.nameEN : "No EN Title"}`,
