@@ -20,7 +20,7 @@ import PageLoad from "../PageLoad/PageLoad";
 
 import "./App.css";
 
-import { ESC_CODE, DURATION } from "../../utils/config";
+import { ESC_CODE, DURATION, MOBILE, PAD } from "../../utils/config";
 
 import {
   ErrorEmailPassword,
@@ -37,9 +37,10 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [count, setCount] = useState({
-    count: 4,
+  const [state, setState] = useState({
+    count: 0,
   });
+  // const [stateMovie, setStateMovie] = useState();
 
   const [allMovies, setAllMovies] = useState([]);
   const [filteredAllMovies, setFilteredAllMovies] = useState([]);
@@ -51,7 +52,6 @@ const App = () => {
 
   useEffect(() => {
     checkToken();
-    setCount({ count: 4 });
     if (loggedIn === true) {
       history.push("/movies");
     } else {
@@ -59,9 +59,47 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  // useEffect(() => {
-  //   setMovies([]);
-  // }, []);
+  // DEFINE SCREEN WIDTH
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const delayHandleWidth = delay(function defineWidth() {
+      setWidth(window.innerWidth);
+    }, 1000);
+    window.addEventListener("resize", delayHandleWidth);
+    return (_) => {
+      window.removeEventListener("resize", delayHandleWidth);
+    };
+  });
+
+  function delay(fn, ms) {
+    let timer;
+    return (_) => {
+      clearTimeout(timer);
+      timer = setTimeout((_) => {
+        timer = null;
+        fn.apply(this, arguments);
+      }, ms);
+    };
+  }
+
+  function handleDefineScreen() {
+    if (width < MOBILE) {
+      return setState({
+        count: 5,
+      });
+    }
+    if (width < PAD) {
+      return setState({
+        count: 6,
+      });
+    }
+    if (width > PAD) {
+      return setState({
+        count: 8,
+      });
+    }
+  }
 
   // CLOSE POPUP BY ESC
   function handleEsc(e) {
@@ -215,7 +253,7 @@ const App = () => {
 
   // Fn SEARCH REQUEST
   function handleSearch(searchValue, checkboxValue, currentPath) {
-    setCount({ count: 4 });
+    handleDefineScreen();
     if (currentPath === `/movies`) {
       seachInAllMovies(searchValue, checkboxValue);
     } else if (currentPath === `/saved-movies`) {
@@ -281,7 +319,7 @@ const App = () => {
   }
 
   function handleGetMoreMoviesClick() {
-    setCount((prevState, prevProps) => {
+    setState((prevState, prevProps) => {
       return { count: prevState.count + 4 };
     });
   }
@@ -332,7 +370,7 @@ const App = () => {
         <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/movies"
-          count={count.count}
+          count={state.count}
           filteredAllMovies={filteredAllMovies}
           savedMovies={savedMovies}
           isLoggedIn={loggedIn}
