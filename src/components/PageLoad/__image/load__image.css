@@ -1,4 +1,4 @@
 .load__image {
   display: block;
-  width: 200px;
+  width: min(150px, 20vw);
 }

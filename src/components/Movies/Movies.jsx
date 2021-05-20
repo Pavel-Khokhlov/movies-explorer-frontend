@@ -8,11 +8,13 @@ import Card from "../Card/Card";
 import "./Movies.css";
 
 const Movies = ({
-  movies,
+  count,
+  filteredAllMovies,
   savedMovies,
   onSearchClick,
   onSaveMovieClick,
   onDeleteMovieClick,
+  onGetMoreMoviesClick,
 }) => {
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -25,8 +27,12 @@ const Movies = ({
     };
   });
 
-  const count = 5;
   console.log(width);
+
+  function handleMoreClick(e) {
+    e.preventDefault();
+    onGetMoreMoviesClick();
+  }
 
   return (
     <section className="section">
@@ -34,7 +40,7 @@ const Movies = ({
       <Line className="line line__color_grey" />
       {/* MOVIES */}
       <ul className="movies__list">
-        {movies.filter((v, i) => i < count).map((movie) => {
+        {filteredAllMovies.filter((v, i) => i < count).map((movie) => {
           return (
             <LazyLoad key={movie.description}>
               <Card
@@ -47,10 +53,11 @@ const Movies = ({
           );
         })}
       </ul>
-      {movies.length > 0 && (
+      {filteredAllMovies.length > count && (
         <Button
           type="button"
           className="button button__more bg-color__gray paragraph paragraph__size_s"
+          onClick={handleMoreClick}
         >
           Ещё
         </Button>

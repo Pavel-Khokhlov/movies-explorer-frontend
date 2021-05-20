@@ -6,18 +6,18 @@ import Card from "../Card/Card";
 import "./SavedMovies.css";
 
 const SavedMovies = ({
-  resetMovies,
+  resetFilteredAllMovies,
+  setFilteredSavedMovies,
   savedMovies,
+  filteredSavedMovies,
   onSearchClick,
   onDeleteMovieClick,
 }) => {
-  const filteredSavedMovies = JSON.parse(
-    localStorage.getItem("filtered-saved-movies")
-  );
 
   useEffect(() => {
-    resetMovies([]);
-  }, []);
+    resetFilteredAllMovies([]);
+    setFilteredSavedMovies(savedMovies);
+  }, [savedMovies]);
 
   return (
     <section className="section">

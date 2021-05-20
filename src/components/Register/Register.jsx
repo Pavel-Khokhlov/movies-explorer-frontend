@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Input/Input.jsx";
 import SignForm from "../SignForm/SignForm";
+import PageServerRequest from "../PageServerRequest/PageServerRequest";
 
 import "./Register.css";
 
@@ -107,6 +108,10 @@ const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
       : "button__submit_inactive"
   }`;
 
+  const pageServerRequestClassName = `${
+    !formDisabled ? "server-request_inactive" : "server-request server-request_active"
+  }`;
+
   return (
     <section className="register">
       <SignForm
@@ -149,6 +154,7 @@ const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
           formDisabled={formDisabled}
         />
       </SignForm>
+      <PageServerRequest className={pageServerRequestClassName} />
     </section>
   );
 };

@@ -1,0 +1,15 @@
+.movie__spinner {
+  width: min(150px, 20vw);
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.movie__spinner_active {
+  display: block
+}
+
+.movie__spinner_inactive {
+  display: none;
+}

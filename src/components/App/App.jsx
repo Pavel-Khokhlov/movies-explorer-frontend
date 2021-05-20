@@ -37,21 +37,21 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState("");
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [count, setCount] = useState({
+    count: 4,
+  });
 
-  const [movies, setMovies] = useState([]);
+  const [allMovies, setAllMovies] = useState([]);
+  const [filteredAllMovies, setFilteredAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-  const [allMovies, setAllMovies] = useState([]);
-  localStorage.setItem("movies", JSON.stringify(movies));
-  localStorage.setItem(
-    "filtered-saved-movies",
-    JSON.stringify(filteredSavedMovies)
-  );
-  localStorage.setItem("all-movies", JSON.stringify(allMovies));
-  localStorage.setItem("saved-movies", JSON.stringify(savedMovies));
+
+  localStorage.setItem("allMovies", JSON.stringify(allMovies));
+  localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
 
   useEffect(() => {
     checkToken();
+    setCount({ count: 4 });
     if (loggedIn === true) {
       history.push("/movies");
     } else {
@@ -59,9 +59,9 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  useEffect(() => {
-    setMovies([]);
-  }, []);
+  // useEffect(() => {
+  //   setMovies([]);
+  // }, []);
 
   // CLOSE POPUP BY ESC
   function handleEsc(e) {
@@ -105,7 +105,7 @@ const App = () => {
   }
 
   // API PATCH USER INFO ++++
-  function handleEditProfile(name, email) {
+  function handleEditProfile(name, email, setIsFormValid) {
     if (!token) {
       throw RequiredAuthError;
     }
@@ -119,6 +119,7 @@ const App = () => {
         setCurrentUser(res);
         history.push("/profile");
         setDisabled(false);
+        setIsFormValid(false);
         alert("Профиль успешно изменен!");
       })
       .catch((err) => {
@@ -195,17 +196,12 @@ const App = () => {
     setCurrentUser("");
     setAllMovies([]);
     setSavedMovies([]);
-    setMovies([]);
     localStorage.removeItem("jwt");
-    localStorage.removeItem("movies");
-    localStorage.removeItem("filtered-saved-movies");
-    localStorage.removeItem("all-movies");
+    localStorage.removeItem("allMovies");
+    localStorage.removeItem("savedMovies");
   }
 
-  function showError(err) {
-    alert(err);
-  }
-
+  // Fn GET ALL MOVIES
   function handleGetAllMovies() {
     moviesData
       .getMovies()
@@ -217,7 +213,9 @@ const App = () => {
       });
   }
 
+  // Fn SEARCH REQUEST
   function handleSearch(searchValue, checkboxValue, currentPath) {
+    setCount({ count: 4 });
     if (currentPath === `/movies`) {
       seachInAllMovies(searchValue, checkboxValue);
     } else if (currentPath === `/saved-movies`) {
@@ -225,6 +223,7 @@ const App = () => {
     }
   }
 
+  // DURATION CHECK
   function handleDurationCheck(array) {
     const res = array.filter((m) => m.duration < DURATION);
     return res;
@@ -250,28 +249,29 @@ const App = () => {
         handleDurationCheck(moviesForSearch),
         searchValue
       );
-      setFilteredSavedMovies(handleCheckMoviesArr(filteredMovies));
+      setFilteredSavedMovies(handleCheckMoviesArray(filteredMovies));
     } else {
       const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
-      setFilteredSavedMovies(handleCheckMoviesArr(filteredMovies));
+      setFilteredSavedMovies(handleCheckMoviesArray(filteredMovies));
     }
   }
 
+  // SEARCH IN ALL MOVIES
   function seachInAllMovies(searchValue, checkboxValue) {
-    const moviesForSearch = JSON.parse(localStorage.getItem("all-movies"));
+    const moviesForSearch = allMovies;
     if (checkboxValue) {
       const filteredMovies = handleSearchCheck(
         handleDurationCheck(moviesForSearch),
         searchValue
       );
-      setMovies(handleCheckMoviesArr(filteredMovies));
+      setFilteredAllMovies(handleCheckMoviesArray(filteredMovies));
     } else {
       const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
-      setMovies(handleCheckMoviesArr(filteredMovies));
+      setFilteredAllMovies(handleCheckMoviesArray(filteredMovies));
     }
   }
 
-  function handleCheckMoviesArr(array) {
+  function handleCheckMoviesArray(array) {
     if (array.length === 0) {
       alert("Фильмы не найдены");
       return [];
@@ -280,20 +280,28 @@ const App = () => {
     }
   }
 
+  function handleGetMoreMoviesClick() {
+    setCount((prevState, prevProps) => {
+      return { count: prevState.count + 4 };
+    });
+  }
+
+  // Fn SAVE MOVIE
   function handleSaveMovie(movieForSave, setIsSaved) {
     alert("Сохранить фильм?");
     movieApi
       .saveMovie({ movieForSave }, token)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
-        setFilteredSavedMovies(savedMovies);
         setIsSaved(true);
+        alert("Фильм сохранен в вашей коллекции!");
       })
       .catch((err) => {
         showError(err);
       });
   }
 
+  // Fn DELETE MOVIE
   function handleDeleteMovie({ movieForDelete }, setIsSaved) {
     movieApi
       .deleteMovie({ movieForDelete }, token)
@@ -303,17 +311,20 @@ const App = () => {
           (m) => m._id !== deletedMovie._id
         );
         setSavedMovies(newSavedMovies);
-        setFilteredSavedMovies(savedMovies);
+        alert("Фильм успешно удален!");
       })
       .catch((err) => {
         showError(err);
       });
   }
 
+  function showError(err) {
+    alert(err);
+  }
+
   if (loggedIn === null) {
     return <PageLoad />;
   }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header isLoggedIn={loggedIn} onClick={handleMenuClick} />
@@ -321,21 +332,26 @@ const App = () => {
         <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/movies"
-          movies={movies}
+          count={count.count}
+          filteredAllMovies={filteredAllMovies}
           savedMovies={savedMovies}
           isLoggedIn={loggedIn}
           onSearchClick={handleSearch}
           onSaveMovieClick={handleSaveMovie}
           onDeleteMovieClick={handleDeleteMovie}
+          onGetMoreMoviesClick={handleGetMoreMoviesClick}
           component={Movies}
         />
         <ProtectedRoute
           path="/saved-movies"
           isLoggedIn={loggedIn}
           savedMovies={savedMovies}
-          resetMovies={setMovies}
+          filteredSavedMovies={filteredSavedMovies}
+          resetFilteredAllMovies={setFilteredAllMovies}
+          setFilteredSavedMovies={setFilteredSavedMovies}
           onSearchClick={handleSearch}
           onDeleteMovieClick={handleDeleteMovie}
+          formDisabled={disabled}
           component={SavedMovies}
         />
         <ProtectedRoute

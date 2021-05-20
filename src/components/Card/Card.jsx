@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import api from "../../utils/MovieApi.js";
 import Button from "../../components/Button/Button";
 
 import { BEATFILM_URL, NO_IMAGE } from "../../utils/config";
@@ -49,10 +48,6 @@ const Card = ({ movie, savedMovies, location, onSaveMovieClick, onDeleteMovieCli
     movie?.image?.url ? `${BEATFILM_URL}${movie.image.url}` : NO_IMAGE
   }`;
 
-  const buttonMovieClassName = `button button__movie ${
-    isSaved ? "button__movie_saved" : "button__movie_unsaved"
-  }`;
-
   function handleSaveMovie(e) {
     e.preventDefault();
     const movieForSave = movie;
@@ -81,14 +76,14 @@ const Card = ({ movie, savedMovies, location, onSaveMovieClick, onDeleteMovieCli
         {currentPath === "/movies" && !isSaved && (
           <Button
             type="button"
-            className={buttonMovieClassName}
+            className="button button__movie button__movie_unsaved"
             onClick={handleSaveMovie}
           />
         )}
         {currentPath === "/movies" && isSaved && (
           <Button
             type="button"
-            className={buttonMovieClassName}
+            className="button button__movie button__movie_saved"
             onClick={handleDeleteMovie}
           />
         )}

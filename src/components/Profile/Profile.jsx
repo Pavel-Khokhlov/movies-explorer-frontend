@@ -3,6 +3,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Button from "../Button/Button";
 import Line from "../Line/Line";
 import Title from "../Title/Title";
+import PageServerRequest from "../PageServerRequest/PageServerRequest";
 
 import "./Profile.css";
 
@@ -80,7 +81,7 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditProfile(name, email);
+    onEditProfile(name, email, setIsFormValid);
   };
 
   function handleLogout(e) {
@@ -98,6 +99,10 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
     !formDisabled
       ? "button text-color__red text-weight__medium"
       : "button_inactive text-color__grey"
+  }`;
+
+  const pageServerRequestClassName = `${
+    !formDisabled ? "server-request_inactive" : "server-request server-request_active"
   }`;
 
   return (
@@ -144,6 +149,7 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
           Выйти из аккаунта
         </Button>
       </form>
+      <PageServerRequest className={pageServerRequestClassName} />
     </section>
   );
 };
