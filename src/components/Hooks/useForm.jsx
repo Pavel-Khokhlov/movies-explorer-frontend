@@ -1,6 +1,8 @@
 import { useState, useContext, useCallback } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
+import { REG_EMAIL, REG_PASSWORD } from "../../utils/config";
+
 export function useForm() {
   const [values, setValues] = useState({});
 
@@ -31,19 +33,26 @@ export function useFormWithValidation() {
     }
     if (target.name === "email") {
       if (target.value.length === 0) {
-        return "Необходимо ввести E-mail";
+        return "Необходимо ввести E-mail!";
       }
-      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(target.value)) {
-        return "Введите корректный E-mail";
+      if (!REG_EMAIL.test(target.value)) {
+        return "Введите корректный E-mail!";
+      }
+      return "";
+    }
+    if(target.name === "password") {
+      if (target.value.length === 0) {
+        return "Необходимо ввести пароль!";
+      }
+      if (target.value.length < 8) {
+        return "Пароль должен быть больше 8 символов!";
+      }
+      if (!REG_PASSWORD.test(target.value)) {
+        return "Пароль должен содержать цифры, символы, строчные и прописные буквы!";
       }
       return "";
     }
   };
-
-  //const checkFormValidity = (form) => {
-  //  const inputErrors = [form.querySelectorAll(".input__error")];
-  //  console.log(inputErrors.some((i) => i.innerText !== ""));
-  //};
 
   const handleChange = (e) => {
     const target = e.target;

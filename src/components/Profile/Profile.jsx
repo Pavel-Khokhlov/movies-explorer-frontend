@@ -7,6 +7,7 @@ import PageServerRequest from "../PageServerRequest/PageServerRequest";
 import { useFormWithValidation } from "../Hooks/useForm.jsx";
 
 import "./Profile.css";
+import { REG_EMAIL } from "../../utils/config";
 
 const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -81,6 +82,7 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
             value={values.email || ""}
             onChange={handleChange}
             disabled={formDisabled}
+            pattern={REG_EMAIL}
             required
           />
         </div>
