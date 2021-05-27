@@ -36,12 +36,11 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(null);
   const [currentUser, setCurrentUser] = useState("");
   const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [state, setState] = useState({
     count: 0,
   });
-  // const [stateMovie, setStateMovie] = useState();
-
+  
   const [allMovies, setAllMovies] = useState([]);
   const [filteredAllMovies, setFilteredAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
@@ -143,11 +142,11 @@ const App = () => {
   }
 
   // API PATCH USER INFO ++++
-  function handleEditProfile(name, email, setIsFormValid) {
+  function handleEditProfile(name, email) {
     if (!token) {
       throw RequiredAuthError;
     }
-    setDisabled(true);
+    setIsFormDisabled(true);
     userApi
       .patchUserInfo(name, email, token)
       .then((res) => {
@@ -156,13 +155,12 @@ const App = () => {
         }
         setCurrentUser(res);
         history.push("/profile");
-        setDisabled(false);
-        setIsFormValid(false);
+        setIsFormDisabled(false);
         alert("Профиль успешно изменен!");
       })
       .catch((err) => {
         showError(err);
-        setDisabled(false);
+        setIsFormDisabled(false);
       });
   }
 
@@ -185,7 +183,7 @@ const App = () => {
 
   // AUTH LOGIN
   const handleLogin = (email, password) => {
-    setDisabled(true);
+    setIsFormDisabled(true);
     auth
       .signin(email, password)
       .then((res) => {
@@ -196,19 +194,19 @@ const App = () => {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           history.push("/movies");
-          setDisabled(false);
+          setIsFormDisabled(false);
         }
       })
       .catch((err) => {
         setLoggedIn(false);
         showError(err);
-        setDisabled(false);
+        setIsFormDisabled(false);
       });
   };
 
   // AUTH REGISTRATION
   const handleRegister = (name, email, password) => {
-    setDisabled(true);
+    setIsFormDisabled(true);
     auth
       .signup(name, email, password)
       .then((res) => {
@@ -219,12 +217,12 @@ const App = () => {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
           history.push("/movies");
-          setDisabled(false);
+          setIsFormDisabled(false);
         }
       })
       .catch((err) => {
         showError(err);
-        setDisabled(false);
+        setIsFormDisabled(false);
       });
   };
 
@@ -389,7 +387,7 @@ const App = () => {
           setFilteredSavedMovies={setFilteredSavedMovies}
           onSearchClick={handleSearch}
           onDeleteMovieClick={handleDeleteMovie}
-          formDisabled={disabled}
+          formDisabled={isFormDisabled}
           component={SavedMovies}
         />
         <ProtectedRoute
@@ -397,21 +395,21 @@ const App = () => {
           isLoggedIn={loggedIn}
           onLogoutClick={handleLogout}
           onEditProfile={handleEditProfile}
-          formDisabled={disabled}
+          formDisabled={isFormDisabled}
           component={Profile}
         />
         <Route path="/signin">
           <Login
             buttonTitle="Войти"
             onSignIn={handleLogin}
-            formDisabled={disabled}
+            formDisabled={isFormDisabled}
           />
         </Route>
         <Route path="/signup">
           <Register
             buttonTitle="Зарегистрироваться"
             onSignUp={handleRegister}
-            formDisabled={disabled}
+            formDisabled={isFormDisabled}
           />
         </Route>
         <Route path="*">

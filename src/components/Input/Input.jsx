@@ -22,6 +22,7 @@ const Input = ({
         onChange={onChange}
         value={value || ""}
         disabled={formDisabled}
+        required
       />
       <p className="input__error">{errors}</p>
     </label>

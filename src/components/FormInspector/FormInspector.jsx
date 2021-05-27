@@ -4,8 +4,8 @@ import React, { useCallback } from "./react";
 export function useForm() {
   const [values, setValues] = React.useState({});
 
-  const handleChange = (event) => {
-    const target = event.target;
+  const handleChange = (e) => {
+    const target = e.target;
     const value = target.value;
     const name = target.name;
     setValues({...values, [name]: value});
@@ -20,8 +20,8 @@ export function useFormWithValidation() {
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
 
-  const handleChange = (event) => {
-    const target = event.target;
+  const handleChange = (e) => {
+    const target = e.target;
     const name = target.name;
     const value = target.value;
     setValues({...values, [name]: value});

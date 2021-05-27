@@ -4,6 +4,19 @@
 
 .promo {
   margin: 0;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  height: calc(100vh - 74px);
   background-color: #dddee3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+  .promo {
+    padding-top: max(30px, min(30px + calc((100vw - 320px) / 4), 140px));
+    padding-bottom: max(30px, min(30px + calc((100vw - 320px) / 9.74), 75px));
+  }
 }
