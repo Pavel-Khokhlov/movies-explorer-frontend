@@ -7,8 +7,22 @@
 .form {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 140px);
   display: flex;
   justify-content: center;
-  padding-top: 70px;
+  padding: 70px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .form {
+    height: calc(100vh - 464px);
+    padding: 232px 0;
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .form {
+    height: calc(100vh - 86px);
+    padding: 56px 0 30px;
+  }
 }

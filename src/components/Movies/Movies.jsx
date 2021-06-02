@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LazyLoad from "react-lazyload";
 import SearchForm from "../SearchForm/SearchForm";
 import Line from "../Line/Line";
@@ -16,6 +16,7 @@ const Movies = ({
   onDeleteMovieClick,
   onGetMoreMoviesClick,
 }) => {
+
   function handleMoreClick(e) {
     e.preventDefault();
     onGetMoreMoviesClick();

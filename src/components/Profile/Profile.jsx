@@ -7,7 +7,7 @@ import PageServerRequest from "../PageServerRequest/PageServerRequest";
 import { useFormWithValidation } from "../Hooks/useForm.jsx";
 
 import "./Profile.css";
-import { REG_EMAIL } from "../../utils/config";
+import { PATTERN_EMAIL } from "../../utils/config";
 
 const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -19,15 +19,7 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
     resetFormCurrentUser();
   }, [resetFormCurrentUser]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onEditProfile(values.name, values.email);
-  };
-
-  function handleLogout(e) {
-    e.preventDefault();
-    onLogoutClick();
-  }
+  const newValueEmail = String(values.email).toLowerCase();
 
   const buttonEditClassName = `button__edit button__word ${
     isValid && !formDisabled
@@ -46,6 +38,16 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
       ? "server-request_inactive"
       : "server-request server-request_active"
   }`;
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onEditProfile(values.name, newValueEmail);
+  };
+
+  function handleLogout(e) {
+    e.preventDefault();
+    onLogoutClick();
+  }
 
   return (
     <section className="profile">
@@ -82,7 +84,7 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
             value={values.email || ""}
             onChange={handleChange}
             disabled={formDisabled}
-            pattern={REG_EMAIL}
+            pattern={PATTERN_EMAIL}
             required
           />
         </div>

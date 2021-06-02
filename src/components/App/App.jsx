@@ -251,6 +251,8 @@ const App = () => {
 
   // Fn SEARCH REQUEST
   function handleSearch(searchValue, checkboxValue, currentPath) {
+    setFilteredAllMovies([]);
+    setFilteredSavedMovies([]);
     handleDefineScreen();
     if (currentPath === `/movies`) {
       seachInAllMovies(searchValue, checkboxValue);
@@ -417,48 +419,9 @@ const App = () => {
         </Route>
       </Switch>
       <Route
-        path="/facebook"
-        component={() => {
-          window.location.href = "https://www.facebook.com/";
-        }}
-      />
-      <Route
-        path="/github"
-        component={() => {
-          window.location.href = "https://github.com/Pavel-Khokhlov/";
-        }}
-      />
-      <Route
         path="/google"
         component={() => {
           window.location.href = "https://www.google.com/";
-        }}
-      />
-      <Route
-        path="/yandex"
-        component={() => {
-          window.location.href = "https://praktikum.yandex.ru/";
-        }}
-      />
-      <Route
-        path="/mesto"
-        component={() => {
-          window.location.href =
-            "https://pavel-khokhlov.github.io/mesto-react/";
-        }}
-      />
-      <Route
-        path="/travel"
-        component={() => {
-          window.location.href =
-            "https://pavel-khokhlov.github.io/russian-travel/index.html";
-        }}
-      />
-      <Route
-        path="/how-to-learn"
-        component={() => {
-          window.location.href =
-            "https://github.com/Pavel-Khokhlov/how-to-learn";
         }}
       />
       <Footer />

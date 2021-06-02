@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
@@ -36,22 +35,24 @@ const AboutMe = () => {
           </Paragraph>
           <ul className="aboutme__links">
             <li>
-              <NavLink
-                target="_blank"
-                to="/facebook"
+              <a
+                href="https://facebook.com"
                 className="button aboutme__link"
+                target="_blank"
+                rel="noreferrer"
               >
                 Facebook
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink
-                target="_blank"
-                to="/github"
+              <a
+                href="https://github.com/Pavel-Khokhlov/"
                 className="button aboutme__link"
+                target="_blank"
+                rel="noreferrer"
               >
                 GitHub
-              </NavLink>
+              </a>
             </li>
           </ul>
         </div>

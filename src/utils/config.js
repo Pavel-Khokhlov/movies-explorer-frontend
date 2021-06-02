@@ -14,6 +14,9 @@ export const DURATION = 40;
 export const MOBILE = 500;
 export const PAD = 800;
 
+// export const REG_NAME = /^[^@]+@[^@.]+\.[^@]+$/;
+// export const PATTERN_NAME = `^[^@]+@[^@.]+\.[^@]+$`;
+
 export const REG_EMAIL = /^[^@]+@[^@.]+\.[^@]+$/;
 export const PATTERN_EMAIL = `^[^@]+@[^@.]+\.[^@]+$`;
 
