@@ -7,7 +7,13 @@ import { BEATFILM_URL, NO_IMAGE } from "../../utils/config";
 
 import "./Card.css";
 
-const Card = ({ movie, savedMovies, location, onSaveMovieClick, onDeleteMovieClick }) => {
+const Card = ({
+  movie,
+  savedMovies,
+  location,
+  onSaveMovieClick,
+  onDeleteMovieClick,
+}) => {
   const currentUser = useContext(CurrentUserContext);
   const [currentPath, setCurrentPath] = useState(location.pathname);
   const [isSaved, setIsSaved] = useState(false);
@@ -18,26 +24,30 @@ const Card = ({ movie, savedMovies, location, onSaveMovieClick, onDeleteMovieCli
   }, [location]);
 
   useEffect(() => {
-    checkIsSaved();
-  }, []);
+    if (currentPath === "/movies"){
+      checkIsSaved();
+    }   
+  }, [currentPath]);
 
   // DURATION
   const Hours = Math.floor(movie.duration / 60);
   const Minuts = movie.duration % 60;
   const Duration = `${Hours}ч ${Minuts}мин`;
 
+  function checkSavedMovie() {
+    debugger;
+    return savedMovies.some(
+      (item) =>
+        item.owner._id === currentUser._id && item.movieId === movie.id
+    );
+  }
+
   // IS MOVIE SAVED ?
   function checkIsSaved() {
     if (savedMovies.length === 0) {
       return setIsSaved(false);
     }
-    if (
-      savedMovies.some(
-        (element) =>
-          element.owner._id === currentUser._id &&
-          element.description === movie.description
-      )
-    ) {
+    if (checkSavedMovie()) {
       setIsSaved(true);
     } else {
       setIsSaved(false);
