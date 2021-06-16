@@ -1,6 +1,6 @@
 # MOVIES PROJECT
 
-[Link to the movies project](https://pavel-khokhlov.nomoredomains.monster/).
+[Link to the movies project](https://pavel-khokhlov.github.io/movies-explorer-frontend).
 
 ## Available Scripts
 
