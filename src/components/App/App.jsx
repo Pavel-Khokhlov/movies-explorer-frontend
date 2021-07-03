@@ -370,10 +370,10 @@ const App = () => {
         <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/movies"
+          isLoggedIn={loggedIn}
           count={state.count}
           filteredAllMovies={filteredAllMovies}
           savedMovies={savedMovies}
-          isLoggedIn={loggedIn}
           onSearchClick={handleSearch}
           onSaveMovieClick={handleSaveMovie}
           onDeleteMovieClick={handleDeleteMovie}

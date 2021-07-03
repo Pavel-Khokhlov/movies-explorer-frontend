@@ -8,7 +8,7 @@
   .title__promo {
     font-size: 40px;
     width: 88%;
-    margin-bottom: 22px;
+    margin-bottom: max(16px, min(16px + calc((100vw - 320px) / 75), 22px));
   }
 }
 

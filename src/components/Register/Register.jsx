@@ -60,7 +60,6 @@ const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
           value={values.email || ""}
           errors={errors.email}
           formDisabled={formDisabled}
-          pattern={PATTERN_EMAIL}
         />
         <Input
           labelName="Пароль"
@@ -72,7 +71,6 @@ const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
           value={values.password || ""}
           errors={errors.password}
           formDisabled={formDisabled}
-          pattern={PATTERN_PASSWORD}
         />
       </SignForm>
       <PageServerRequest className={pageServerRequestClassName} />

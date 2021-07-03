@@ -1,12 +1,15 @@
 .promo__info {
   display: flex;
   justify-content: space-between;
+  padding-top: 75px;
 }
 
 @media only screen and (max-width: 768px) {
   .promo__info {
     flex-direction: column-reverse;
     align-items: center;
-    gap: max(22px, min(22px + calc((100vw - 320px) / 17.23), 48px));
+    gap: max(16px, min(16px + calc((100vw - 320px) / 14), 48px));
+    padding-top: max(20px, min(20px + calc((100vw - 320px) / 3.7), 140px));
+    padding-bottom: max(20px, min(20px + calc((100vw - 320px) / 3.7), 140px));
   }
 }

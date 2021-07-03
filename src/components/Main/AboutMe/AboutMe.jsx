@@ -2,36 +2,57 @@ import React from "react";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
-import Line from "../../Line/Line";
-import Portrait from "../../../images/portrait.jpg";
+import Portrait from "../../../images/my_portrait.jpg";
 
 import "./AboutMe.css";
 
 const AboutMe = () => {
   return (
-    <section className="section aboutme">
-      <SubTitle className={`subtitle subtitle__layout_main subtitle__size_xl`}>
-        Студент
+    <section className="section aboutme" id="aboutme">
+      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
+        Web-разработчик
       </SubTitle>
-      <Line className={`line line__color_black`} />
       <article className="aboutme__block">
         <div className="aboutme__text">
           <Title className="title title__aboutme">Павел Хохлов</Title>
-          <Title className={`subtitle title__main subtitle__size_m`}>
+          <Title className="subtitle title__main subtitle__size_m">
             Фронтенд-разработчик, 43 года
           </Title>
-          <Paragraph className="paregraph paragraph__aboutme">
-            Я родился в Приморском крае. Получил высшее образование по
-            специальности радиоинженер. Некоророе время работал на нефте-газовых
-            проектах как радиоинженер и IT support на острове Сахалин. После
-            переезда в подмосковье увлекся фотографией и массажем. Первое
-            знакомство с HTML и CSS произошло в 2012 году, даже написал
-            небольшой статичный сайт для себя. Сейчас решил вернуться к
-            программированию, это меня увлекает. Вижу, что технологии очень
-            сильно изменились с 2012 года. С Яндекс-Практикум разобрался со
-            взаимодействием разных сервисов и основами серверной части. В
-            поисках работы в IT сфере. Занимаюсь плаванием, бегом и ездой на
-            велосипеде.
+          <Paragraph className="paragraph paragraph__aboutme">
+            Я родился в Приморском крае. Получил высшее образование и долгое
+            время работал инженером по телекоммуникациям и предоставлял
+            IT поддержку пользователям на нефтегазовом проекте. Впервые
+            познакомился с HTML, CSS в 2012 году. Написал свой первый сайт и
+            загрузил его на хостинг. В 2020 году решил упорядочить свои знания и
+            прошел курс по Фронтенд разработке в Яндекс-Практикум. Полученные
+            знания готов применять на практике и в проектах. Изученные
+            технологии: HTML, CSS, JavaScripts, WebPack, ReactJS, Figma, GitHub,
+            Gist, NodeJS, Express, MongoDB, VS-Code.
+          </Paragraph>
+          <Title className="subtitle title__main subtitle__size_m">
+            Образование
+          </Title>
+          <Paragraph className="paragraph paragraph__aboutme">
+            06.2020 - 06.2021 Яндекс.Практикум (АНО ДПО «ШАД») Программа
+            профессиональной переподготовки. «Веб-разработчик» в объёме 560
+            часов.
+          </Paragraph>
+          <Paragraph className="paragraph paragraph__aboutme">
+            03.2016 - 11.2016 г. Москва, Академия Фотографии, Дизайна и Мультимедиа, Фотошкола - Фотограф по программе профессионального доолнительного образования "Фотограф".
+          </Paragraph>
+          <Paragraph className="paragraph paragraph__aboutme">
+            02.2008 - 05.2008 Новгородский Государственный Университет им.
+            Ярослава Мудрого, Свидетельство о повышении квалификации по
+            программе «Сетевая Академия Cisco» CCNA.
+          </Paragraph>
+          <Paragraph className="paragraph paragraph__aboutme">
+            07.1994 - 02.2000 г. Владивосток Дальневосточная Государственная
+            Морская Академия им. адмирала Г.И. Невельского. Квалификация радиоинженер по
+            специальности Техническая Эксплуатация Транспортного
+            Радиооборудования
+          </Paragraph>
+          <Paragraph className="paragraph paragraph__aboutme">
+            Веду активный образ жизни: бег, плавание и велоспорт.
           </Paragraph>
           <ul className="aboutme__links">
             <li>

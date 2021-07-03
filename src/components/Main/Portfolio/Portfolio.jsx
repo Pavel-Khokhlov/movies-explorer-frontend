@@ -13,7 +13,7 @@ const Portfolio = () => {
       </SubTitle>
       <div className="portfolio__block">
         <PortfolioLink
-          url="https://github.com/Pavel-Khokhlov/how-to-learn"
+          url="https://pavel-khokhlov.github.io/how-to-learn/"
           titleName="Статичный сайт"
         ></PortfolioLink>
         <Line className="line line__color_grey" />
@@ -25,6 +25,11 @@ const Portfolio = () => {
         <PortfolioLink
           url="https://pavel-khokhlov.github.io/mesto-react/"
           titleName="Одностраничное приложение"
+        ></PortfolioLink>
+        <Line className="line line__color_grey" />
+        <PortfolioLink
+          url="https://pavel-khokhlov.github.io/irinayuzifovich/"
+          titleName="Личный проект. Будет обновление на React"
         ></PortfolioLink>
       </div>
     </section>

@@ -18,7 +18,7 @@ export const PAD = 800;
 // export const PATTERN_NAME = `^[^@]+@[^@.]+\.[^@]+$`;
 
 export const REG_EMAIL = /^[^@]+@[^@.]+\.[^@]+$/;
-export const PATTERN_EMAIL = `^[^@]+@[^@.]+\.[^@]+$`;
+export const PATTERN_EMAIL = `^[^@]+@[^@.]+.[^@]+$`;
 
 export const REG_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}/;
-export const PATTERN_PASSWORD = `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{8,}`;
+export const PATTERN_PASSWORD = `^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^ws]).{8,}`;
