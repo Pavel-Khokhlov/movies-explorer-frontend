@@ -1,14 +1,10 @@
 .aboutproject__block {
-  margin-top: 70px;
-  margin-bottom: min(110px, 12.11vw);
   display: flex;
   justify-content: space-between;
 }
 
 @media only screen and (max-width: 767px) {
   .aboutproject__block {
-    margin-top: min(70px, 18.75vw);
-    margin-bottom: min(93px, 18.75vw);
     flex-direction: column;
     gap: 56px;
   } 

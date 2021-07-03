@@ -1,13 +1,20 @@
 .tech__items {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
   gap: 10px;
-  width: 648px;
+  max-width: 690px;
   margin: 0 auto;
 }
 
 @media only screen and (max-width: 768px) {
   .tech__items {
-    width: min(648px, 55.625vw);
+    width: min(648px, 85vw);
+    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  }
+}
+
+@media only screen and (max-width: 430px) {
+  .tech__items {
+    width: 56vw;
   }
 }

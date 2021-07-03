@@ -10,6 +10,7 @@ const Input = ({
   value,
   errors,
   formDisabled,
+  pattern,
 }) => {
   return (
     <label className="paragraph paragraph__label paragraph__color_grey">
@@ -22,6 +23,8 @@ const Input = ({
         onChange={onChange}
         value={value || ""}
         disabled={formDisabled}
+        pattern={pattern}
+        required
       />
       <p className="input__error">{errors}</p>
     </label>

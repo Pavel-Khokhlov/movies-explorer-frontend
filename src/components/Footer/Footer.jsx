@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Paragraph from "../Paragraph/Paragraph";
 import Line from "../Line/Line";
 
@@ -20,9 +20,7 @@ const Footer = ({ location }) => {
   ) {
     return (
       <section className="section footer">
-        <Paragraph
-          className={`paragraph paragraph__footer text-color__grey`}
-        >
+        <Paragraph className={`paragraph paragraph__footer text-color__grey`}>
           Учебный проект Яндекс.Практикум х BeatFilm.
         </Paragraph>
         <Line className={`line line__color_grey`} />
@@ -30,31 +28,34 @@ const Footer = ({ location }) => {
           <div className="paragraph footer__copyright">@ 2021</div>
           <ul className="footer__links">
             <li>
-              <NavLink
-                target="_blank"
-                to="/yandex"
+              <a
+                href="https://praktikum.yandex.ru/"
                 className="button paragraph footer__link"
+                target="_blank"
+                rel="noreferrer"
               >
                 Яндекс.Практикум
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink
-                target="_blank"
-                to="/github"
+              <a
+                href="https://github.com/Pavel-Khokhlov/"
                 className="button paragraph footer__link"
+                target="_blank"
+                rel="noreferrer"
               >
                 GitHub
-              </NavLink>
+              </a>
             </li>
             <li>
-              <NavLink
-                target="_blank"
-                to="/facebook"
+              <a
+                href="https://facebook.com"
                 className="button paragraph footer__link"
+                target="_blank"
+                rel="noreferrer"
               >
                 FaceBook
-              </NavLink>
+              </a>
             </li>
           </ul>
         </div>

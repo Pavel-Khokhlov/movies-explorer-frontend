@@ -5,13 +5,17 @@
 @import url(./__table/_grey/aboutproject__table_grey.css);
 
 .aboutproject {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding-top: min(110px, 11.72vw);
   padding-bottom: min(110px, 11.72vw);
 }
 
 @media only screen and (max-width: 768px) {
   .aboutproject {
-    padding-top: min(90px, 21.875vw);
-    padding-bottom: min(90px, 21.875vw);
+    padding-top: min(90px, 14vw);
+    padding-bottom: min(90px, 14vw);
   }
 }

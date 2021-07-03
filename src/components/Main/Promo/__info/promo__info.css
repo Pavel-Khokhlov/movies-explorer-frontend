@@ -1,15 +1,15 @@
 .promo__info {
   display: flex;
   justify-content: space-between;
-  padding: 75px 0 84px;
+  padding-top: 75px;
 }
 
 @media only screen and (max-width: 768px) {
   .promo__info {
     flex-direction: column-reverse;
     align-items: center;
-    padding-bottom: 0;
-    padding-top: min(140px, max(70px + calc((100vw - 320px) / 6.4), 70px));
-    margin-bottom: max(82px, min(82px + calc((100vw - 320px) / 728), 90px));
+    gap: max(16px, min(16px + calc((100vw - 320px) / 14), 48px));
+    padding-top: max(20px, min(20px + calc((100vw - 320px) / 3.7), 140px));
+    padding-bottom: max(20px, min(20px + calc((100vw - 320px) / 3.7), 140px));
   }
 }

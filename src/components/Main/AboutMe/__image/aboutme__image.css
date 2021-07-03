@@ -5,12 +5,13 @@
   -o-object-fit: cover;
   object-fit: cover;
   object-position: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
 }
 
 @media only screen and (max-width: 767px) {
   .aboutme__image {
     width: 292px;
     height: 352px;
-    padding-bottom: 12.5vw;
+    margin-bottom: 12.5vw;
   }
 }

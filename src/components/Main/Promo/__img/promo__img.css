@@ -6,8 +6,7 @@
 
 @media only screen and (max-width: 768px) {
   .promo__img {
-    width: max(210px, min(210px + calc((100vw - 320px) / 4.48), 310px));
-    height: max(206px, min(206px + calc((100vw - 320px) / 4.57), 304px));
-    margin: 0 0 48px;
+    width: max(160px, min(160px + calc((100vw - 320px) / 2.98), 310px));
+    height: max(159px, min(159px + calc((100vw - 320px) / 2.89), 304px));
   }
 }

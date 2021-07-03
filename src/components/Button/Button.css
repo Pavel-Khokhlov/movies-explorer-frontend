@@ -12,8 +12,6 @@
 @import url(./__submit/button__submit.css);
 @import url(./__submit/_inactive/button__submit_inactive.css);
 @import url(./__submit/_active/button__submit_active.css);
-@import url(./__submit/_login/button__submit_login.css);
-@import url(./__submit/_reg/button__submit_reg.css);
 @import url(./__word/_border/button__word_border.css);
 @import url(_inactive/button_inactive.css);
 
@@ -23,7 +21,8 @@
   cursor: pointer;
   /* настройки кнопок */
   opacity: 1;
-  transition: 0.8s;
+  transition: 0.5s;
+  box-sizing: border-box;
 }
 
 .button:hover {

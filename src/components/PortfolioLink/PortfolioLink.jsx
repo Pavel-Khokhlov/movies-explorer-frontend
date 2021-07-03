@@ -9,12 +9,12 @@ import "./PortfolioLink.css";
 const PortfolioLink = ({ url, titleName }) => {
   return (
     <div className="portfoliolink">
-      <Paragraph className={`paragraph paragraph__portfolio`}>
+      <Paragraph className="paragraph paragraph__portfolio">
         {titleName}
       </Paragraph>
-      <NavLink target="_blank" to={url}>
+      <a href={url} target="_blank" rel="noreferrer">
         <img src={Icon} alt="иконка переход" className="portfoliolink__image" />
-      </NavLink>
+      </a>
     </div>
   );
 };

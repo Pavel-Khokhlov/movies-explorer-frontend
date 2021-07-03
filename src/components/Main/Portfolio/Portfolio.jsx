@@ -8,17 +8,29 @@ import "./Portfolio.css";
 const Portfolio = () => {
   return (
     <section className="section portfolio">
-      <SubTitle
-        className={`subtitle subtitle__layout_portfolio subtitle__size_m subtitle__color_grey`}
-      >
+      <SubTitle className="subtitle subtitle__layout_portfolio subtitle__size_m subtitle__color_grey">
         Портфолио
       </SubTitle>
       <div className="portfolio__block">
-        <PortfolioLink url={`/how-to-learn`} titleName={`Статичный сайт`}></PortfolioLink>
-        <Line className={`line line__color_grey`} />
-        <PortfolioLink url={`/travel`} titleName={`Адаптивный сайт`}></PortfolioLink>
-        <Line className={`line line__color_grey`} />
-        <PortfolioLink url={`/mesto`} titleName={`Одностраничное приложение`}></PortfolioLink>
+        <PortfolioLink
+          url="https://pavel-khokhlov.github.io/how-to-learn/"
+          titleName="Статичный сайт"
+        ></PortfolioLink>
+        <Line className="line line__color_grey" />
+        <PortfolioLink
+          url="https://pavel-khokhlov.github.io/russian-travel/index.html"
+          titleName="Адаптивный сайт"
+        ></PortfolioLink>
+        <Line className="line line__color_grey" />
+        <PortfolioLink
+          url="https://pavel-khokhlov.github.io/mesto-react/"
+          titleName="Одностраничное приложение"
+        ></PortfolioLink>
+        <Line className="line line__color_grey" />
+        <PortfolioLink
+          url="https://pavel-khokhlov.github.io/irinayuzifovich/"
+          titleName="Личный проект. Будет обновление на React"
+        ></PortfolioLink>
       </div>
     </section>
   );
