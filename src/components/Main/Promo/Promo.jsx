@@ -17,7 +17,7 @@ const Promo = () => {
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </Paragraph>
         </div>
-        <img src={PromoImg} alt="изображение" className="promo__img" />
+        <img src={PromoImg} alt="изображение" className="promo__img rotation" />
       </div>
       <NavTab />
     </section>

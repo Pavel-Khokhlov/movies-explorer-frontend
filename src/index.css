@@ -4,6 +4,8 @@
 @import url(./blocks/text-color/text-color.css);
 @import url(./blocks/text-weight/text-weight.css);
 
+@import url(./animation/rotate.css);
+
 @font-face {
   font-family: 'Inter';
   src: local('Inter'), url(./vendors/fonts/Inter-Medium.woff) format('woff');

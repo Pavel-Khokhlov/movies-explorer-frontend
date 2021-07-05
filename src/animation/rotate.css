@@ -1,0 +1,12 @@
+@keyframes myrotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotation {
+  animation: myrotation 200s infinite linear;
+}
