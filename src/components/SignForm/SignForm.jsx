@@ -27,45 +27,39 @@ const SignForm = ({
         className="form__container"
         method="POST"
         onSubmit={onSubmit}
-        noValidate
       >
+        <Logo className="form__logo" />
+        <Title className="title form__title text-weight__medium">{title}</Title>
+        {children}
+        <Button type="submit" className={buttonClassName}>{buttonTitle}</Button>
         <div className="form__block">
-          <Logo className="form__logo" />
-          <Title className="title form__title text-weight__medium">
-            {title}
-          </Title>
-          {children}
-        </div>
-        <span></span>
-        <div className="form__block">
-          <Button className={buttonClassName}>{buttonTitle}</Button>
-          {currentPath === "/signup" && (
-            <div className="form__redirect">
-              <p className="form__paragraph text-color__grey">
-                Уже зарегистрированы?
-              </p>
-              <NavLink
-                to="/signin"
-                className="button form__paragraph text-color__blue"
-              >
-                Войти
-              </NavLink>
-            </div>
-          )}
-          {currentPath === "/signin" && (
-            <div className="form__redirect">
-              <p className="form__paragraph text-color__grey">
-                Еще не зарегистрированы?
-              </p>
-              <NavLink
-                to="/signup"
-                className="button form__paragraph text-color__blue"
-              >
-                Регистрация
-              </NavLink>
-            </div>
-          )}
-        </div>
+        {currentPath === "/signup" && (
+          <div className="form__redirect">
+            <p className="form__paragraph text-color__grey">
+              Уже зарегистрированы?
+            </p>
+            <NavLink
+              to="/signin"
+              className="button form__paragraph text-color__blue"
+            >
+              Войти
+            </NavLink>
+          </div>
+        )}
+        {currentPath === "/signin" && (
+          <div className="form__redirect">
+            <p className="form__paragraph text-color__grey">
+              Еще не зарегистрированы?
+            </p>
+            <NavLink
+              to="/signup"
+              className="button form__paragraph text-color__blue"
+            >
+              Регистрация
+            </NavLink>
+          </div>
+        )}
+      </div>
       </form>
     </section>
   );

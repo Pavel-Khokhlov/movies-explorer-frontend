@@ -1,5 +1,6 @@
 .form__title {
-  margin: 40px 0 40px;
+  margin-top: min(40px, vw);
+  margin-bottom: min(40px, 10vw);
   padding: 0;
   font-size: 24px;
 }
@@ -7,11 +8,5 @@
 @media only screen and (max-width: 767px) {
   .form__title {
     text-align: center;
-  }
-}
-
-@media only screen and (max-width: 320px) {
-  .form__title {
-    margin: 50px 0 80px;
   }
 }

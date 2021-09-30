@@ -1,6 +1,6 @@
 .form__container {
-  width: min(396px, 81.25vw);
+  width: min(400px, 80vw);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  margin-top: min(200px, 15vw);
 }

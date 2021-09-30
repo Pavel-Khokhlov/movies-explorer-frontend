@@ -9,7 +9,8 @@ const Input = ({
   onChange,
   value,
   errors,
-  formDisabled,
+  onInput,
+  minLength,
   pattern,
 }) => {
   return (
@@ -20,11 +21,8 @@ const Input = ({
         name={inputName}
         id={inputName}
         className="input"
-        onChange={onChange}
-        value={value || ""}
-        disabled={formDisabled}
-        pattern={pattern}
-        required
+        onInput={onInput}
+        value={value}
       />
       <p className="input__error">{errors}</p>
     </label>

@@ -1,28 +1,41 @@
-import React, { useContext, useState, useEffect } from "react";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import React, { useEffect } from "react";
 import Button from "../Button/Button";
 import Line from "../Line/Line";
 import Title from "../Title/Title";
 import PageServerRequest from "../PageServerRequest/PageServerRequest";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
 
 import "./Profile.css";
-import { PATTERN_EMAIL } from "../../utils/config";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleValuesChange,
+  resetFormCurrentUser,
+  validateMessage,
+  validateProfileForm,
+} from "../../store/formSlice";
+import { logout, patchUser, showError, showTooltip } from "../../store/userSlice";
+import { useHistory } from "react-router";
 
-const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
-  const currentUser = useContext(CurrentUserContext);
+const Profile = () => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { currentUser, token, status } = useSelector((state) => state.users);
+  const { values, errors, isEditProfileFormValid } = useSelector(
+    (state) => state.forms
+  );
   const userTitle = `Привет, ${currentUser.name}!`;
-  const { values, errors, isValid, handleChange, resetFormCurrentUser } =
-    useFormWithValidation();
+
+  const formDisabled = false;
 
   useEffect(() => {
-    resetFormCurrentUser();
-  }, [resetFormCurrentUser]);
+    dispatch(resetFormCurrentUser(currentUser));
+  }, [currentUser]);
 
-  const newValueEmail = String(values.email).toLowerCase();
+  const handleShowInfo = () => {
+    status || status === null ? dispatch(showTooltip()) : dispatch(showError());
+  }
 
   const buttonEditClassName = `button__edit button__word ${
-    isValid && !formDisabled
+    isEditProfileFormValid
       ? "button button__edit_active"
       : "button__edit_inactive"
   }`;
@@ -39,14 +52,30 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
       : "server-request server-request_active"
   }`;
 
+  const handleChange = (e) => {
+    dispatch(
+      handleValuesChange({ name: e.target.name, value: e.target.value })
+    );
+    dispatch(validateMessage(e.target.name));
+    dispatch(validateProfileForm());
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    onEditProfile(values.name, newValueEmail);
+    dispatch(
+      patchUser({ name: values.name, email: values.email, token: token })
+    );
+    setTimeout(() => {
+      handleShowInfo();
+    }, 500);
   };
 
   function handleLogout(e) {
     e.preventDefault();
-    onLogoutClick();
+    dispatch(logout());
+    setTimeout(() => {
+      handleShowInfo();
+    }, 500);
   }
 
   return (
@@ -55,7 +84,6 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
         className="profile__container"
         method="POST"
         onSubmit={handleSubmit}
-        noValidate
       >
         <Title className="title title__profile text-weight__medium">
           {userTitle}
@@ -65,12 +93,10 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
           <input
             type="text"
             name="name"
+            id="name"
             className="profile__input"
             value={values.name || ""}
-            onChange={handleChange}
-            disabled={formDisabled}
-            minLength="2"
-            required
+            onInput={handleChange}
           />
         </div>
         <p className="input__error">{errors.name}</p>
@@ -80,12 +106,10 @@ const Profile = ({ onLogoutClick, onEditProfile, formDisabled }) => {
           <input
             type="email"
             name="email"
+            id="email"
             className="profile__input"
-            value={values.email || ""}
-            onChange={handleChange}
-            disabled={formDisabled}
-            pattern={PATTERN_EMAIL}
-            required
+            value={values.email}
+            onInput={handleChange}
           />
         </div>
         <p className="input__error">{errors.email}</p>

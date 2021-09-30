@@ -5,7 +5,7 @@ import Navigation from "../Navigation/Navigation";
 
 import "./Header.css";
 
-const Header = ({ isLoggedIn, onClick, location }) => {
+const Header = ({ location }) => {
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Header = ({ isLoggedIn, onClick, location }) => {
     return (
       <section className={headerBgClassName}>
         <Logo />
-        <Navigation isLoggedIn={isLoggedIn} onClick={onClick} />
+        <Navigation />
       </section>
     );
   }

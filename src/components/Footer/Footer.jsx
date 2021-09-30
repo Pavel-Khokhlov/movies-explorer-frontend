@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import Paragraph from "../Paragraph/Paragraph";
 import Line from "../Line/Line";
+import { TranslationContext } from "../../context/TranslationContext";
 
 import "./Footer.css";
 
 const Footer = ({ location }) => {
+  const translation = useContext(TranslationContext);
+
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
   useEffect(() => {
@@ -21,7 +24,7 @@ const Footer = ({ location }) => {
     return (
       <section className="section footer">
         <Paragraph className={`paragraph paragraph__footer text-color__grey`}>
-          Учебный проект Яндекс.Практикум х BeatFilm.
+          {translation.footer_text}
         </Paragraph>
         <Line className={`line line__color_grey`} />
         <div className="footer__block">
@@ -34,7 +37,7 @@ const Footer = ({ location }) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                Яндекс.Практикум
+                {translation.footer_link_yandex}
               </a>
             </li>
             <li>

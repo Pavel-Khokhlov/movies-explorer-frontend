@@ -1,79 +1,84 @@
 import React, { useEffect } from "react";
 import Input from "../Input/Input.jsx";
 import SignForm from "../SignForm/SignForm";
-import PageServerRequest from "../PageServerRequest/PageServerRequest";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
-
-import { PATTERN_EMAIL, PATTERN_PASSWORD } from "../../utils/config";
 
 import "./Register.css";
+import { createUser, showError, showTooltip } from "../../store/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { handleValuesChange, resetForm, validateMessage, validateSignupForm } from "../../store/formSlice";
 
-const Register = ({ onSignUp, buttonTitle, formDisabled }) => {
-  const { values, errors, isValid, handleChange, resetForm } =
-    useFormWithValidation();
+const Register = ({ buttonTitle }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { status } = useSelector((state) => state.users);
+  const { values, errors, isSignupFormValid } = useSelector((state) => state.forms);
 
-    useEffect(() => {
-      resetForm();
-    }, [resetForm]);
+  useEffect(() => {
+    dispatch(resetForm());
+  }, []);
 
-  const buttonClassName = `button__submit button__submit_reg ${
-    isValid && !formDisabled
-      ? "button button__submit_active"
-      : "button__submit_inactive"
+  const buttonClassName = `button button__submit ${
+    isSignupFormValid ? "button__submit_active" : "button__submit_inactive"
   }`;
 
-  const pageServerRequestClassName = `${
-    !formDisabled ? "server-request_inactive" : "server-request server-request_active"
-  }`;
+  const handleChange = (e) => {
+    dispatch(
+      handleValuesChange({ name: e.target.name, value: e.target.value })
+    );
+    dispatch(validateMessage(e.target.name));
+    dispatch(validateSignupForm());
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignUp(values.name, values.email, values.password);
+    dispatch(createUser({ values }));
+    setTimeout(() => {
+      handleShowInfo();
+    }, 500);
   };
+
+  function handleShowInfo() {
+    status || status === null
+      ? dispatch(showTooltip()) && history.push("/movies")
+      : dispatch(showError());
+  }
 
   return (
     <section className="register">
-      <SignForm
-        title={`Добро пожаловать!`}
-        buttonTitle={buttonTitle}
-        buttonClassName={buttonClassName}
-        onSubmit={handleSubmit}
-      >
-        <Input
-          labelName="Имя"
-          type="name"
-          inputName="name"
-          inputClassName="input"
-          errorClassName="input__error"
-          onChange={handleChange}
-          value={values.name || ""}
-          errors={errors.name}
-          formDisabled={formDisabled}
-        />
-        <Input
-          labelName="E-mail"
-          type="email"
-          inputName="email"
-          inputClassName="input"
-          errorClassName="input__error"
-          onChange={handleChange}
-          value={values.email || ""}
-          errors={errors.email}
-          formDisabled={formDisabled}
-        />
-        <Input
-          labelName="Пароль"
-          type="password"
-          inputName="password"
-          inputClassName="input"
-          errorClassName="input__error"
-          onChange={handleChange}
-          value={values.password || ""}
-          errors={errors.password}
-          formDisabled={formDisabled}
-        />
-      </SignForm>
-      <PageServerRequest className={pageServerRequestClassName} />
+      <div className="container">
+        <SignForm
+          title="Добро пожаловать!"
+          buttonTitle={buttonTitle}
+          buttonClassName={buttonClassName}
+          onSubmit={handleSubmit}
+        >
+          <Input
+            labelName="Имя"
+            type="text"
+            inputName="name"
+            onInput={handleChange}
+            value={values.name || ""}
+            errors={errors.name}
+          />
+          <Input
+            labelName="E-mail"
+            type="email"
+            inputName="email"
+            onInput={handleChange}
+            value={values.email || ""}
+            errors={errors.email}
+          />
+          <Input
+            labelName="Пароль"
+            type="password"
+            inputName="password"
+            onInput={handleChange}
+            value={values.password || ""}
+            errors={errors.password}
+          />
+        </SignForm>
+      </div>
     </section>
   );
 };

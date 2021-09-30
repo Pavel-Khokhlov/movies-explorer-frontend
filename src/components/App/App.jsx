@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute";
-import * as auth from "../../utils/auth.js";
 import movieApi from "../../utils/MovieApi.js";
-import userApi from "../../utils/UserApi.js";
 import moviesData from "../../utils/MoviesData.js";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -18,6 +15,11 @@ import Footer from "../Footer/Footer";
 import PopupMenu from "../PopupMenu/PopupMenu";
 import PageLoad from "../PageLoad/PageLoad";
 
+import {
+  TranslationContext,
+  translations,
+} from "../../context/TranslationContext";
+
 import "./App.css";
 
 import { ESC_CODE, DURATION, MOBILE, PAD } from "../../utils/config";
@@ -27,27 +29,27 @@ import {
   ErrorExistedEmail,
   RequiredAuthError,
 } from "../../utils/errors/Errors";
+import { useDispatch, useSelector } from "react-redux";
+import { closeAllPopups } from "../../store/appSlice";
+import { checkContent, logout } from "../../store/userSlice";
 
 const App = () => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { isPopupOpen } = useSelector((state) => state.app);
+  const { loggedIn } = useSelector((state) => state.users);
+  const [lang, setLang] = useState("ru"); // present lang
 
-  const token = localStorage.getItem("jwt");
+  const localToken = localStorage.getItem("jwt");
 
-  const [loggedIn, setLoggedIn] = useState(null);
-  const [currentUser, setCurrentUser] = useState("");
-  const [isPopupMenuOpen, setIsPopupMenuOpen] = useState(false);
-  const [isFormDisabled, setIsFormDisabled] = useState(false);
   const [state, setState] = useState({
     count: 0,
   });
-  
+
   const [allMovies, setAllMovies] = useState([]);
   const [filteredAllMovies, setFilteredAllMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
-
-  localStorage.setItem("allMovies", JSON.stringify(allMovies));
-  localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
 
   useEffect(() => {
     checkToken();
@@ -56,7 +58,7 @@ const App = () => {
     } else {
       history.push("/");
     }
-  }, [loggedIn]);
+  }, []);
 
   // DEFINE SCREEN WIDTH
   const [width, setWidth] = useState(window.innerWidth);
@@ -101,73 +103,29 @@ const App = () => {
   }
 
   // CLOSE POPUP BY ESC
-  function handleEsc(e) {
+  const handleEsc = (e) => {
     if (e.keyCode === ESC_CODE) {
-      closeAllPopups();
+      dispatch(closeAllPopups());
     }
-  }
+  };
 
-  function handleMenuClick() {
-    setIsPopupMenuOpen(true);
-    window.addEventListener("keydown", handleEsc);
-  }
-
-  function closeAllPopups() {
-    setIsPopupMenuOpen(false);
-    window.removeEventListener("keydown", handleEsc);
-  }
+  isPopupOpen
+    ? window.addEventListener("keydown", handleEsc)
+    : window.removeEventListener("keydown", handleEsc);
 
   // AUTH TOKEN ++++++
   function checkToken() {
-    if (!token) {
-      return handleLogout();
+    if (!localToken) {
+      dispatch(logout());
+    } else {
+      dispatch(checkContent(localToken));
     }
-    return auth
-      .checkContent(token)
-      .then((res) => {
-        if (res.message) {
-          throw new Error(res.message);
-        }
-        if (res) {
-          setCurrentUser(res);
-          setLoggedIn(true);
-          handleGetSavedMovies(res);
-          handleGetAllMovies();
-        }
-      })
-      .catch((err) => {
-        showError(err);
-        handleLogout();
-      });
-  }
-
-  // API PATCH USER INFO ++++
-  function handleEditProfile(name, email) {
-    if (!token) {
-      throw RequiredAuthError;
-    }
-    setIsFormDisabled(true);
-    userApi
-      .patchUserInfo(name, email, token)
-      .then((res) => {
-        if (res.error) {
-          throw new Error(400, res.error);
-        }
-        setCurrentUser(res);
-        history.push("/profile");
-        setIsFormDisabled(false);
-        alert("Профиль успешно изменен!");
-      })
-      .catch((err) => {
-        showError(err);
-        setIsFormDisabled(false);
-      });
   }
 
   // API GET SAVED MOVIES
   function handleGetSavedMovies(user) {
     movieApi
-      .getSavedMovies(token)
+      .getSavedMovies(localToken)
       .then((res) => {
         if (res.message) {
           return alert(res.message);
@@ -177,64 +135,8 @@ const App = () => {
         setFilteredSavedMovies(mySavedMovies);
       })
       .catch((err) => {
-        showError(err);
+        //showError(err);
       });
-  }
-
-  // AUTH LOGIN
-  const handleLogin = (email, password) => {
-    setIsFormDisabled(true);
-    auth
-      .signin(email, password)
-      .then((res) => {
-        if (res.message) {
-          throw ErrorEmailPassword(res.message);
-        }
-        if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          setLoggedIn(true);
-          history.push("/movies");
-          setIsFormDisabled(false);
-        }
-      })
-      .catch((err) => {
-        setLoggedIn(false);
-        showError(err);
-        setIsFormDisabled(false);
-      });
-  };
-
-  // AUTH REGISTRATION
-  const handleRegister = (name, email, password) => {
-    setIsFormDisabled(true);
-    auth
-      .signup(name, email, password)
-      .then((res) => {
-        if (res.message) {
-          throw ErrorExistedEmail(res.message);
-        }
-        if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          setLoggedIn(true);
-          history.push("/movies");
-          setIsFormDisabled(false);
-        }
-      })
-      .catch((err) => {
-        showError(err);
-        setIsFormDisabled(false);
-      });
-  };
-
-  // LOGOUT
-  function handleLogout() {
-    setLoggedIn(false);
-    setCurrentUser("");
-    setAllMovies([]);
-    setSavedMovies([]);
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("allMovies");
-    localStorage.removeItem("savedMovies");
   }
 
   // Fn GET ALL MOVIES
@@ -245,7 +147,7 @@ const App = () => {
         setAllMovies(res);
       })
       .catch((err) => {
-        showError(err);
+        //showError(err);
       });
   }
 
@@ -328,21 +230,21 @@ const App = () => {
   function handleSaveMovie(movieForSave, setIsSaved) {
     alert("Сохранить фильм?");
     movieApi
-      .saveMovie({ movieForSave }, token)
+      .saveMovie({ movieForSave }, localToken)
       .then((newMovie) => {
         setSavedMovies([newMovie, ...savedMovies]);
         setIsSaved(true);
         alert("Фильм сохранен в вашей коллекции!");
       })
       .catch((err) => {
-        showError(err);
+        //showError(err);
       });
   }
 
   // Fn DELETE MOVIE
   function handleDeleteMovie({ movieForDelete }, setIsSaved) {
     movieApi
-      .deleteMovie({ movieForDelete }, token)
+      .deleteMovie({ movieForDelete }, localToken)
       .then((deletedMovie) => {
         setIsSaved(false);
         const newSavedMovies = savedMovies.filter(
@@ -352,25 +254,20 @@ const App = () => {
         alert("Фильм успешно удален!");
       })
       .catch((err) => {
-        showError(err);
+        //showError(err);
       });
-  }
-
-  function showError(err) {
-    alert(err);
   }
 
   if (loggedIn === null) {
     return <PageLoad />;
   }
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <Header isLoggedIn={loggedIn} onClick={handleMenuClick} />
+    <TranslationContext.Provider value={translations[lang]}>
+      <Header />
       <Switch>
         <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/movies"
-          isLoggedIn={loggedIn}
           count={state.count}
           filteredAllMovies={filteredAllMovies}
           savedMovies={savedMovies}
@@ -382,37 +279,23 @@ const App = () => {
         />
         <ProtectedRoute
           path="/saved-movies"
-          isLoggedIn={loggedIn}
           savedMovies={savedMovies}
           filteredSavedMovies={filteredSavedMovies}
           resetFilteredAllMovies={setFilteredAllMovies}
           setFilteredSavedMovies={setFilteredSavedMovies}
           onSearchClick={handleSearch}
           onDeleteMovieClick={handleDeleteMovie}
-          formDisabled={isFormDisabled}
           component={SavedMovies}
         />
         <ProtectedRoute
           path="/profile"
-          isLoggedIn={loggedIn}
-          onLogoutClick={handleLogout}
-          onEditProfile={handleEditProfile}
-          formDisabled={isFormDisabled}
           component={Profile}
         />
         <Route path="/signin">
-          <Login
-            buttonTitle="Войти"
-            onSignIn={handleLogin}
-            formDisabled={isFormDisabled}
-          />
+          <Login buttonTitle="Войти" />
         </Route>
         <Route path="/signup">
-          <Register
-            buttonTitle="Зарегистрироваться"
-            onSignUp={handleRegister}
-            formDisabled={isFormDisabled}
-          />
+          <Register buttonTitle="Зарегистрироваться" />
         </Route>
         <Route path="*">
           <PageNotFound />
@@ -425,8 +308,8 @@ const App = () => {
         }}
       />
       <Footer />
-      <PopupMenu isOpen={isPopupMenuOpen} onClose={closeAllPopups} />
-    </CurrentUserContext.Provider>
+      <PopupMenu />
+    </TranslationContext.Provider>
   );
 };
 

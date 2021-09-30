@@ -1,33 +1,67 @@
 import React, { useEffect } from "react";
 import Input from "../Input/Input.jsx";
 import SignForm from "../SignForm/SignForm";
-import PageServerRequest from "../PageServerRequest/PageServerRequest";
-import { useFormWithValidation } from "../Hooks/useForm.jsx";
-
-import { PATTERN_EMAIL, PATTERN_PASSWORD } from "../../utils/config";
 
 import "./Login.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleValuesChange,
+  resetForm,
+  validateLoginForm,
+  validateMessage,
+} from "../../store/formSlice.js";
+import { checkContent, loginUser, showError, showTooltip } from "../../store/userSlice.js";
+import { useHistory } from "react-router";
 
-const Login = ({ onSignIn, buttonTitle, formDisabled }) => {
-  const { values, errors, isValid, handleChange, resetForm } =
-    useFormWithValidation();
+const Login = ({ buttonTitle }) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { values, errors, isLoginFormValid } = useSelector(
+    (state) => state.forms
+  );
+  const { status, token } = useSelector(
+    (state) => state.users
+  );
 
-    useEffect(() => {
-      resetForm();
-    }, [resetForm]);
+  const formDisabled = false;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSignIn(values.email, values.password);
-  };
+  useEffect(() => {
+    dispatch(resetForm());
+  }, []);
 
   const buttonClassName = `button__submit button__submit_login ${
-    isValid && !formDisabled ? "button button__submit_active" : "button__submit_inactive"
+    isLoginFormValid
+      ? "button button__submit_active"
+      : "button__submit_inactive"
   }`;
 
   const pageServerRequestClassName = `${
-    !formDisabled ? "server-request_inactive" : "server-request server-request_active"
+    !formDisabled
+      ? "server-request_inactive"
+      : "server-request server-request_active"
   }`;
+
+  const handleChange = (e) => {
+    dispatch(
+      handleValuesChange({ name: e.target.name, value: e.target.value })
+    );
+    dispatch(validateMessage(e.target.name));
+    dispatch(validateLoginForm());
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser({ values }));
+    dispatch(checkContent(token));
+    setTimeout(() => {
+      handleShowInfo();
+    }, 500);
+  };
+
+  const handleShowInfo = () => {
+    status || status === null ? dispatch(showTooltip()) && 
+    history.push("/movies") : dispatch(showError());
+  }
 
   return (
     <section className="login">
@@ -41,28 +75,19 @@ const Login = ({ onSignIn, buttonTitle, formDisabled }) => {
           labelName="E-mail"
           type="email"
           inputName="email"
-          inputClassName="input"
-          errorClassName="input__error"
-          onChange={handleChange}
+          onInput={handleChange}
           value={values.email || ""}
           errors={errors.email}
-          formDisabled={formDisabled}
-          pattern={PATTERN_EMAIL}
         />
         <Input
           labelName="Пароль"
           type="password"
           inputName="password"
-          inputClassName="input"
-          errorClassName="input__error"
-          onChange={handleChange}
+          onInput={handleChange}
           value={values.password || ""}
           errors={errors.password}
-          formDisabled={formDisabled}
-          pattern={PATTERN_PASSWORD}
         />
       </SignForm>
-      <PageServerRequest className={pageServerRequestClassName} />
     </section>
   );
 };

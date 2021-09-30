@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
+import { TranslationContext } from "../../../context/TranslationContext";
 
 import "./AboutProject.css";
 
 const AboutProject = () => {
+  const translation = useContext(TranslationContext);
+
   return (
     <section className="section aboutproject" id="more">
       <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
-        О проекте
+      {translation.title_project}
       </SubTitle>
       <div className="aboutproject__block">
         <article className="aboutproject__text">

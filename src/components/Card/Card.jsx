@@ -54,9 +54,11 @@ const Card = ({
     }
   }
 
-  const URL = `${
+  /* const URL = `${
     movie?.image?.url ? `${BEATFILM_URL}${movie.image.url}` : NO_IMAGE
-  }`;
+  }`; */
+
+  const URL = NO_IMAGE;
 
   function handleSaveMovie(e) {
     e.preventDefault();

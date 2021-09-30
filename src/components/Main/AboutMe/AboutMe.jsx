@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
 import Portrait from "../../../images/my_portrait.jpg";
 
+import { TranslationContext } from "../../../context/TranslationContext";
+
 import "./AboutMe.css";
 
 const AboutMe = () => {
+  const translation = useContext(TranslationContext);
+
   return (
     <section className="section aboutme" id="aboutme">
       <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
-        Web-разработчик
+        {translation.title_dev}
       </SubTitle>
       <article className="aboutme__block">
         <div className="aboutme__text">

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { TranslationContext } from "../../context/TranslationContext";
 
 import "./NavMenu.css";
 
 const NavMenu = ({ className, onClose }) => {
+  const translation = useContext(TranslationContext);
+
   return (
     <ul className={className}>
       <li>
@@ -14,7 +17,7 @@ const NavMenu = ({ className, onClose }) => {
           activeClassName="text-weight__medium button__word_border"
           onClick={onClose}
         >
-          Главная
+          {translation.header_main}
         </NavLink>
       </li>
       <li>
@@ -24,7 +27,7 @@ const NavMenu = ({ className, onClose }) => {
           activeClassName="text-weight__medium button__word_border"
           onClick={onClose}
         >
-          Фильмы
+          {translation.header_movies}
         </NavLink>
       </li>
       <li>
@@ -34,7 +37,7 @@ const NavMenu = ({ className, onClose }) => {
           activeClassName="text-weight__medium button__word_border"
           onClick={onClose}
         >
-          Сохраненные фильмы
+          {translation.header_savedMovies}
         </NavLink>
       </li>
     </ul>
