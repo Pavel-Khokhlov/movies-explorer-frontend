@@ -4,7 +4,6 @@
   font-size: 18px;
   line-height: 20px;
   border: none;
-  width: min(600px, 40vw);
   outline: none;
 }
 
@@ -12,16 +11,19 @@
   border: none;
 }
 
-.search__input:focus {
-  box-shadow: 0 0 4px rgba(52, 86, 243, 0.8);
+.search__input:focus::placeholder {
+  opacity: 0;
 }
 
 .search__input:-webkit-autofill,
-.search__input:-webkit-autofill:hover, 
-.search__input:-webkit-autofill:focus, 
-.search__input:-webkit-autofill:active
-{
- -webkit-background-clip: text;
- -webkit-border-image: none;
- font-size: 13px;
+.search__input:-webkit-autofill:hover,
+.search__input:-webkit-autofill:focus,
+.search__input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-border-image: none;
+  font-size: 13px;
+}
+
+.search__input:focus .search__area {
+  border: 1px red solid;
 }

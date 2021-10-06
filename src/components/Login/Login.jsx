@@ -10,16 +10,16 @@ import {
   validateLoginForm,
   validateMessage,
 } from "../../store/formSlice.js";
-import { checkContent, loginUser, showError, showTooltip } from "../../store/userSlice.js";
+import { loginUser, showError, showTooltip } from "../../store/userSlice.js";
 import { useHistory } from "react-router";
 
-const Login = ({ buttonTitle }) => {
+const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { values, errors, isLoginFormValid } = useSelector(
     (state) => state.forms
   );
-  const { status, token } = useSelector(
+  const { status } = useSelector(
     (state) => state.users
   );
 
@@ -52,21 +52,14 @@ const Login = ({ buttonTitle }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser({ values }));
-    dispatch(checkContent(token));
-    setTimeout(() => {
-      handleShowInfo();
-    }, 500);
   };
 
-  const handleShowInfo = () => {
-    status || status === null ? dispatch(showTooltip()) && 
-    history.push("/movies") : dispatch(showError());
-  }
+  const buttonTitle = status === "loading" ? "Соединение..." : "Войти";
 
   return (
     <section className="login">
       <SignForm
-        title={`Рады видеть!`}
+        title="Рады видеть!"
         buttonTitle={buttonTitle}
         buttonClassName={buttonClassName}
         onSubmit={handleSubmit}

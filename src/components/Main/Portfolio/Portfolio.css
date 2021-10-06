@@ -1,4 +1,7 @@
-@import url(__block/portfolio__block.css);
+@import url(__links/portfolio__links.css);
+@import url(__link-block/portfolio__link-block.css);
+@import url(__link/portfolio__link.css);
+@import url(__image/portfoliolink__image.css);
 
 .portfolio {
   padding-bottom: min(125px, 11.72vw);

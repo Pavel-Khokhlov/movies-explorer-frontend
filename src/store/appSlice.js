@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const appSlice = createSlice({
   name: "app",
   initialState: {
+    currentPath: "",
     isPopupOpen: false,
     isMenuPopupOpen: false,
     isInfoPopupOpen: false,
@@ -10,6 +11,9 @@ const appSlice = createSlice({
     error: null,
   },
   reducers: {
+    setCurrentPath(state, action) {
+      state.currentPath = action.payload;
+    },
     openMenuPopup(state, action) {
       state.isMenuPopupOpen = true;
       state.isPopupOpen = true;
@@ -33,6 +37,7 @@ const appSlice = createSlice({
 });
 
 export const {
+  setCurrentPath,
   openMenuPopup,
   openInfoPopup,
   setErrorStatus,

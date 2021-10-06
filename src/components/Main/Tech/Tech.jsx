@@ -5,10 +5,15 @@ import Paragraph from "../../Paragraph/Paragraph";
 import TechItem from "../../TechItem/TechItem";
 import { TranslationContext } from "../../../context/TranslationContext";
 
+import useLinks from "../../Hooks/useConfig";
+
 import "./Tech.css";
 
 const Tech = () => {
   const translation = useContext(TranslationContext);
+  const { technologyLinks } = useLinks();
+
+  const countTech = technologyLinks.length;
 
   return (
     <section className="section tech" id="tech">
@@ -16,20 +21,16 @@ const Tech = () => {
         {translation.title_tech}
       </SubTitle>
       <div className="tech__block">
-        <Title className="title title__tech">7 технологий</Title>
+        <Title className="title title__tech">{countTech} технологий</Title>
         <Paragraph className="paragraph paragraph__tech">
           На курсе веб-разработки мы освоили технологии, которые применили в
           дипломном проекте.
         </Paragraph>
       </div>
       <div className="tech__items">
-        <TechItem>HTML</TechItem>
-        <TechItem>CSS</TechItem>
-        <TechItem>JS</TechItem>
-        <TechItem>React</TechItem>
-        <TechItem>Git</TechItem>
-        <TechItem>Express.js</TechItem>
-        <TechItem>mongoDB</TechItem>
+        {technologyLinks.map((item) => {
+          return <TechItem key={item}>{item}</TechItem>;
+        })}
       </div>
     </section>
   );

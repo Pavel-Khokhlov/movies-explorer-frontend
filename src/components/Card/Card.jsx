@@ -1,79 +1,67 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Button from "../../components/Button/Button";
 
 import { BEATFILM_URL, NO_IMAGE } from "../../utils/config";
 
 import "./Card.css";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteMovie, saveMovie } from "../../store/movieSlice";
 
-const Card = ({
-  movie,
-  savedMovies,
-  location,
-  onSaveMovieClick,
-  onDeleteMovieClick,
-}) => {
-  const currentUser = useContext(CurrentUserContext);
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-  const [isSaved, setIsSaved] = useState(false);
+const Card = ({ movie }) => {
+  const dispatch = useDispatch();
+  const { savedMovies } = useSelector((state) => state.movies);
+  const { token } = useSelector((state) => state.users);
+  const { currentPath } = useSelector((state) => state.app);
 
-  useEffect(() => {
-    const { pathname } = location;
-    setCurrentPath(pathname);
-  }, [location]);
+  const isSavedMovie = () => {
+    if (savedMovies.length > 0) {
+      return currentPath === "/movies"
+        ? savedMovies.some((item) => Number(item.movieId) === Number(movie.id))
+        : "";
+    }
+  };
 
-  useEffect(() => {
-    if (currentPath === "/movies"){
-      checkIsSaved();
-    }   
-  }, [currentPath]);
-
+  // function findMovieId() {
+  //   if (currentPath === "/movies") {
+  //     const foundMovie = savedMovies.filter(
+  //       (item) =>
+  //         item.description === movie.description && item.owner._id // === currentUser._id
+  //     );
+  //     return foundMovie._id;
+  //   }
+  //   if (currentPath === "/saved-movies"){
+  //     return movie._id;
+  //   }
+  // }
   // DURATION
   const Hours = Math.floor(movie.duration / 60);
   const Minuts = movie.duration % 60;
   const Duration = `${Hours}ч ${Minuts}мин`;
 
-  function checkSavedMovie() {
-    debugger;
-    return savedMovies.some(
-      (item) =>
-        item.owner._id === currentUser._id && item.movieId === movie.id
-    );
-  }
-
-  // IS MOVIE SAVED ?
-  function checkIsSaved() {
-    if (savedMovies.length === 0) {
-      return setIsSaved(false);
-    }
-    if (checkSavedMovie()) {
-      setIsSaved(true);
-    } else {
-      setIsSaved(false);
-    }
-  }
-
-  /* const URL = `${
-    movie?.image?.url ? `${BEATFILM_URL}${movie.image.url}` : NO_IMAGE
-  }`; */
-
-  const URL = NO_IMAGE;
+  const URL = movie?.image?.url ? BEATFILM_URL + movie.image.url : NO_IMAGE;
 
   function handleSaveMovie(e) {
     e.preventDefault();
-    const movieForSave = movie;
-    onSaveMovieClick(movieForSave, setIsSaved);
+    dispatch(saveMovie({ movie, token }));
   }
+
+  const movieForDelete = currentPath === "/movies" ? Number(movie.id) : Number(movie.movieId);
+  console.log(movieForDelete);
 
   function handleDeleteMovie(e) {
     e.preventDefault();
-    const movieForDelete =
-      currentPath === "/movies"
-        ? savedMovies.find((i) => Number(i.movieId) === Number(movie.id))
-        : movie;
-    alert("Удалить фильм?");
-    onDeleteMovieClick({ movieForDelete }, setIsSaved);
+    dispatch(deleteMovie({ movieForDelete, token }));
+  }
+
+  let hrefLink = "";
+  let srcLink = "";
+  if (currentPath === "/movies") {
+    hrefLink = movie.trailerLink;
+    srcLink = URL;
+  } else {
+    hrefLink = movie.trailer;
+    srcLink = movie.image;
   }
 
   return (
@@ -85,14 +73,14 @@ const Card = ({
             {Duration}
           </p>
         </div>
-        {currentPath === "/movies" && !isSaved && (
+        {currentPath === "/movies" && !isSavedMovie() && (
           <Button
             type="button"
             className="button button__movie button__movie_unsaved"
             onClick={handleSaveMovie}
           />
         )}
-        {currentPath === "/movies" && isSaved && (
+        {currentPath === "/movies" && isSavedMovie() && (
           <Button
             type="button"
             className="button button__movie button__movie_saved"
@@ -107,16 +95,9 @@ const Card = ({
           />
         )}
       </div>
-      {currentPath === "/movies" && (
-        <a href={movie.trailerLink} target="_blank" rel="noreferrer">
-          <img src={URL} alt={movie.nameRU} className="movie__image" />
-        </a>
-      )}
-      {currentPath === "/saved-movies" && (
-        <a href={movie.trailer} target="_blank" rel="noreferrer">
-          <img src={movie.image} alt={movie.nameRU} className="movie__image" />
-        </a>
-      )}
+      <a href={hrefLink} target="_blank" rel="noreferrer">
+        <img src={srcLink} alt={movie.nameRU} className="movie__image" />
+      </a>
     </li>
   );
 };

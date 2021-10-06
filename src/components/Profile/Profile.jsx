@@ -12,11 +12,10 @@ import {
   validateMessage,
   validateProfileForm,
 } from "../../store/formSlice";
-import { logout, patchUser, showError, showTooltip } from "../../store/userSlice";
-import { useHistory } from "react-router";
+import { logoutUser, patchUser, showError, showTooltip } from "../../store/userSlice";
+import { resetStore } from "../../store/movieSlice";
 
 const Profile = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { currentUser, token, status } = useSelector((state) => state.users);
   const { values, errors, isEditProfileFormValid } = useSelector(
@@ -72,11 +71,14 @@ const Profile = () => {
 
   function handleLogout(e) {
     e.preventDefault();
-    dispatch(logout());
+    dispatch(logoutUser());
+    dispatch(resetStore());
     setTimeout(() => {
       handleShowInfo();
     }, 500);
   }
+
+  const buttonTitle = status === "loading" ? "Редактирование..." : "Редактировать";
 
   return (
     <section className="profile">
@@ -114,7 +116,7 @@ const Profile = () => {
         </div>
         <p className="input__error">{errors.email}</p>
         <Button type="submit" className={buttonEditClassName}>
-          Редактировать
+          {buttonTitle}
         </Button>
         <Button
           type="button"

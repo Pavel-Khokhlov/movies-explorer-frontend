@@ -16,9 +16,9 @@ const NavAccount = ({ className, onClose }) => {
           onClick={onClose}
         >
           Аккаунт
+          <img src={Avatar} alt="иконка аватар" className="nav__image" />
         </NavLink>
       </li>
-      <img src={Avatar} alt="иконка аватар" className="nav__image" />
     </ul>
   );
 };

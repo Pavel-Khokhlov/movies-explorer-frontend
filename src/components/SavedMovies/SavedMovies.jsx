@@ -2,43 +2,40 @@ import React, { useEffect } from "react";
 import Line from "../Line/Line";
 import SearchForm from "../SearchForm/SearchForm";
 import Card from "../Card/Card";
+import { useDispatch, useSelector } from "react-redux";
+import { getSavedMovies, setSavedMovies } from "../../store/movieSlice";
 
-import "./SavedMovies.css";
+const SavedMovies = ({ onSearchClick }) => {
+  const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.users);
+  const { savedMovies } = useSelector((state) => state.movies);
 
-const SavedMovies = ({
-  resetFilteredAllMovies,
-  setFilteredSavedMovies,
-  savedMovies,
-  filteredSavedMovies,
-  onSearchClick,
-  onDeleteMovieClick,
-}) => {
+  const localSavedMovies = JSON.parse(localStorage.getItem("localSavedMovies"));
 
   useEffect(() => {
-    resetFilteredAllMovies([]);
-    setFilteredSavedMovies(savedMovies);
-  }, [savedMovies]);
+    localSavedMovies
+      ? dispatch(setSavedMovies(localSavedMovies))
+      : dispatch(getSavedMovies(token));
+  }, []);
 
   return (
     <section className="section">
       <SearchForm onSearchClick={onSearchClick} />
       <Line className="line line__color_grey" />
       {/* MOVIES */}
-      {filteredSavedMovies.length > 0 && (
+      {savedMovies.length > 0 && (
         <ul className="movies__list">
-          {filteredSavedMovies.map((movie) => {
+          {savedMovies.map((movie) => {
             return (
               <Card
                 key={movie._id}
                 movie={movie}
-                savedMovies={savedMovies}
-                onDeleteMovieClick={onDeleteMovieClick}
               />
             );
           })}
         </ul>
       )}
-      {filteredSavedMovies.length === 0 && (
+      {savedMovies.length === 0 && (
         <p className="paragraph paragraph__saved-movies text-color__grey">
           Фильмы отсутствуют
         </p>

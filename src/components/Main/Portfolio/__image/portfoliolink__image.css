@@ -1,0 +1,9 @@
+.portfoliolink__image {
+  width: min(30px, 7vw);
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.portfoliolink__image:hover {
+  opacity: 0.5;
+}

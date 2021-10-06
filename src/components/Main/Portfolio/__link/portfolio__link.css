@@ -1,6 +1,4 @@
-@import url(./__image/portfoliolink__image.css);
-
-.portfoliolink {
+.portfolio__link {
   display: flex;
   justify-content: space-between;
   align-items: center;

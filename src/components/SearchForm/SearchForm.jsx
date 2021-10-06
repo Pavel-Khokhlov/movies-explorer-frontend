@@ -11,6 +11,7 @@ const SearchForm = ({ onSearchClick, location }) => {
 
   const [checked, setChecked] = useState(false);
   const [searchValue, setSearchValue] = useState(``);
+  const [isInputFocus, setIsInputFocus] = useState(false);
 
   useEffect(() => {
     const { pathname } = location;
@@ -39,19 +40,32 @@ const SearchForm = ({ onSearchClick, location }) => {
     }
   }
 
+  function handleInputFocus() {
+    setIsInputFocus(true);
+  }
+
+  function handleInputBlur() {
+    setIsInputFocus(false);
+  }
+
+  const searchAreaClassName = `search__area ${isInputFocus ? "search__area_active" : "search__area_inactive"}`
+
   return (
     <form className="search" onSubmit={handleSubmit}>
-      <div className="search__area">
+      <div className={searchAreaClassName}>
         <img src={SearchSvg} alt="иконка поиск" className="search__icon" />
         <input
           type="text"
           name="search"
           placeholder="Фильмы"
           className="search__input"
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
           value={searchValue}
           onChange={handleChangeSearch}
+          autoComplete="off"
         />
-        <Button type="submit" className="button button__search" />
+        <Button type="submit" className="button button__search text-color__white" >Найти</Button>
         <span className="search__line" />
         <div
           className="search__checkbox search__checkbox_in"

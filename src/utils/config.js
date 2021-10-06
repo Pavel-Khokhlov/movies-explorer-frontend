@@ -1,7 +1,8 @@
 export const BASE_URL = "http://localhost:3000";
 
 export const BEATFILM_URL = "https://api.nomoreparties.co";
-export const PATH = "/beatfilm-movies";
+export const PATH_MOVIES = "/beatfilm-movies";
+export const PATH_SAVED_MOVIES = "/movies";
 export const PATH_SIGNUP = "/signup";
 export const PATH_SIGNIN = "/signin";
 export const PATH_USERS_ME = "/users/me";

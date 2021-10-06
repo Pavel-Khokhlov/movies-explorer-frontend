@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import Button from "../Button/Button";
 import Logo from "../Logo/Logo";
 import Title from "../Title/Title";
@@ -12,14 +13,8 @@ const SignForm = ({
   buttonClassName,
   children,
   onSubmit,
-  location,
 }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-
-  useEffect(() => {
-    const { pathname } = location;
-    setCurrentPath(pathname);
-  }, [location]);
+const { currentPath } = useSelector((state) => state.app);
 
   return (
     <section className="form">
@@ -65,4 +60,4 @@ const SignForm = ({
   );
 };
 
-export default withRouter(SignForm);
+export default SignForm;

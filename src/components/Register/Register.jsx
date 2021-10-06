@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import Input from "../Input/Input.jsx";
 import SignForm from "../SignForm/SignForm";
 
-import "./Register.css";
 import { createUser, showError, showTooltip } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { handleValuesChange, resetForm, validateMessage, validateSignupForm } from "../../store/formSlice";
 
-const Register = ({ buttonTitle }) => {
+const Register = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.users);
@@ -35,14 +34,16 @@ const Register = ({ buttonTitle }) => {
     dispatch(createUser({ values }));
     setTimeout(() => {
       handleShowInfo();
-    }, 500);
+    }, 2000);
   };
-
+  
   function handleShowInfo() {
-    status || status === null
-      ? dispatch(showTooltip()) && history.push("/movies")
+    status === true
+      ? dispatch(showTooltip())
       : dispatch(showError());
   }
+
+  const buttonTitle = status === "loading" ? "Регистрация..." : "Зарегистрироваться";
 
   return (
     <section className="register">

@@ -24,8 +24,9 @@ export const createUser = createAsyncThunk(
         }),
       });
       let data = await response.json();
+      console.log(data);
       if (response.ok) {
-        return { ...data, name: values.name, email: values.email };
+        return data;
       } else {
         return thunkAPI.rejectWithValue(data.message);
       }
@@ -52,7 +53,7 @@ export const loginUser = createAsyncThunk(
       });
       let data = await response.json();
       if (response.ok) {
-        return { ...data, name: values.name, email: values.email };
+        return data;
       } else {
         return thunkAPI.rejectWithValue(data.message);
       }
@@ -98,12 +99,12 @@ export const checkContent = createAsyncThunk(
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${token}`,
+          Authorization: token,
         },
       });
       let data = await response.json();
       if (response.ok) {
-        return { ...data, token };
+        return data;
       } else {
         return thunkAPI.rejectWithValue(data.message);
       }
@@ -145,7 +146,7 @@ const userSlice = createSlice({
     showTooltip(state, action) {
       alert(state.tooltip);
     },
-    logout(state) {
+    logoutUser(state) {
       state.status = true;
       state.tooltip = `Спасибо, что были с нами!`;
       state.loggedIn = false;
@@ -161,23 +162,27 @@ const userSlice = createSlice({
     [checkContent.pending]: loading,
     [createUser.fulfilled]: (state, action) => {
       state.status = true;
-      state.token = action.payload.token;
       state.tooltip = `${action.payload.name}, вы успешно зарегистрировались!`;
+      state.token = action.payload.token;
       localStorage.setItem("jwt", action.payload.token);
       state.currentUser = {
         name: action.payload.name,
         email: action.payload.email,
+        _id: action.payload._id,
       };
       state.loggedIn = true;
     },
     [loginUser.fulfilled]: (state, action) => {
       state.status = true;
+      state.tooltip = `Вы успешно зашли на сайт!`;
       state.token = action.payload.token;
       localStorage.setItem("jwt", action.payload.token);
       state.currentUser = {
         name: action.payload.name,
         email: action.payload.email,
+        _id: action.payload._id,
       };
+      state.loggedIn = true;
     },
     [patchUser.fulfilled]: (state, action) => {
       state.status = true;
@@ -189,12 +194,12 @@ const userSlice = createSlice({
     },
     [checkContent.fulfilled]: (state, action) => {
       state.status = true;
-      state.token = action.payload.token;
-      localStorage.setItem("jwt", action.payload.token);
       state.tooltip = `${action.payload.name}, вы успешно зашли на сайт!`;
+      state.token = localStorage.getItem("jwt");
       state.currentUser = {
         name: action.payload.name,
         email: action.payload.email,
+        _id: action.payload._id,
       };
       state.loggedIn = true;
     },
@@ -205,6 +210,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { logingApp, logout, showError, showTooltip } = userSlice.actions;
+export const { logingApp, logoutUser, showError, showTooltip } = userSlice.actions;
 
 export default userSlice.reducer;

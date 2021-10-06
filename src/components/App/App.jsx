@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, withRouter } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute";
-import movieApi from "../../utils/MovieApi.js";
-import moviesData from "../../utils/MoviesData.js";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -22,43 +20,43 @@ import {
 
 import "./App.css";
 
-import { ESC_CODE, DURATION, MOBILE, PAD } from "../../utils/config";
+import { ESC_CODE, DURATION, MOBILE } from "../../utils/config";
 
-import {
-  ErrorEmailPassword,
-  ErrorExistedEmail,
-  RequiredAuthError,
-} from "../../utils/errors/Errors";
 import { useDispatch, useSelector } from "react-redux";
-import { closeAllPopups } from "../../store/appSlice";
-import { checkContent, logout } from "../../store/userSlice";
+import { closeAllPopups, setCurrentPath } from "../../store/appSlice";
+import { checkContent, logoutUser } from "../../store/userSlice";
+import { initCountShowMovies, resetStore } from "../../store/movieSlice";
 
-const App = () => {
+const App = ({ location }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { isPopupOpen } = useSelector((state) => state.app);
-  const { loggedIn } = useSelector((state) => state.users);
+  const { loggedIn, token } = useSelector((state) => state.users);
+  const { allMovies, savedMovies } = useSelector((state) => state.users);
   const [lang, setLang] = useState("ru"); // present lang
 
   const localToken = localStorage.getItem("jwt");
 
-  const [state, setState] = useState({
-    count: 0,
-  });
-
-  const [allMovies, setAllMovies] = useState([]);
   const [filteredAllMovies, setFilteredAllMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
+  // const [savedMovies, setSavedMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
 
   useEffect(() => {
-    checkToken();
-    if (loggedIn === true) {
-      history.push("/movies");
-    } else {
-      history.push("/");
-    }
+    handleDefineScreen();
   }, []);
+
+  useEffect(() => {
+    const { pathname } = location;
+    dispatch(setCurrentPath(pathname));
+  }, [location]);
+
+  useEffect(() => {
+    handleCheckToken();
+  }, []);
+
+  useEffect(() => {
+    loggedIn === true ? history.push("/movies") : history.push("/");
+  }, [loggedIn]);
 
   // DEFINE SCREEN WIDTH
   const [width, setWidth] = useState(window.innerWidth);
@@ -85,20 +83,11 @@ const App = () => {
   }
 
   function handleDefineScreen() {
-    if (width < MOBILE) {
-      return setState({
-        count: 5,
-      });
+    if (width <= MOBILE) {
+      return dispatch(initCountShowMovies(5));
     }
-    if (width < PAD) {
-      return setState({
-        count: 6,
-      });
-    }
-    if (width > PAD) {
-      return setState({
-        count: 8,
-      });
+    if (width > MOBILE) {
+      return dispatch(initCountShowMovies(7));
     }
   }
 
@@ -114,41 +103,13 @@ const App = () => {
     : window.removeEventListener("keydown", handleEsc);
 
   // AUTH TOKEN ++++++
-  function checkToken() {
+  function handleCheckToken() {
     if (!localToken) {
-      dispatch(logout());
+      dispatch(logoutUser());
+      dispatch(resetStore());
     } else {
       dispatch(checkContent(localToken));
     }
-  }
-
-  // API GET SAVED MOVIES
-  function handleGetSavedMovies(user) {
-    movieApi
-      .getSavedMovies(localToken)
-      .then((res) => {
-        if (res.message) {
-          return alert(res.message);
-        }
-        const mySavedMovies = res.filter((m) => m.owner._id === user._id);
-        setSavedMovies(mySavedMovies);
-        setFilteredSavedMovies(mySavedMovies);
-      })
-      .catch((err) => {
-        //showError(err);
-      });
-  }
-
-  // Fn GET ALL MOVIES
-  function handleGetAllMovies() {
-    moviesData
-      .getMovies()
-      .then((res) => {
-        setAllMovies(res);
-      })
-      .catch((err) => {
-        //showError(err);
-      });
   }
 
   // Fn SEARCH REQUEST
@@ -220,44 +181,6 @@ const App = () => {
     }
   }
 
-  function handleGetMoreMoviesClick() {
-    setState((prevState, prevProps) => {
-      return { count: prevState.count + 4 };
-    });
-  }
-
-  // Fn SAVE MOVIE
-  function handleSaveMovie(movieForSave, setIsSaved) {
-    alert("Сохранить фильм?");
-    movieApi
-      .saveMovie({ movieForSave }, localToken)
-      .then((newMovie) => {
-        setSavedMovies([newMovie, ...savedMovies]);
-        setIsSaved(true);
-        alert("Фильм сохранен в вашей коллекции!");
-      })
-      .catch((err) => {
-        //showError(err);
-      });
-  }
-
-  // Fn DELETE MOVIE
-  function handleDeleteMovie({ movieForDelete }, setIsSaved) {
-    movieApi
-      .deleteMovie({ movieForDelete }, localToken)
-      .then((deletedMovie) => {
-        setIsSaved(false);
-        const newSavedMovies = savedMovies.filter(
-          (m) => m._id !== deletedMovie._id
-        );
-        setSavedMovies(newSavedMovies);
-        alert("Фильм успешно удален!");
-      })
-      .catch((err) => {
-        //showError(err);
-      });
-  }
-
   if (loggedIn === null) {
     return <PageLoad />;
   }
@@ -268,38 +191,18 @@ const App = () => {
         <Route exact path="/" component={Main} />
         <ProtectedRoute
           path="/movies"
-          count={state.count}
-          filteredAllMovies={filteredAllMovies}
-          savedMovies={savedMovies}
           onSearchClick={handleSearch}
-          onSaveMovieClick={handleSaveMovie}
-          onDeleteMovieClick={handleDeleteMovie}
-          onGetMoreMoviesClick={handleGetMoreMoviesClick}
           component={Movies}
         />
         <ProtectedRoute
           path="/saved-movies"
-          savedMovies={savedMovies}
-          filteredSavedMovies={filteredSavedMovies}
-          resetFilteredAllMovies={setFilteredAllMovies}
-          setFilteredSavedMovies={setFilteredSavedMovies}
           onSearchClick={handleSearch}
-          onDeleteMovieClick={handleDeleteMovie}
           component={SavedMovies}
         />
-        <ProtectedRoute
-          path="/profile"
-          component={Profile}
-        />
-        <Route path="/signin">
-          <Login buttonTitle="Войти" />
-        </Route>
-        <Route path="/signup">
-          <Register buttonTitle="Зарегистрироваться" />
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
+        <ProtectedRoute path="/profile" component={Profile} />
+        <Route path="/signin" component={Login} />
+        <Route path="/signup" component={Register} />
+        <Route path="*" component={PageNotFound} />
       </Switch>
       <Route
         path="/google"
@@ -313,4 +216,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withRouter(App);

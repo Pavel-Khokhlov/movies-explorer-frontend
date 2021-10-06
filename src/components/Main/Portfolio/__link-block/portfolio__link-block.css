@@ -1,0 +1,5 @@
+.portfolio__link-block {
+  display: flex;
+  flex-direction: row;
+  gap: min(30px, 5vw);
+}

@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { REG_EMAIL, REG_NAME, REG_PASSWORD, REG_PHONE } from "../utils/config";
 
 const initialState = {
-  values: { name: "", email: "", phone: "", password: "" },
-  errors: { name: false, email: false, phone: false, password: false },
+  values: { name: "", email: "", password: "" },
+  errors: { name: false, email: false, password: false },
   checkboxReg: false,
   isSignupFormValid: false,
   isLoginFormValid: false,
@@ -146,18 +146,17 @@ const formSlice = createSlice({
       state.values = {
         name: action.payload.name,
         email: action.payload.email,
-        phone: "",
+        _id: action.payload._id,
         password: "",
       };
       state.errors = {
         name: true,
-        email: true,
-        phone: false,
+        email: true, 
         password: false,
       };
       state.checkboxReg = false;
     },
-    resetForm(state) {
+    resetForm() {
       return initialState;
     },
   },

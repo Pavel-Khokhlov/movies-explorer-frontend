@@ -1,21 +1,33 @@
 import React from "react";
-import Paragraph from "../Paragraph/Paragraph";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-import Icon from "../../images/btn_portfolio.svg";
+import GitIcon from "../../images/git.png";
+import InternetIcon from "../../images/internet.png";
 
-import "./PortfolioLink.css";
-
-const PortfolioLink = ({ url, titleName }) => {
+const PortfolioLink = ({ link }) => {
   return (
-    <div className="portfoliolink">
-      <Paragraph className="paragraph paragraph__portfolio">
-        {titleName}
-      </Paragraph>
-      <a href={url} target="_blank" rel="noreferrer">
-        <img src={Icon} alt="иконка переход" className="portfoliolink__image" />
-      </a>
-    </div>
+    <li className="portfolio__link">
+      <article className="portfolio__about">
+        <h2 className="paragraph paragraph__portfolio">{link.name}</h2>
+        <p className="paragraph">{link.tech}</p>
+      </article>
+      <div className="portfolio__link-block">
+        <Link to={link.pathGit} target="_blank" rel="noreferrer">
+          <img
+            src={GitIcon}
+            alt="иконка переход github"
+            className="portfoliolink__image"
+          />
+        </Link>
+        <Link to={link.pathGhPages} target="_blank" rel="noreferrer">
+          <img
+            src={InternetIcon}
+            alt="иконка переход интернет"
+            className="portfoliolink__image"
+          />
+        </Link>
+      </div>
+    </li>
   );
 };
 

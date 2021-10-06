@@ -4,15 +4,6 @@ class MovieApi {
     this.url = config.url;
   }
 
-  getSavedMovies(token) {
-    return fetch(`${this.url}/movies`, {
-      headers: { 
-        'Content-Type': 'application/json',
-        "Authorization": `${token}`, 
-      },
-    }).then(this._checkPromise);
-  }
-
   saveMovie({ movieForSave }, token) {
     return fetch(`${this.url}/movies`, {
       method: "POST",
