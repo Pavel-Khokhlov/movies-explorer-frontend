@@ -1,12 +1,5 @@
 .promo__img {
-  width: 310px;
-  height: 304px;
+  width: min(310px, 40vw);
+  height: min(310px, 40vw);
   margin: 0;
-}
-
-@media only screen and (max-width: 768px) {
-  .promo__img {
-    width: max(160px, min(160px + calc((100vw - 320px) / 2.98), 310px));
-    height: max(159px, min(159px + calc((100vw - 320px) / 2.89), 304px));
-  }
 }

@@ -22,7 +22,7 @@ const Footer = () => {
         </Paragraph>
         <Line className={`line line__color_grey`} />
         <div className="footer__block">
-          <div className="paragraph footer__copyright">@ 2021</div>
+          <div className="paragraph footer__copyright">@ 2020 - 2021 Created by Pavel Khokhlov</div>
           <ul className="footer__links">
             <li>
               <a
@@ -46,12 +46,12 @@ const Footer = () => {
             </li>
             <li>
               <a
-                href="https://facebook.com"
+                href="https://www.linkedin.com/in/pavel-khokhlov/"
                 className="button paragraph footer__link"
                 target="_blank"
                 rel="noreferrer"
               >
-                FaceBook
+                LinkedIn
               </a>
             </li>
           </ul>

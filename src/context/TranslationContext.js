@@ -39,7 +39,7 @@ export const translations = {
     header_movies: 'Фильмы',
     header_savedMovies: 'Сохраненные Фильмы',
     header_account: 'Аккаунт',
-    title_promo: 'Учебный проект студента факультета Веб-разработки.',
+    title_promo: `Учебный проект студента факультета Веб-разработки.`,
     title_project: 'О проекте',
     title_tech: 'Технологии',
     title_dev: 'Web-разработчик',

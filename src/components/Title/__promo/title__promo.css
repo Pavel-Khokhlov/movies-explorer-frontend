@@ -1,15 +1,14 @@
 .title__promo {
-  font-size: min(50px, 5vw);
-  width: min(640px, 50vw);
+  font-size: min(50px, 8vw);
+  width: min(610px, 50vw);
   margin: 0 0 36px;
   transform: translate(0px, 120%);
   opacity: 0;
-  transition: 0.8s ease-in;
+  transition: all 0.8s ease 0s;
 }
 
 @media only screen and (max-width: 768px) {
   .title__promo {
-    font-size: 40px;
     width: 88%;
     margin-bottom: min(22px, 6vw);
   }
@@ -18,7 +17,6 @@
 @media only screen and (max-width: 430px) {
   .title__promo {
     width: 100%;
-    font-size: 30px;
   }
 }
 

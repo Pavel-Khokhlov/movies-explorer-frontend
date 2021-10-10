@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Title from "../../Title/Title";
 import SubTitle from "../../SubTitle/SubTitle";
 import Paragraph from "../../Paragraph/Paragraph";
-import Portrait from "../../../images/my_portrait.jpg";
+import Portrait from "../../../images/portrait.jpg";
 
 import { TranslationContext } from "../../../context/TranslationContext";
 
@@ -23,6 +23,9 @@ const AboutMe = () => {
             Фронтенд-разработчик, 43 года
           </Title>
           <Paragraph className="paragraph paragraph__aboutme">
+            С февраля 2021 вовлечен в Pet проект, на начальном этапе это был простой сайт визитка. По ходу обучения применялиль и практиковались технологии на этом проекте. После пересмотра концепции было принять решение делать полноценный сайт интернет магазина. FrontEnd собирается на ReactJS и Redux. BackEnd на NodeJS и MongoDB.
+          </Paragraph>
+          <Paragraph className="paragraph paragraph__aboutme">
             Я родился в Приморском крае. Получил высшее образование и долгое
             время работал инженером по телекоммуникациям и предоставлял
             IT поддержку пользователям на нефтегазовом проекте. Впервые
@@ -30,8 +33,7 @@ const AboutMe = () => {
             загрузил его на хостинг. В 2020 году решил упорядочить свои знания и
             прошел курс по Фронтенд разработке в Яндекс-Практикум. Полученные
             знания готов применять на практике и в проектах. Изученные
-            технологии: HTML, CSS, JavaScripts, WebPack, ReactJS, Figma, GitHub,
-            Gist, NodeJS, Express, MongoDB, VS-Code.
+            технологии: HTML, CSS, JavaScripts, ES6, WebPack, ReactJS, Redux, SPA, NodeJS, Express, MongoDB.
           </Paragraph>
           <Title className="subtitle title__main subtitle__size_m">
             Образование
@@ -61,12 +63,12 @@ const AboutMe = () => {
           <ul className="aboutme__links">
             <li>
               <a
-                href="https://facebook.com"
+                href="https://www.linkedin.com/in/pavel-khokhlov/"
                 className="button aboutme__link"
                 target="_blank"
                 rel="noreferrer"
               >
-                Facebook
+                LinkedIn
               </a>
             </li>
             <li>
