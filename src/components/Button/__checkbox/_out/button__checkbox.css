@@ -1,11 +1,11 @@
-.search__checkbox_out {
+.button__checkbox_out {
   display: none;
 }
 
 @media only screen and (max-width: 767px) {
-  .search__checkbox_out {
-    display: block;
-    width: 160px;
+  .button__checkbox_out {
+    display: flex;
+    gap: 20px;
     margin: 45px auto;
   }
 }

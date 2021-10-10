@@ -2,13 +2,16 @@
   font-size: min(50px, 5vw);
   width: min(640px, 50vw);
   margin: 0 0 36px;
+  transform: translate(0px, 120%);
+  opacity: 0;
+  transition: 0.8s ease-in;
 }
 
 @media only screen and (max-width: 768px) {
   .title__promo {
     font-size: 40px;
     width: 88%;
-    margin-bottom: max(16px, min(16px + calc((100vw - 320px) / 75), 22px));
+    margin-bottom: min(22px, 6vw);
   }
 }
 
@@ -17,4 +20,9 @@
     width: 100%;
     font-size: 30px;
   }
+}
+
+.title__promo._active {
+  transform: translate(0px, 0px);
+  opacity: 1;
 }

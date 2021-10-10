@@ -1,17 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import useScroll from "../Hooks/useScroll";
 import Logo from "../Logo/Logo";
 import Navigation from "../Navigation/Navigation";
 
 import "./Header.css";
 
-const Header = ({ location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-
-  useEffect(() => {
-    const { pathname } = location;
-    setCurrentPath(pathname);
-  }, [location]);
+const Header = () => {
+  const { currentPath } = useSelector((state) => state.app);
+  const { scrolled } = useScroll();
 
   const headerBgClassName = `section header ${currentPath === "/" ? "header__bg_grey" : ""}`;
 
@@ -22,13 +19,13 @@ const Header = ({ location }) => {
     currentPath === "/profile"
   ) {
     return (
-      <section className={headerBgClassName}>
+      <header className={headerBgClassName}>
         <Logo />
         <Navigation />
-      </section>
+      </header>
     );
   }
   return "";
 };
 
-export default withRouter(Header);
+export default Header;

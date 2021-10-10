@@ -13,7 +13,7 @@ const Portfolio = () => {
 
   return (
     <section className="section portfolio">
-      <SubTitle className="subtitle subtitle__layout_portfolio subtitle__size_m subtitle__color_grey">
+      <SubTitle className="subtitle subtitle__layout_portfolio subtitle__size_m subtitle__color_grey animation_item stop_animation">
         {translation.title_portfolio}
       </SubTitle>
       <ul className="portfolio__links">

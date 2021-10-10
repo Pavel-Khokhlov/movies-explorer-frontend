@@ -1,43 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
-
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SearchSvg from "../../images/search.svg";
+import { handleValuesChange } from "../../store/formSlice";
+import { setFilteredMovies } from "../../store/movieSlice";
 import Button from "../Button/Button";
+import CustomCheckbox from "../CustomCheckbox/CustomCheckbox";
 
 import "./SearchForm.css";
 
-const SearchForm = ({ onSearchClick, location }) => {
-  const [currentPath, setCurrentPath] = useState(location.pathname);
+const SearchForm = () => {
+  const dispatch = useDispatch();
+  const { values, checkboxSearch } = useSelector((state) => state.forms);
+  const { currentPath } = useSelector((state) => state.app);
 
-  const [checked, setChecked] = useState(false);
-  const [searchValue, setSearchValue] = useState(``);
   const [isInputFocus, setIsInputFocus] = useState(false);
 
-  useEffect(() => {
-    const { pathname } = location;
-    setCurrentPath(pathname);
-  }, [location]);
-
-  function handleClickCheckbox(e) {
-    if (e.target.classList.contains("checkbox_active")) {
-      setChecked(false);
-    } else {
-      setChecked(true);
-    }
-    e.target.classList.toggle(`checkbox_active`);
-  }
-
-  function handleChangeSearch(e) {
-    setSearchValue(e.target.value);
-  }
+  const handleChange = (e) => {
+    dispatch(
+      handleValuesChange({ name: e.target.name, value: e.target.value })
+    );
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (searchValue.length === 0) {
-      return alert("Введите текст для поиска");
-    } else {
-      onSearchClick(searchValue, checked, currentPath);
-    }
+    dispatch(
+      setFilteredMovies({ search: values.search, checkboxSearch, currentPath })
+    );
   }
 
   function handleInputFocus() {
@@ -48,7 +36,13 @@ const SearchForm = ({ onSearchClick, location }) => {
     setIsInputFocus(false);
   }
 
-  const searchAreaClassName = `search__area ${isInputFocus ? "search__area_active" : "search__area_inactive"}`
+  const customCheckboxClassName = `search__checkbox ${
+    checkboxSearch ? "search__checkbox_active" : "search__checkbox_inactive"
+  }`;
+
+  const searchAreaClassName = `search__area ${
+    isInputFocus ? "search__area_active" : "search__area_inactive"
+  }`;
 
   return (
     <form className="search" onSubmit={handleSubmit}>
@@ -61,29 +55,28 @@ const SearchForm = ({ onSearchClick, location }) => {
           className="search__input"
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
-          value={searchValue}
-          onChange={handleChangeSearch}
+          value={values.search || ""}
+          onChange={handleChange}
           autoComplete="off"
         />
-        <Button type="submit" className="button button__search text-color__white" >Найти</Button>
-        <span className="search__line" />
-        <div
-          className="search__checkbox search__checkbox_in"
-          onClick={handleClickCheckbox}
+        <Button
+          type="submit"
+          className="button button__search text-color__white"
         >
-          Короткометражка
-          <input type="checkbox" name="checkbox" defaultChecked={checked} />
-        </div>
+          Найти
+        </Button>
+        <span className="search__line" />
+        <CustomCheckbox buttonClassName="button__checkbox button__checkbox_in">
+          <span className={customCheckboxClassName}></span>
+          <p className="paragraph">Короткометражка</p>
+        </CustomCheckbox>
       </div>
-      <div
-        className="search__checkbox search__checkbox_out"
-        onClick={handleClickCheckbox}
-      >
-        Короткометражка
-        <input type="checkbox" name="checkbox" defaultChecked={checked} />
-      </div>
+      <CustomCheckbox buttonClassName="button__checkbox button__checkbox_out">
+        <span className={customCheckboxClassName}></span>
+        <p className="paragraph">Короткометражка</p>
+      </CustomCheckbox>
     </form>
   );
 };
 
-export default withRouter(SearchForm);
+export default SearchForm;

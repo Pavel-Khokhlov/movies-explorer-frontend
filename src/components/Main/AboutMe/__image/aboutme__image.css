@@ -6,6 +6,9 @@
   object-fit: cover;
   object-position: center;
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: scale(0.1);
+  transition: 0.8s ease;
 }
 
 @media only screen and (max-width: 767px) {
@@ -14,4 +17,9 @@
     height: 352px;
     margin-bottom: 12.5vw;
   }
+}
+
+.aboutme__image._active {
+  opacity: 1;
+  transform: scale(1);
 }

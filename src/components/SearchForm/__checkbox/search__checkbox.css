@@ -1,48 +1,21 @@
-@import url(./_in/search__checkbox_in.css);
-@import url(./_out/search__checkbox.css);
+@import url(./_active/search__checkbox_active.css);
+@import url(./_inactive/search__checkbox_inactive.css);
 
 .search__checkbox {
   position: relative;
-  font-size: 13px;
-  line-height: 20px;
-  padding: 0 0 0 40px;
-  cursor: pointer;
-}
-
-.search__checkbox input {
-  display: none;
-}
-
-.search__checkbox:before {
-  content: '';
   width: 36px;
   height: 20px;
   border-radius: 10px;
-  background-color: red;
-  position: absolute;
-  left: 0px;
-  top: 0;
-  transition: 0.5s ease 0.2s;
-  box-sizing: border-box;
+  transition: all 0.5s ease-out 0.3s;
 }
 
-.search__checkbox.checkbox_active:before {
-  background-color: #2BE080;
-}
-
-.search__checkbox:after {
-  content: '';
+.search__checkbox:before {
+  content: "";
   width: 18px;
   height: 18px;
   border-radius: 9px;
   background-color: #ffffff;
   position: absolute;
-  left: 1px;
   top: 1px;
-  transition: 0.5s ease;
-  box-sizing: border-box;
-}
-
-.search__checkbox.checkbox_active:after {
-  left: 17px
+  transition: all 0.5s ease-out;
 }

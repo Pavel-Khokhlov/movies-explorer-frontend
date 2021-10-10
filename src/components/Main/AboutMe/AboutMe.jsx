@@ -13,7 +13,7 @@ const AboutMe = () => {
 
   return (
     <section className="section aboutme" id="aboutme">
-      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
+      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl animation_item stop_animation">
         {translation.title_dev}
       </SubTitle>
       <article className="aboutme__block">
@@ -81,7 +81,7 @@ const AboutMe = () => {
             </li>
           </ul>
         </div>
-        <img src={Portrait} alt="портрет резюме" className="aboutme__image" />
+        <img src={Portrait} alt="портрет резюме" className="aboutme__image animation_item stop_animation" />
       </article>
     </section>
   );

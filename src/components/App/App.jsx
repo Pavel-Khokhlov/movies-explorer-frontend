@@ -20,26 +20,23 @@ import {
 
 import "./App.css";
 
-import { ESC_CODE, DURATION, MOBILE } from "../../utils/config";
+import { ESC_CODE, MOBILE } from "../../utils/config";
 
 import { useDispatch, useSelector } from "react-redux";
-import { closeAllPopups, setCurrentPath } from "../../store/appSlice";
+import {
+  closeAllPopups,
+  setCurrentPath,
+} from "../../store/appSlice";
 import { checkContent, logoutUser } from "../../store/userSlice";
 import { initCountShowMovies, resetStore } from "../../store/movieSlice";
 
 const App = ({ location }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { isPopupOpen } = useSelector((state) => state.app);
-  const { loggedIn, token } = useSelector((state) => state.users);
-  const { allMovies, savedMovies } = useSelector((state) => state.users);
-  const [lang, setLang] = useState("ru"); // present lang
+  const { currentLang, isPopupOpen } = useSelector((state) => state.app);
+  const { loggedIn } = useSelector((state) => state.users);
 
   const localToken = localStorage.getItem("jwt");
-
-  const [filteredAllMovies, setFilteredAllMovies] = useState([]);
-  // const [savedMovies, setSavedMovies] = useState([]);
-  const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
 
   useEffect(() => {
     handleDefineScreen();
@@ -112,93 +109,16 @@ const App = ({ location }) => {
     }
   }
 
-  // Fn SEARCH REQUEST
-  function handleSearch(searchValue, checkboxValue, currentPath) {
-    setFilteredAllMovies([]);
-    setFilteredSavedMovies([]);
-    handleDefineScreen();
-    if (currentPath === `/movies`) {
-      seachInAllMovies(searchValue, checkboxValue);
-    } else if (currentPath === `/saved-movies`) {
-      seachInSavedMovies(searchValue, checkboxValue);
-    }
-  }
-
-  // DURATION CHECK
-  function handleDurationCheck(array) {
-    const res = array.filter((m) => m.duration < DURATION);
-    return res;
-  }
-
-  function handleSearchCheck(array, searchValue) {
-    const res = array.filter((m) =>
-      m.description
-        .toLowerCase()
-        .replace(/[.,%]/g, "")
-        .includes(searchValue.toLowerCase())
-    );
-    return res;
-  }
-
-  function seachInSavedMovies(searchValue, checkboxValue) {
-    const moviesForSearch = savedMovies;
-    if (moviesForSearch.length === 0) {
-      return alert("У вас нет сохраненных фильмов");
-    }
-    if (checkboxValue) {
-      const filteredMovies = handleSearchCheck(
-        handleDurationCheck(moviesForSearch),
-        searchValue
-      );
-      setFilteredSavedMovies(handleCheckMoviesArray(filteredMovies));
-    } else {
-      const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
-      setFilteredSavedMovies(handleCheckMoviesArray(filteredMovies));
-    }
-  }
-
-  // SEARCH IN ALL MOVIES
-  function seachInAllMovies(searchValue, checkboxValue) {
-    const moviesForSearch = allMovies;
-    if (checkboxValue) {
-      const filteredMovies = handleSearchCheck(
-        handleDurationCheck(moviesForSearch),
-        searchValue
-      );
-      setFilteredAllMovies(handleCheckMoviesArray(filteredMovies));
-    } else {
-      const filteredMovies = handleSearchCheck(moviesForSearch, searchValue);
-      setFilteredAllMovies(handleCheckMoviesArray(filteredMovies));
-    }
-  }
-
-  function handleCheckMoviesArray(array) {
-    if (array.length === 0) {
-      alert("Фильмы не найдены");
-      return [];
-    } else {
-      return array;
-    }
-  }
-
   if (loggedIn === null) {
     return <PageLoad />;
   }
   return (
-    <TranslationContext.Provider value={translations[lang]}>
+    <TranslationContext.Provider value={translations[currentLang]}>
       <Header />
       <Switch>
         <Route exact path="/" component={Main} />
-        <ProtectedRoute
-          path="/movies"
-          onSearchClick={handleSearch}
-          component={Movies}
-        />
-        <ProtectedRoute
-          path="/saved-movies"
-          onSearchClick={handleSearch}
-          component={SavedMovies}
-        />
+        <ProtectedRoute path="/movies" component={Movies} />
+        <ProtectedRoute path="/saved-movies" component={SavedMovies} />
         <ProtectedRoute path="/profile" component={Profile} />
         <Route path="/signin" component={Login} />
         <Route path="/signup" component={Register} />

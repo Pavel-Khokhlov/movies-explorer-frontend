@@ -3,10 +3,19 @@
   width: clamp(260px, 28vw, 300px);
   opacity: 50%;
   margin: 0;
+  transform: translate(0px, 200%);
+  opacity: 0;
+  transition: 0.8s ease-in 0s;
 }
 
 @media only screen and (max-width: 768px) {
   .paragraph__promo {
     text-align: center;
   }
+}
+
+.paragraph__promo._active {
+  transform: translate(0px, 0px);
+  opacity: 1;
+  transition: 0.8s ease-in 0.4s;
 }

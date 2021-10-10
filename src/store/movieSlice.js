@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   BASE_URL,
   BEATFILM_URL,
+  DURATION,
   PATH_MOVIES,
   PATH_SAVED_MOVIES,
 } from "../utils/config";
@@ -116,7 +117,6 @@ export const deleteMovie = createAsyncThunk(
         },
       });
       let data = await response.json();
-      console.log(data);
       if (response.ok) {
         return data;
       } else {
@@ -143,6 +143,7 @@ const setError = (state, action) => {
 const initialState = {
   movies: [],
   savedMovies: [],
+  filteredMovies: [],
   countShowMovies: 0,
   count: 0,
 };
@@ -160,6 +161,51 @@ const movieSlice = createSlice({
     },
     setSavedMovies(state, action) {
       state.savedMovies = action.payload;
+    },
+    setFilteredMovies(state, action) {
+      let newMovies = [];
+      const { search, checkboxSearch, currentPath } = action.payload;
+      if (currentPath === "/movies" && checkboxSearch === false) {
+        newMovies = state.movies.filter(
+          (m) =>
+            m.duration > DURATION &&
+            m.description
+              .toLowerCase()
+              .replace(/[.,!?%]/g, "")
+              .includes(search.toLowerCase())
+        );
+        state.filteredMovies = newMovies;
+      } else if (currentPath === "/movies" && checkboxSearch === true) {
+        newMovies = state.movies.filter(
+          (m) =>
+            m.duration < DURATION &&
+            m.description
+              .toLowerCase()
+              .replace(/[.,!?%]/g, "")
+              .includes(search.toLowerCase())
+        );
+        state.filteredMovies = newMovies;
+      } else if (currentPath === "/saved-movies" && checkboxSearch === false) {
+        newMovies = state.savedMovies.filter(
+          (m) =>
+            m.duration > DURATION &&
+            m.description
+              .toLowerCase()
+              .replace(/[.,!?%]/g, "")
+              .includes(search.toLowerCase())
+        );
+        state.filteredMovies = newMovies;
+      } else if (currentPath === "/saved-movies" && checkboxSearch === true) {
+        newMovies = state.savedMovies.filter(
+          (m) =>
+            m.duration < DURATION &&
+            m.description
+              .toLowerCase()
+              .replace(/[.,!?%]/g, "")
+              .includes(search.toLowerCase())
+        );
+        state.filteredMovies = newMovies;
+      }
     },
     resetStore() {
       localStorage.removeItem("localAllMovies");
@@ -209,6 +255,7 @@ const movieSlice = createSlice({
 export const {
   incrementCount,
   setSavedMovies,
+  setFilteredMovies,
   initCountShowMovies,
   resetStore,
 } = movieSlice.actions;

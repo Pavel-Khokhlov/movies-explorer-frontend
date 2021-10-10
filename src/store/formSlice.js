@@ -2,12 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { REG_EMAIL, REG_NAME, REG_PASSWORD, REG_PHONE } from "../utils/config";
 
 const initialState = {
-  values: { name: "", email: "", password: "" },
+  values: { name: "", email: "", password: "", search: "" },
   errors: { name: false, email: false, password: false },
-  checkboxReg: false,
+  checkboxSearch: false,
   isSignupFormValid: false,
   isLoginFormValid: false,
   isEditProfileFormValid: false,
+  isSearchFormValid: false,
 };
 
 const formSlice = createSlice({
@@ -116,8 +117,8 @@ const formSlice = createSlice({
         return;
       }
     },
-    toggleCheckboxReg(state, action) {
-      state.checkboxReg = !state.checkboxReg;
+    toggleCheckboxSearch(state) {
+      state.checkboxSearch = !state.checkboxSearch;
     },
     validateSignupForm(state) {
       state.isSignupFormValid =
@@ -151,10 +152,10 @@ const formSlice = createSlice({
       };
       state.errors = {
         name: true,
-        email: true, 
+        email: true,
         password: false,
       };
-      state.checkboxReg = false;
+      state.checkboxSearch = false;
     },
     resetForm() {
       return initialState;
@@ -164,7 +165,7 @@ const formSlice = createSlice({
 
 export const {
   handleValuesChange,
-  toggleCheckboxReg,
+  toggleCheckboxSearch,
   validateMessage,
   validateSignupForm,
   validateLoginForm,

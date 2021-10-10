@@ -1,20 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useContext } from "react";
 import Paragraph from "../Paragraph/Paragraph";
 import Line from "../Line/Line";
 import { TranslationContext } from "../../context/TranslationContext";
 
 import "./Footer.css";
+import { useSelector } from "react-redux";
 
-const Footer = ({ location }) => {
+const Footer = () => {
   const translation = useContext(TranslationContext);
-
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-
-  useEffect(() => {
-    const { pathname } = location;
-    setCurrentPath(pathname);
-  }, [location]);
+  const { currentPath } = useSelector((state) => state.app);
 
   if (
     currentPath === "/" ||
@@ -22,7 +16,7 @@ const Footer = ({ location }) => {
     currentPath === "/saved-movies"
   ) {
     return (
-      <section className="section footer">
+      <footer className="section footer">
         <Paragraph className={`paragraph paragraph__footer text-color__grey`}>
           {translation.footer_text}
         </Paragraph>
@@ -62,10 +56,10 @@ const Footer = ({ location }) => {
             </li>
           </ul>
         </div>
-      </section>
+      </footer>
     );
   }
   return "";
 };
 
-export default withRouter(Footer);
+export default Footer;

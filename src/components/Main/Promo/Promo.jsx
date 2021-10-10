@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import NavTab from "../NavTab/NavTab";
 import Title from "../../Title/Title";
 import Paragraph from "../../Paragraph/Paragraph";
@@ -14,10 +14,10 @@ const Promo = () => {
     <section className="section promo">
       <div className="promo__info">
         <div className="promo__text">
-          <Title className="title title__promo">
+          <Title className="title title__promo animation_item stop_animation">
             {translation.title_promo}
           </Title>
-          <Paragraph className="paragraph paragraph__promo paragraph__size_s">
+          <Paragraph className="paragraph paragraph__promo paragraph__size_s animation_item stop_animation">
             Листайте ниже, чтобы узнать больше про этот проект и его создателя.
           </Paragraph>
         </div>

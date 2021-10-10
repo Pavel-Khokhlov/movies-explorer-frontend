@@ -1,0 +1,7 @@
+.search__checkbox_inactive {
+  background-color: red;
+}
+
+.search__checkbox_inactive:before {
+  left: 1px;
+}

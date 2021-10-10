@@ -3,4 +3,12 @@
   margin: 0;
   line-height: 3;
   border-bottom: 1px solid black;
+  opacity: 0;
+  transform: translate(100%, 0px);
+  transition: 1s ease-in-out;
+}
+
+.subtitle__layout_main._active {
+  opacity: 1;
+  transform: translate(0px, 0px);
 }

@@ -17,7 +17,7 @@ const Tech = () => {
 
   return (
     <section className="section tech" id="tech">
-      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
+      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl animation_item stop_animation">
         {translation.title_tech}
       </SubTitle>
       <div className="tech__block">
@@ -27,7 +27,7 @@ const Tech = () => {
           дипломном проекте.
         </Paragraph>
       </div>
-      <div className="tech__items">
+      <div className="tech__items animation_item stop_animation">
         {technologyLinks.map((item) => {
           return <TechItem key={item}>{item}</TechItem>;
         })}

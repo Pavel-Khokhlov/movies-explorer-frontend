@@ -1,0 +1,13 @@
+@import url(./_in/button__checkbox_in.css);
+@import url(./_out/button__checkbox.css);
+
+.button__checkbox {
+  padding: 0;
+  border: none;
+  background: none;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}

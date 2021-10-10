@@ -3,6 +3,7 @@
   width: 100%;
   padding: 0 calc((100vw - 1140px) / 2);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 @media only screen and (max-width: 1280px) {

@@ -1,0 +1,7 @@
+.search__checkbox_active {
+  background-color: #2be080;
+}
+
+.search__checkbox_active:before {
+  left: 17px;
+}

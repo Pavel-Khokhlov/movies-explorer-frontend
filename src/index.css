@@ -5,6 +5,7 @@
 @import url(./blocks/text-weight/text-weight.css);
 
 @import url(./animation/rotate.css);
+@import url(./animation/swing.css);
 
 @font-face {
   font-family: 'Inter';

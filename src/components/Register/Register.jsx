@@ -4,11 +4,9 @@ import SignForm from "../SignForm/SignForm";
 
 import { createUser, showError, showTooltip } from "../../store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
 import { handleValuesChange, resetForm, validateMessage, validateSignupForm } from "../../store/formSlice";
 
 const Register = () => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.users);
   const { values, errors, isSignupFormValid } = useSelector((state) => state.forms);

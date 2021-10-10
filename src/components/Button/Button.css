@@ -6,6 +6,7 @@
 @import url(./__menu/button__menu.css);
 @import url(./__word/button__word.css);
 @import url(./__edit/button__edit.css);
+@import url(./__checkbox/button__checkbox.css);
 @import url(./__edit/_active/button__edit_active.css);
 @import url(./__edit/_inactive/button__edit_inactive.css);
 @import url(./__close-popup/button__close-popup.css);

@@ -5,7 +5,7 @@ import Card from "../Card/Card";
 import { useDispatch, useSelector } from "react-redux";
 import { getSavedMovies, setSavedMovies } from "../../store/movieSlice";
 
-const SavedMovies = ({ onSearchClick }) => {
+const SavedMovies = () => {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.users);
   const { savedMovies } = useSelector((state) => state.movies);
@@ -20,7 +20,7 @@ const SavedMovies = ({ onSearchClick }) => {
 
   return (
     <section className="section">
-      <SearchForm onSearchClick={onSearchClick} />
+      <SearchForm />
       <Line className="line line__color_grey" />
       {/* MOVIES */}
       {savedMovies.length > 0 && (

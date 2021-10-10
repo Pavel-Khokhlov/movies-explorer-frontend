@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { INIT_SCROLL } from "../utils/config";
 
 const appSlice = createSlice({
   name: "app",
   initialState: {
     currentPath: "",
+    currentLang: "ru",
+    scrolled: {},
     isPopupOpen: false,
     isMenuPopupOpen: false,
     isInfoPopupOpen: false,
@@ -14,11 +17,18 @@ const appSlice = createSlice({
     setCurrentPath(state, action) {
       state.currentPath = action.payload;
     },
-    openMenuPopup(state, action) {
+    setScrolled(state, action) {
+      if (action.payload < INIT_SCROLL) {
+        state.scrolled = { lastPosition: action.payload, status: false };
+      } else {
+        state.scrolled = { lastPosition: action.payload, status: true };
+      }
+    },
+    openMenuPopup(state) {
       state.isMenuPopupOpen = true;
       state.isPopupOpen = true;
     },
-    openInfoPopup(state, action) {
+    openInfoPopup(state) {
       state.isInfoPopupOpen = true;
       state.isPopupOpen = true;
     },
@@ -28,7 +38,7 @@ const appSlice = createSlice({
     setErrorMessage(state, action) {
       state.error = action.payload;
     },
-    closeAllPopups(state, action) {
+    closeAllPopups(state) {
       state.isPopupOpen = false;
       state.isMenuPopupOpen = false;
       state.isInfoPopupOpen = false;
@@ -38,6 +48,7 @@ const appSlice = createSlice({
 
 export const {
   setCurrentPath,
+  setScrolled,
   openMenuPopup,
   openInfoPopup,
   setErrorStatus,

@@ -2,4 +2,21 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0.3px 0.3px 0.3px -8px rgba(0, 0, 0, 0.037),
+    0.7px 0.8px 0.8px -8px rgba(0, 0, 0, 0.057),
+    1.3px 1.4px 1.4px -8px rgba(0, 0, 0, 0.072),
+    2.2px 2.4px 2.2px -8px rgba(0, 0, 0, 0.087),
+    3.4px 3.7px 3.4px -8px rgba(0, 0, 0, 0.103),
+    5.3px 5.7px 5.3px -8px rgba(0, 0, 0, 0.123),
+    8.4px 9px 8.3px -8px rgba(0, 0, 0, 0.15),
+    14px 15px 13px -8px rgba(0, 0, 0, 0.19);
+
+  border-radius: 5px;
+  transition: 0.5s ease-out;
+}
+
+.portfolio__link:hover {
+  transform: scale(1.05);
+  background-color: rgba(0, 174, 255, 0.1);
 }

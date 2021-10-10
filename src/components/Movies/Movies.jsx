@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import LazyLoad from "react-lazyload";
 import SearchForm from "../SearchForm/SearchForm";
 import Line from "../Line/Line";
 import Button from "../Button/Button";
@@ -13,9 +12,9 @@ import {
   incrementCount,
 } from "../../store/movieSlice";
 
-const Movies = ({ onSearchClick }) => {
+const Movies = () => {
   const dispatch = useDispatch();
-  const { movies, count, countShowMovies } = useSelector(
+  const { count, countShowMovies, filteredMovies } = useSelector(
     (state) => state.movies
   );
   const { token } = useSelector((state) => state.users);
@@ -28,28 +27,23 @@ const Movies = ({ onSearchClick }) => {
     dispatch(getSavedMovies(token));
   }, []);
 
-  function handleMoreClick(e) {
-    e.preventDefault();
+  function handleMoreClick() {
     dispatch(incrementCount(count));
   }
 
   return (
     <section className="section">
-      <SearchForm onSearchClick={onSearchClick} />
+      <SearchForm />
       <Line className="line line__color_grey" />
       {/* MOVIES */}
       <ul className="movies__list">
-        {movies
+        {filteredMovies
           .filter((v, i) => i < countShowMovies)
           .map((movie) => {
-            return (
-              <LazyLoad key={movie.description}>
-                <Card key={movie.id} movie={movie} />
-              </LazyLoad>
-            );
+            return <Card key={movie.id} movie={movie} />;
           })}
       </ul>
-      {movies.length > countShowMovies && (
+      {filteredMovies.length > countShowMovies && (
         <Button
           type="button"
           className="button button__more bg-color__gray paragraph paragraph__size_s"

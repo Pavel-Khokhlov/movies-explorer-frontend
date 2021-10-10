@@ -8,6 +8,7 @@ export const PATH_SIGNIN = "/signin";
 export const PATH_USERS_ME = "/users/me";
 
 export const ESC_CODE = 27;
+export const INIT_SCROLL = 10;
 
 export const NO_IMAGE = `https://importfood.com/media/zoo/images/no-image_29b7b0257bba2b7790396b98c00b2155.jpg`;
 

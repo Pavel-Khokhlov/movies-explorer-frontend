@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import Button from "../../components/Button/Button";
 
@@ -22,18 +22,6 @@ const Card = ({ movie }) => {
     }
   };
 
-  // function findMovieId() {
-  //   if (currentPath === "/movies") {
-  //     const foundMovie = savedMovies.filter(
-  //       (item) =>
-  //         item.description === movie.description && item.owner._id // === currentUser._id
-  //     );
-  //     return foundMovie._id;
-  //   }
-  //   if (currentPath === "/saved-movies"){
-  //     return movie._id;
-  //   }
-  // }
   // DURATION
   const Hours = Math.floor(movie.duration / 60);
   const Minuts = movie.duration % 60;
@@ -46,8 +34,8 @@ const Card = ({ movie }) => {
     dispatch(saveMovie({ movie, token }));
   }
 
-  const movieForDelete = currentPath === "/movies" ? Number(movie.id) : Number(movie.movieId);
-  console.log(movieForDelete);
+  const movieForDelete =
+    currentPath === "/movies" ? Number(movie.id) : Number(movie.movieId);
 
   function handleDeleteMovie(e) {
     e.preventDefault();
@@ -95,7 +83,12 @@ const Card = ({ movie }) => {
           />
         )}
       </div>
-      <a href={hrefLink} target="_blank" rel="noreferrer">
+      <a
+        href={hrefLink}
+        target="_blank"
+        rel="noreferrer"
+        className="movie__link"
+      >
         <img src={srcLink} alt={movie.nameRU} className="movie__image" />
       </a>
     </li>

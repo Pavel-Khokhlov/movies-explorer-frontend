@@ -6,4 +6,24 @@
   background-color: #e8e8e8;
   text-align: center;
   margin: 0;
+  box-shadow: 0.5px 0.7px 1px rgba(0, 0, 0, 0.03),
+    1.6px 2.2px 2.9px rgba(0, 0, 0, 0.046), 3.8px 5.3px 7px rgba(0, 0, 0, 0.063),
+    10px 14px 17px rgba(0, 0, 0, 0.1);
+}
+
+.tech__item:hover {
+  animation: swing 0.4s ease-in-out infinite alternate-reverse;
+  background-color: rgba(0, 174, 255, 0.1);
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(-3deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.5);
+  }
+  100% {
+    transform: rotate(3deg)scale(1.1);
+  }
 }

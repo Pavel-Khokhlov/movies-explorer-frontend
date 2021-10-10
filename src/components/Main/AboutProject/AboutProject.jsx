@@ -10,7 +10,7 @@ const AboutProject = () => {
 
   return (
     <section className="section aboutproject" id="more">
-      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl">
+      <SubTitle className="subtitle subtitle__layout_main subtitle__size_xl animation_item stop_animation">
       {translation.title_project}
       </SubTitle>
       <div className="aboutproject__block">

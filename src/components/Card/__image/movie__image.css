@@ -1,12 +1,4 @@
 .movie__image {
-  width: 220px;
-  height: 122px;
-  box-sizing: border-box;
-}
-
-@media only screen and (max-width: 767px) {
-  .movie__image {
-    width: min(300px, 93.75vw);
-    height: min(168px, 52.5vw);
-  }
+  width: 100%;
+  height: 100%;
 }

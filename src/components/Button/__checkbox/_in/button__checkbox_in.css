@@ -1,0 +1,10 @@
+.button__checkbox_in {
+  margin: 0;
+  display: flex;
+}
+
+@media only screen and (max-width: 767px) {
+  .button__checkbox_in {
+    display: none;
+  }
+}

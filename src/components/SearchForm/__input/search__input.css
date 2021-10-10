@@ -1,6 +1,7 @@
 .search__input {
   margin: 0;
   padding: 8px 0 8px 5px;
+  width: 100%;
   font-size: 18px;
   line-height: 20px;
   border: none;
@@ -22,8 +23,4 @@
   -webkit-background-clip: text;
   -webkit-border-image: none;
   font-size: 13px;
-}
-
-.search__input:focus .search__area {
-  border: 1px red solid;
 }

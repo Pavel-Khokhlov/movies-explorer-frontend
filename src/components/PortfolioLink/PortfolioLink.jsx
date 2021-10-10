@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import GitIcon from "../../images/git.png";
 import InternetIcon from "../../images/internet.png";
