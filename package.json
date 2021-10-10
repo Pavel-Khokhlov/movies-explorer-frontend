@@ -1,8 +1,8 @@
 {
-  "name": "movies-explorer-frontend",
+  "name": "resume-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://pavel-khokhlov.github.io/movies-explorer-frontend",
+  "homepage": "https://pavel-khokhlov.github.io/resume-frontend",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.14.1",
