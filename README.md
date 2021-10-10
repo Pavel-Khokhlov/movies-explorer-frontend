@@ -1,22 +1,23 @@
 # RESUME MOVIES PROJECT
 
-На основной странице проекта расположено мое резюме.
-[Link to the project](https://pavel-khokhlov.github.io/movies-explorer-frontend/).
+Проект содержит мое резюме на главной странице. Кроме резюме можно зарегистироваться на сайте и попасть на страницу поиска фильмов. Интересные фильмы можно сохранить к себе на станицу сохраненные фильмы. Есть отдельная страница редактирования профиля и выхода.
 
-На данный момент сервис Яндекс cloud не подключен, окончена подписка на сервис после окончания курса. Поэтому сервис не работает должным образом. Но доступ к коду можно получить по следующим ссылкам.
+Backend развернут на NodeJS & Express, в качастве базы используется MongoDB.
 
-Все функции работаю при запуске backend на localHost
+[Link to the RESUME](https://pavel-khokhlov.github.io/resume-frontend/)
 
-Страница на гитхабе для доступа к коду frontend
-[Link to the GitHub frontend](https://github.com/Pavel-Khokhlov/movies-explorer-frontend).
+*FRONTEND*
+[Link to the GitHub](https://github.com/Pavel-Khokhlov/resume-frontend)
 
-Страница на гитхабе для доступа к коду backend
-[Link to the GitHub backend](https://github.com/Pavel-Khokhlov/movies-explorer-api).
+*BACKEND*
+[Link to the GitHub](https://github.com/Pavel-Khokhlov/resume-api).
 
 ***GLOBAL UPDATE***
 1. Подключение глобального хранилища, использование технологии Redux-Toolkit
 2. Все функции переведены на уровень Dispatch.
 3. Запросы API выполнены через CreateAsyncThunk.
+4. Реализована функция Search.
+5. Реализована анимация при Scroll.
 
 *FUTURE*
-1. Переделать функцию Search
+1. Сделать сайт двуязычным с использованием useContext
