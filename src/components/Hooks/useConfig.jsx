@@ -42,6 +42,12 @@ const useLinks = () => {
       pathGit: `https://github.com/Pavel-Khokhlov/amigoweb-react`,
       pathGhPages: `https://pavel-khokhlov.github.io/amigoweb-react/`,
     },
+    {
+      name: translation.portfolio_todo,
+      tech: "HTML, CSS, ReactJS, Redux-Toolkit, TypeScript, Bootstrap",
+      pathGit: `https://github.com/Pavel-Khokhlov/todo-react-redux-ts`,
+      pathGhPages: null,
+    },
   ]
 
   const technologyLinks = [

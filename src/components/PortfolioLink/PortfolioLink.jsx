@@ -18,13 +18,15 @@ const PortfolioLink = ({ link }) => {
             className="portfoliolink__image"
           />
         </a>
-        <a href={link.pathGhPages} target="_blank" rel="noreferrer">
-          <img
-            src={InternetIcon}
-            alt="иконка переход интернет"
-            className="portfoliolink__image"
-          />
-        </a>
+        {link.pathGhPages !== null && (
+          <a href={link.pathGhPages} target="_blank" rel="noreferrer">
+            <img
+              src={InternetIcon}
+              alt="иконка переход интернет"
+              className="portfoliolink__image"
+            />
+          </a>
+        )}
       </div>
     </li>
   );
