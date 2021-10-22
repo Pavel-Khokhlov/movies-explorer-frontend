@@ -30,6 +30,10 @@
   transition: all 0.3s ease 1s;
 }
 
+.portfolio__links._active .portfolio__link:nth-child(7) {
+  transition: all 0.3s ease 1.2s;
+}
+
 .portfolio__links._active .portfolio__link {
   transform: translate(0px, 0px);
 }

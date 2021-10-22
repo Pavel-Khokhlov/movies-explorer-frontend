@@ -1,7 +1,7 @@
 .promo__info {
   display: flex;
   justify-content: space-between;
-  padding: min(200px, 12vw) 0;
+  padding: min(100px, 12vw) 0;
 }
 
 @media only screen and (max-width: 768px) {

@@ -8,14 +8,12 @@
 
 @media only screen and (max-width: 1280px) {
   .section {
-    padding-left: max(30px, min(30px + calc((100vw - 768px) / 12.8), 70px));
-    padding-right: max(30px, min(30px + calc((100vw - 768px) / 12.8), 70px));
+    padding: 0 min(70px, 3.9vw);
   }
 }
 
 @media only screen and (max-width: 768px) {
   .section {
-    padding-left: max(14px, min(14px + calc((100vw - 320px) / 28), 30px));
-    padding-right: max(14px, min(14px + calc((100vw - 320px) / 28), 30px));
+    padding: 0 min(30px, 4.375vw);
   }
 }
