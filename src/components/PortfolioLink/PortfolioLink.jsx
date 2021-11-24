@@ -22,7 +22,7 @@ const PortfolioLink = ({ link }) => {
           <a href={link.pathGhPages} target="_blank" rel="noreferrer">
             <img
               src={InternetIcon}
-              alt="иконка переход интернет"
+              alt="иконка переход gh-pages"
               className="portfoliolink__image"
             />
           </a>

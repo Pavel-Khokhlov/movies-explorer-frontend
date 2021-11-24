@@ -48,23 +48,36 @@ const useLinks = () => {
       pathGit: `https://github.com/Pavel-Khokhlov/todo-react-redux-ts`,
       pathGhPages: null,
     },
-  ]
-
-  const technologyLinks = [
-    "HTML", "CSS", "Flex", "Griid", "JS", "ReactJS", "Redux", "ToolKit", "Node.js", "Express", "Git", "Gist", "GH-pages", "SPA", "ООП", 
+    {
+      name: translation.portfolio_voodoo,
+      tech: "HTML, CSS, SASS, ReactJS, Redux-Toolkit, Bootstrap",
+      pathGit: `https://github.com/Pavel-Khokhlov/voodoo-react`,
+      pathGhPages: `https://pavel-khokhlov.github.io/voodoo-react/`,
+    },
   ];
 
-  const menuLinks = [
-    {
-
-    },
-
-  ]
+  const technologyLinks = [
+    "HTML",
+    "CSS",
+    "SASS",
+    "Flex",
+    "Griid",
+    "JS",
+    "ReactJS",
+    "Redux",
+    "ToolKit",
+    "Node.js",
+    "Express",
+    "Git",
+    "Gist",
+    "GH-pages",
+    "SPA",
+    "ООП",
+  ];
 
   return {
     portfolioLinks,
     technologyLinks,
-    menuLinks,
   };
 };
 

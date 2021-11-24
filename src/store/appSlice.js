@@ -1,18 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { INIT_SCROLL } from "../utils/config";
 
+const initialState = {
+  currentPath: "",
+  currentLang: "ru",
+  scrolled: {
+    lastPosition: null,
+    status: null,
+  },
+  isPopupOpen: false,
+  isMenuPopupOpen: false,
+  isInfoPopupOpen: false,
+  status: null,
+  error: null,
+}
+
 const appSlice = createSlice({
   name: "app",
-  initialState: {
-    currentPath: "",
-    currentLang: "ru",
-    scrolled: {},
-    isPopupOpen: false,
-    isMenuPopupOpen: false,
-    isInfoPopupOpen: false,
-    status: null,
-    error: null,
-  },
+  initialState,
   reducers: {
     setCurrentPath(state, action) {
       state.currentPath = action.payload;

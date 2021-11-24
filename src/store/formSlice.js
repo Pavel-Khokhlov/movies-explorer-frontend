@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { REG_EMAIL, REG_NAME, REG_PASSWORD, REG_PHONE } from "../utils/config";
+import { REG_EMAIL, REG_NAME, REG_PASSWORD, REG_PHONE } from "../utils/config.js";
 
 const initialState = {
   values: { name: "", email: "", password: "", search: "" },
