@@ -58,21 +58,22 @@ const useLinks = () => {
 
   const technologyLinks = [
     "HTML",
+    "PUG",
     "CSS",
     "SASS",
     "Flex",
-    "Griid",
+    "Grid",
     "JS",
     "ReactJS",
     "Redux",
     "ToolKit",
     "Node.js",
     "Express",
+    "MongoDB",
     "Git",
     "Gist",
     "GH-pages",
     "SPA",
-    "ООП",
   ];
 
   return {
